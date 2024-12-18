@@ -1,4 +1,13 @@
-# React + TypeScript + Vite
+# Проект Бургерной
+
+## Файловая структура
+При организации файловой структуры мы рекомендуем пользоваться следующими правилами:
+- Хранить компоненты в директории src/components/, шрифты — в src/fonts/, изображения — в src/images/.
+- Каждый компонент хранить в отдельной директории.
+- Для стилизации компонентов использовать CSS-модули.
+- Называть директории и файлы компонентов в нотации kebab-case.
+
+<!-- # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
@@ -27,4 +36,4 @@ export default {
 
 - Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list -->
