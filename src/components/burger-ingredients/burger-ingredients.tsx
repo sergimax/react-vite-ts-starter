@@ -1,3 +1,5 @@
+import styles from './style.module.css';
+
 /**
  * Cписок ингредиентов
  */
@@ -9,5 +11,5 @@ export const BurgerIngredients = () => {
     // типографику,
     // систему отступов.
     // TODO: У компонента свой кастомизированный скроллбар. Подумайте над реализацией и возможным ограничением высоты блока, в том числе и на разных разрешениях экранов.
-    return <>BurgerIngredients</>;
+    return <div className={styles.container}>BurgerIngredients</div>;
 };
