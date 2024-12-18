@@ -1,4 +1,31 @@
-.container {
-    background-color: rgb(163, 166, 209);
+.nav {
     max-height: 88px;
+    max-width: 1920px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(163, 166, 209, 0.3);
+}
+
+.left-icons {
+    grid-column: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: rgba(163, 166, 209, 0.4);
+}
+
+.logo {
+    grid-column: 2;
+    display: flex;
+    justify-content: center;
+    background-color: rgba(163, 166, 209, 0.4);
+}
+
+.right-icons {
+    grid-column: 3;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: rgba(163, 166, 209, 0.4);
 }

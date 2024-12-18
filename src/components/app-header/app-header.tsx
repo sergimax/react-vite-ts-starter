@@ -5,6 +5,7 @@ import {
     ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './style.module.css';
+import { Fragment } from 'react';
 
 /**
  * Шапка приложения
@@ -14,14 +15,44 @@ export const AppHeader = () => {
     // типографику, text text_type_main-default
     // систему отступов. p-1
     // TODO: Остальную вёрстку выполните самостоятельно.
+
+    const leftMenuItems = [
+        {
+            text: 'Конструктор',
+            icon: <BurgerIcon type="primary" />,
+        },
+        {
+            text: 'Лента заказов',
+            icon: <ListIcon type="primary" />,
+        },
+    ];
+    const righMenuItems = [
+        {
+            text: 'Личный кабинет',
+            icon: <ProfileIcon type="primary" />,
+        },
+    ];
+
     return (
-        <header className={styles.container}>
+        <header>
             <nav>
-                {/* TODO выполнить в виде списка и грузить сюда через map */}
-                <BurgerIcon type="primary" /> Конструктор
-                <ListIcon type="primary" /> Лента заказов
-                <Logo />
-                <ProfileIcon type="primary" /> Личный кабинет
+                <div className={styles['left-icons']}>
+                    {leftMenuItems.map((item, index) => (
+                        <Fragment key={index}>
+                            {item.icon}
+                            {item.text}
+                        </Fragment>
+                    ))}
+                </div>
+                <Logo className={styles.logo} />
+                <div className={styles['right-icons']}>
+                    {righMenuItems.map((item, index) => (
+                        <Fragment key={index}>
+                            {item.icon}
+                            {item.text}
+                        </Fragment>
+                    ))}
+                </div>
             </nav>
         </header>
     );
