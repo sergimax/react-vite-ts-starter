@@ -1,3 +1,7 @@
-export const BurgerConstructorParts = () => {
-    return <>BurgerConstructorParts</>;
+import { BurgerConstructorPartsProps } from './types';
+
+export const BurgerConstructorParts = ({
+    children,
+}: BurgerConstructorPartsProps) => {
+    return <>{children}</>;
 };
