@@ -8,7 +8,7 @@ export const MenuButton = ({ icon, title, key }: MenuButtonProps) => {
             className={styles['menu-button']}
         >
             {icon}
-            <span className="ml-2">{title}</span>
+            <span className="ml-2 text_type_main-default">{title}</span>
         </div>
     );
 };
