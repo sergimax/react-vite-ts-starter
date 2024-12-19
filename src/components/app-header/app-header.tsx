@@ -5,7 +5,7 @@ import {
     ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './style.module.css';
-import { Fragment } from 'react';
+import { MenuButton } from '../menu-button';
 
 /**
  * Шапка приложения
@@ -38,19 +38,13 @@ export const AppHeader = () => {
             <nav>
                 <div className={styles['left-icons']}>
                     {leftMenuItems.map((item, index) => (
-                        <Fragment key={index}>
-                            {item.icon}
-                            {item.text}
-                        </Fragment>
+                        <MenuButton title={item.text} icon={item.icon} key={index}/>
                     ))}
                 </div>
                 <Logo className={styles.logo} />
                 <div className={styles['right-icons']}>
                     {righMenuItems.map((item, index) => (
-                        <Fragment key={index}>
-                            {item.icon}
-                            {item.text}
-                        </Fragment>
+                        <MenuButton title={item.text} icon={item.icon} key={index}/>
                     ))}
                 </div>
             </nav>
