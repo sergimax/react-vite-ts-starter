@@ -6,11 +6,11 @@ import styles from './style.module.css';
 export const AppContent = () => {
     const ActiveBlocks = [
         {
-            content: <BurgerConstructor />,
+            content: <BurgerIngredients />,
             title: 'Соберите бургер',
         },
         {
-            content: <BurgerIngredients />,
+            content: <BurgerConstructor />,
         },
     ];
 
