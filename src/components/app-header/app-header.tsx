@@ -11,11 +11,6 @@ import { MenuButton } from '../menu-button';
  * Шапка приложения
  */
 export const AppHeader = () => {
-    // TODO: Из библиотеки UI-компонентов возьмите следующие:
-    // типографику, text text_type_main-default
-    // систему отступов. p-1
-    // TODO: Остальную вёрстку выполните самостоятельно.
-
     const leftMenuItems = [
         {
             text: 'Конструктор',
@@ -35,16 +30,24 @@ export const AppHeader = () => {
 
     return (
         <header>
-            <nav>
+            <nav className={styles.navigation}>
                 <div className={styles['left-icons']}>
                     {leftMenuItems.map((item, index) => (
-                        <MenuButton title={item.text} icon={item.icon} key={index}/>
+                        <MenuButton
+                            title={item.text}
+                            icon={item.icon}
+                            key={index}
+                        />
                     ))}
                 </div>
                 <Logo className={styles.logo} />
                 <div className={styles['right-icons']}>
                     {righMenuItems.map((item, index) => (
-                        <MenuButton title={item.text} icon={item.icon} key={index}/>
+                        <MenuButton
+                            title={item.text}
+                            icon={item.icon}
+                            key={index}
+                        />
                     ))}
                 </div>
             </nav>
