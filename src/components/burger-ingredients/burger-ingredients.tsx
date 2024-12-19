@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from './style.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import { BurgerConstructorParts } from '../burger-constructor-parts';
+import { BurgerIngredientsCategory } from '../burger-ingredients-category';
 
 /**
  * Cписок ингредиентов
@@ -16,7 +16,7 @@ export const BurgerIngredients = () => {
     // TODO: У компонента свой кастомизированный скроллбар. Подумайте над реализацией и возможным ограничением высоты блока, в том числе и на разных разрешениях экранов.
     const [current, setCurrent] = useState('Булки');
 
-    const categories: JSX.Element[] = [];
+    // const categories: JSX.Element[] = [];
 
     return (
         <div className={styles.container}>
@@ -47,9 +47,11 @@ export const BurgerIngredients = () => {
                     Начинки
                 </Tab>
             </div>
-            <BurgerConstructorParts>
-                {categories}
-            </BurgerConstructorParts>
+            <div>
+                <BurgerIngredientsCategory title='Булки'>
+                    {[<></>]}
+                </BurgerIngredientsCategory>
+            </div>
         </div>
     );
 };
