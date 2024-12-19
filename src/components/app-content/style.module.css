@@ -1,0 +1,7 @@
+.main {
+    /* TODO: delete */
+    border: 1px dotted blueviolet;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
