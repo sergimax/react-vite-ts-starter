@@ -1,12 +1,9 @@
 import { MenuButtonProps } from './types';
 import styles from './style.module.css';
 
-export const MenuButton = ({ icon, title, key }: MenuButtonProps) => {
+export const MenuButton = ({ icon, title }: MenuButtonProps) => {
     return (
-        <div
-            key={key}
-            className={styles['menu-button']}
-        >
+        <div className={styles['menu-button']}>
             {icon}
             <span className="ml-2 text_type_main-default">{title}</span>
         </div>

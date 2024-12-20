@@ -16,9 +16,10 @@ export const AppContent = () => {
 
     return (
         <main className={styles.main}>
-            {ActiveBlocks.map((block) => {
+            {ActiveBlocks.map((block, index) => {
                 return (
                     <AppContentBlock
+                        key={index}
                         content={block.content}
                         title={block.title}
                     />
