@@ -1,4 +1,6 @@
+import { IngredientCategory } from "../burger-ingredients/types";
+
 export type BurgerIngredientsCategoryProps = {
     title: string,
-    children: JSX.Element[],
+    category: IngredientCategory
 };

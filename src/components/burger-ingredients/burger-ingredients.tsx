@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import styles from './style.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-// import { data } from '../../utils/data';
-// import { Ingredient } from './types';
+import { data } from '../../utils/data';
 import { ingredientCategories } from './constants';
+import { Ingredient } from './types';
+import { BurgerIngredientsCategory } from '../burger-ingredients-category';
 
 /**
  * Cписок ингредиентов
@@ -16,15 +17,27 @@ export const BurgerIngredients = () => {
     // типографику,
     // систему отступов.
     // TODO: У компонента свой кастомизированный скроллбар. Подумайте над реализацией и возможным ограничением высоты блока, в том числе и на разных разрешениях экранов.
-    const [current, setCurrent] = useState('Булки');
-    // const [ingredients, setIngredients] = useState<Array<Ingredient>>([]);
+    const [current, setCurrent] = useState(ingredientCategories[0].value);
+    const [ingredients, setIngredients] = useState<Map<string, Ingredient[]>>();
 
     useEffect(() => {
+        const sortedIngredients = new Map<string, Ingredient[]>();
         // TODO ingredients loading and statuses
-        // setIngredients(data);
+        // TODO move to utils?
+        data.forEach((ingredient) => {
+            const ingredientType = sortedIngredients.get(ingredient.type);
+            if (ingredientType) {
+                sortedIngredients.set(ingredient.type, [
+                    ...ingredientType,
+                    ingredient,
+                ]);
+            } else {
+                sortedIngredients.set(ingredient.type, [ingredient]);
+            }
+        });
+        console.log('sortedIngredients', sortedIngredients);
+        setIngredients(sortedIngredients);
     }, []);
-
-    // const categories: JSX.Element[] = [];
 
     return (
         <div className={styles.container}>
@@ -46,10 +59,20 @@ export const BurgerIngredients = () => {
                 })}
             </div>
             <div>
-                {/* {ingredients.length && ingredients[0].calories} */}
-                {/* <BurgerIngredientsCategory title='Булки'> */}
-                {/* {[<>{ingredients[0]._id}</>]} */}
-                {/* </BurgerIngredientsCategory> */}
+                {/* TODO Заменить на функцию */}
+                {/* TODO Вариант при отсутствии данных в категории */}
+                {ingredientCategories.map((category, index) => {
+                    {
+                        ingredients && ingredients.has(category.typeName);
+                        return (
+                            <BurgerIngredientsCategory
+                                category={category}
+                                title={category.title}
+                                key={index}
+                            />
+                        );
+                    }
+                })}
             </div>
         </div>
     );
