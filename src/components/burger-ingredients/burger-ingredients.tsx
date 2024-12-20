@@ -10,16 +10,10 @@ import { BurgerIngredientsCategory } from '../burger-ingredients-category';
  * Cписок ингредиентов
  */
 export const BurgerIngredients = () => {
-    // TODO: Из библиотеки UI-компонентов возьмите следующие:
-    // счётчики,
-    // иконки,
-    // переключатели,
-    // типографику,
-    // систему отступов.
-    // TODO: У компонента свой кастомизированный скроллбар. Подумайте над реализацией и возможным ограничением высоты блока, в том числе и на разных разрешениях экранов.
     const [current, setCurrent] = useState(ingredientCategories[0].value);
     const [ingredients, setIngredients] =
         useState<Map<string, Array<IngredientWithCounter>>>();
+    const categoriesClass: string = `custom-scroll ${styles.categories}`;
 
     useEffect(() => {
         const sortedIngredients = new Map<string, Array<IngredientWithCounter>>();
@@ -41,11 +35,8 @@ export const BurgerIngredients = () => {
     }, []);
 
     return (
-        <div className={styles.container}>
-            <div
-                style={{ display: 'flex' }}
-                className="mb-10"
-            >
+        <>
+            <div style={{ display: 'flex' }}>
                 {ingredientCategories.map((category, index) => {
                     return (
                         <Tab
@@ -59,7 +50,7 @@ export const BurgerIngredients = () => {
                     );
                 })}
             </div>
-            <div>
+            <div className={categoriesClass}>
                 {/* TODO Заменить на функцию ? */}
                 {/* TODO Вариант при отсутствии данных в категории */}
                 {ingredientCategories.map((category, index) => {
@@ -75,6 +66,6 @@ export const BurgerIngredients = () => {
                     );
                 })}
             </div>
-        </div>
+        </>
     );
 };

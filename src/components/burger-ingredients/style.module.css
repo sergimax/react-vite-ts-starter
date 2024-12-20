@@ -1,0 +1,6 @@
+.categories {
+    height: 600px;
+    overflow: overlay;
+    scrollbar-width: thin;
+    scrollbar-gutter: none;
+}

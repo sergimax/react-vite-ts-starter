@@ -6,13 +6,12 @@ export const BurgerIngredientsCategory = ({
     title,
     category,
 }: BurgerIngredientsCategoryProps) => {
-    const categoryTitleClass: string = `text_type_main-medium ${styles.title}`;
-    const categoryContentClass: string = `pb-10 pl-4 pr-4 pt-6 ${styles.content}`;
+    const categoryTitleClass: string = `text_type_main-medium pt-10 ${styles.title}`;
 
     return (
         <>
             <h2 className={categoryTitleClass}>{title}</h2>
-            <div className={categoryContentClass}>
+            <div>
                 {category.map((element, index) => {
                     return <Ingredient data={element} key={index}/>
                 })}

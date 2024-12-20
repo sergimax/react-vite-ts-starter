@@ -6,8 +6,8 @@
     position: relative;
 }
 
-.content:nth-child(odd) {
-    margin-right: 24px;
+.content:nth-child(even) {
+    margin-left: 24px;
 }
 
 .image {
