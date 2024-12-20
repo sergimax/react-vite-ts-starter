@@ -25,3 +25,6 @@ export type Ingredient = {
     __v: number;
 };
 
+export type IngredientWithCounter = Ingredient & {
+    quantity?: number;
+};

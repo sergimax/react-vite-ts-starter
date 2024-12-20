@@ -3,7 +3,7 @@ import styles from './style.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { data } from '../../utils/data';
 import { ingredientCategories } from './constants';
-import { Ingredient } from './types';
+import { IngredientWithCounter } from './types';
 import { BurgerIngredientsCategory } from '../burger-ingredients-category';
 
 /**
@@ -19,10 +19,10 @@ export const BurgerIngredients = () => {
     // TODO: У компонента свой кастомизированный скроллбар. Подумайте над реализацией и возможным ограничением высоты блока, в том числе и на разных разрешениях экранов.
     const [current, setCurrent] = useState(ingredientCategories[0].value);
     const [ingredients, setIngredients] =
-        useState<Map<string, Array<Ingredient>>>();
+        useState<Map<string, Array<IngredientWithCounter>>>();
 
     useEffect(() => {
-        const sortedIngredients = new Map<string, Array<Ingredient>>();
+        const sortedIngredients = new Map<string, Array<IngredientWithCounter>>();
         // TODO вынести загрузку и обработку
         // TODO перенести в /utils
         data.forEach((ingredient) => {
@@ -36,7 +36,7 @@ export const BurgerIngredients = () => {
                 sortedIngredients.set(ingredient.type, [ingredient]);
             }
         });
-        console.log('sortedIngredients', sortedIngredients);
+
         setIngredients(sortedIngredients);
     }, []);
 
