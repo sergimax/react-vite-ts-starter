@@ -18,12 +18,13 @@ export const BurgerIngredients = () => {
     // систему отступов.
     // TODO: У компонента свой кастомизированный скроллбар. Подумайте над реализацией и возможным ограничением высоты блока, в том числе и на разных разрешениях экранов.
     const [current, setCurrent] = useState(ingredientCategories[0].value);
-    const [ingredients, setIngredients] = useState<Map<string, Ingredient[]>>();
+    const [ingredients, setIngredients] =
+        useState<Map<string, Array<Ingredient>>>();
 
     useEffect(() => {
-        const sortedIngredients = new Map<string, Ingredient[]>();
-        // TODO ingredients loading and statuses
-        // TODO move to utils?
+        const sortedIngredients = new Map<string, Array<Ingredient>>();
+        // TODO вынести загрузку и обработку
+        // TODO перенести в /utils
         data.forEach((ingredient) => {
             const ingredientType = sortedIngredients.get(ingredient.type);
             if (ingredientType) {
@@ -59,19 +60,19 @@ export const BurgerIngredients = () => {
                 })}
             </div>
             <div>
-                {/* TODO Заменить на функцию */}
+                {/* TODO Заменить на функцию ? */}
                 {/* TODO Вариант при отсутствии данных в категории */}
                 {ingredientCategories.map((category, index) => {
-                    {
-                        ingredients && ingredients.has(category.typeName);
-                        return (
+                    return (
+                        ingredients &&
+                        ingredients.has(category.typeName) && (
                             <BurgerIngredientsCategory
-                                category={category}
+                                category={ingredients.get(category.typeName)!}
                                 title={category.title}
                                 key={index}
                             />
-                        );
-                    }
+                        )
+                    );
                 })}
             </div>
         </div>
