@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './style.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import { BurgerIngredientsCategory } from '../burger-ingredients-category';
+// import { data } from '../../utils/data';
+// import { Ingredient } from './types';
+import { ingredientCategories } from './constants';
 
 /**
  * Cписок ингредиентов
@@ -15,42 +17,39 @@ export const BurgerIngredients = () => {
     // систему отступов.
     // TODO: У компонента свой кастомизированный скроллбар. Подумайте над реализацией и возможным ограничением высоты блока, в том числе и на разных разрешениях экранов.
     const [current, setCurrent] = useState('Булки');
+    // const [ingredients, setIngredients] = useState<Array<Ingredient>>([]);
+
+    useEffect(() => {
+        // TODO ingredients loading and statuses
+        // setIngredients(data);
+    }, []);
 
     // const categories: JSX.Element[] = [];
 
     return (
         <div className={styles.container}>
-            {/* TODO выделить в компонент  */}
             <div
                 style={{ display: 'flex' }}
                 className="mb-10"
             >
-                <Tab
-                    value="Булки"
-                    active={current === 'Булки'}
-                    onClick={setCurrent}
-                >
-                    Булки
-                </Tab>
-                <Tab
-                    value="Соусы"
-                    active={current === 'Соусы'}
-                    onClick={setCurrent}
-                >
-                    Соусы
-                </Tab>
-                <Tab
-                    value="Начинки"
-                    active={current === 'Начинки'}
-                    onClick={setCurrent}
-                >
-                    Начинки
-                </Tab>
+                {ingredientCategories.map((category, index) => {
+                    return (
+                        <Tab
+                            key={index}
+                            value={category.value}
+                            active={current === category.value}
+                            onClick={setCurrent}
+                        >
+                            {category.title}
+                        </Tab>
+                    );
+                })}
             </div>
             <div>
-                <BurgerIngredientsCategory title='Булки'>
-                    {[<></>]}
-                </BurgerIngredientsCategory>
+                {/* {ingredients.length && ingredients[0].calories} */}
+                {/* <BurgerIngredientsCategory title='Булки'> */}
+                {/* {[<>{ingredients[0]._id}</>]} */}
+                {/* </BurgerIngredientsCategory> */}
             </div>
         </div>
     );
