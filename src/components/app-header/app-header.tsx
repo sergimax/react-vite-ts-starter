@@ -6,7 +6,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './style.module.css';
 import { AppHeaderProps } from './types';
-import { Page } from '../app/types';
+import { Page } from '../../types/types';
 
 /**
  * Шапка приложения

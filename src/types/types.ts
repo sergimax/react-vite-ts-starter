@@ -28,3 +28,12 @@ export enum IngredientTypeName {
 export type IngredientWithCounter = Ingredient & {
     quantity?: number;
 };
+
+/**
+ * Страницы проекта
+ */
+export enum Page {
+    CONSTRUCTOR = 'constructor',
+    ORDERS = 'orders',
+    ACCOUNT = 'account',
+}
