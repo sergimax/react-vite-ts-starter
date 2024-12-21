@@ -1,6 +1,6 @@
 import { BurgerIngredientsCategoryProps } from './types';
 import styles from './style.module.css';
-import { Ingredient } from '../ingredient';
+import { IngredientCard } from '../ingredient-card';
 
 export const BurgerIngredientsCategory = ({
     title,
@@ -13,7 +13,12 @@ export const BurgerIngredientsCategory = ({
             <h2 className={categoryTitleClass}>{title}</h2>
             <div>
                 {category.map((element, index) => {
-                    return <Ingredient data={element} key={index}/>
+                    return (
+                        <IngredientCard
+                            data={element}
+                            key={index}
+                        />
+                    );
                 })}
             </div>
         </>
