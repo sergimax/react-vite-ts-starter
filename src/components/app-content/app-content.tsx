@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { AppContentBlock } from '../app-content-block';
 import { BurgerConstructor } from '../burger-constructor';
 import { BurgerIngredients } from '../burger-ingredients';
-import { IngredientWithCounter } from '../burger-ingredients/types';
+import { IngredientTypeName, IngredientWithCounter } from '../burger-ingredients/types';
 import { data } from '../../utils/data';
 import styles from './style.module.css';
 
@@ -30,22 +30,16 @@ export const AppContent = () => {
                 ]);
             } else {
                 sortedIngredients.set(ingredient.type, [ingredient]);
+                // Установка первой встреченной булки как булки по умолчанию
+                if (!chosenBunsId && ingredient.type === IngredientTypeName.BUN) {
+                    setChosenBunsId(ingredient._id);
+                }
             }
         });
 
         setIngredients(sortedIngredients);
 
-        // TODO установка значения выбранных булок по умолчанию
-        setChosenBunsId('60666c42cc7b410027a1a9b1');
-        // TODO добавить определение порядка ?
-        setChosenIngredientsIdList([
-            '60666c42cc7b410027a1a9b9',
-            '60666c42cc7b410027a1a9b4',
-            '60666c42cc7b410027a1a9b4',
-            '60666c42cc7b410027a1a9b4',
-            '60666c42cc7b410027a1a9bc',
-            '60666c42cc7b410027a1a9bb',
-        ]);
+        setChosenIngredientsIdList([]);
     }, []);
 
     const ActiveBlocks = [
