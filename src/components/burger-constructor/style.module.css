@@ -1,3 +1,10 @@
 .container {
     border: 1px dotted cyan;
+    width: 600px;
+}
+
+.ingredients {
+    border: 1px dotted rgb(255, 0, 212);
+    overflow-y: overlay;
+    height: 464px;
 }

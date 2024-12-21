@@ -9,10 +9,16 @@ import styles from './style.module.css';
 export const AppContent = () => {
     const [ingredients, setIngredients] =
         useState<Map<string, Array<IngredientWithCounter>>>();
-        
+    const [chosenIngredientsIdList, setChosenIngredientsIdList] = useState<
+        Array<string>
+    >([]);
+    const [chosenBunsId, setChosenBunsId] = useState<string>('');
 
     useEffect(() => {
-        const sortedIngredients = new Map<string, Array<IngredientWithCounter>>();
+        const sortedIngredients = new Map<
+            string,
+            Array<IngredientWithCounter>
+        >();
         // TODO вынести загрузку и обработку
         // TODO перенести в /utils
         data.forEach((ingredient) => {
@@ -28,15 +34,33 @@ export const AppContent = () => {
         });
 
         setIngredients(sortedIngredients);
+
+        // TODO установка значения выбранных булок по умолчанию
+        setChosenBunsId('60666c42cc7b410027a1a9b1');
+        // TODO добавить определение порядка ?
+        setChosenIngredientsIdList([
+            '60666c42cc7b410027a1a9b9',
+            '60666c42cc7b410027a1a9b4',
+            '60666c42cc7b410027a1a9b4',
+            '60666c42cc7b410027a1a9b4',
+            '60666c42cc7b410027a1a9bc',
+            '60666c42cc7b410027a1a9bb',
+        ]);
     }, []);
-        
+
     const ActiveBlocks = [
         {
-            content: <BurgerIngredients ingredients={ingredients}/>,
+            content: <BurgerIngredients ingredients={ingredients} />,
             title: 'Соберите бургер',
         },
         {
-            content: <BurgerConstructor />,
+            content: (
+                <BurgerConstructor
+                    ingredients={ingredients}
+                    chosenBunsId={chosenBunsId}
+                    chosenIngredientsIdList={chosenIngredientsIdList}
+                />
+            ),
         },
     ];
 
