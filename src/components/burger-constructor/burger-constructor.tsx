@@ -65,13 +65,7 @@ export const BurgerConstructor = ({
 
     return (
         <div className={containerClass}>
-            <div
-                style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '16px',
-                }}
-            >
+            <div className={styles.burgerConstructor}>
                 {chosenBunData && (
                     <ConstructorElement
                         type="top"

@@ -13,7 +13,7 @@ export const BurgerIngredients = ({ ingredients }: BurgerIngredientsProps) => {
 
     return (
         <>
-            <div style={{ display: 'flex' }}>
+            <div className={styles.tabs}>
                 {ingredientCategories.map((category, index) => {
                     return (
                         <Tab

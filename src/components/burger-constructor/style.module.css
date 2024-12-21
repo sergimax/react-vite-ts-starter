@@ -2,6 +2,12 @@
     width: 600px;
 }
 
+.burgerConstructor {
+    display: 'flex';
+    flex-direction: 'column';
+    gap: '16px';
+}
+
 .ingredients {
     overflow-y: overlay;
     max-height: 464px;
