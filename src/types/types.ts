@@ -37,3 +37,11 @@ export enum Page {
     ORDERS = 'orders',
     ACCOUNT = 'account',
 }
+
+/**
+ * Состав бургера
+ */
+export type ChosenIngredients = {
+    bun: Ingredient | null;
+    ingredients: Array<Ingredient>;
+};

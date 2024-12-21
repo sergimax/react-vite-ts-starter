@@ -4,15 +4,18 @@ import { BurgerConstructor } from '../burger-constructor';
 import { BurgerIngredients } from '../burger-ingredients';
 import { data } from '../../utils/data';
 import styles from './style.module.css';
-import { IngredientTypeName, IngredientWithCounter } from '../../types/types';
+import {
+    ChosenIngredients,
+    IngredientTypeName,
+    IngredientWithCounter,
+} from '../../types/types';
 
 export const AppContent = () => {
-    const [ingredients, setIngredients] =
+    const [ingredientsByType, setIngredientsByType] =
         useState<Map<string, Array<IngredientWithCounter>>>();
-    const [chosenIngredientsIdList, setChosenIngredientsIdList] = useState<
-        Array<string>
-    >([]);
-    const [chosenBunsId, setChosenBunsId] = useState<string>('');
+
+    const [chosenIngredients, setChosenIngredients] =
+        useState<ChosenIngredients>({ bun: null, ingredients: [] });
 
     useEffect(() => {
         const sortedIngredients = new Map<
@@ -32,32 +35,30 @@ export const AppContent = () => {
                 sortedIngredients.set(ingredient.type, [ingredient]);
                 // Установка первой встреченной булки как булки по умолчанию
                 if (
-                    !chosenBunsId &&
+                    !chosenIngredients.bun &&
                     ingredient.type === IngredientTypeName.BUN
                 ) {
-                    setChosenBunsId(ingredient._id);
+                    console.log('ingredient.type', ingredient);
+                    setChosenIngredients({
+                        ...chosenIngredients,
+                        bun: ingredient,
+                    });
                 }
             }
         });
 
-        setIngredients(sortedIngredients);
-
-        setChosenIngredientsIdList([]);
+        setIngredientsByType(sortedIngredients);
     }, []);
 
     return (
         <main className={styles.main}>
             <AppContentBlock
-                content={<BurgerIngredients ingredients={ingredients} />}
+                content={<BurgerIngredients ingredients={ingredientsByType} />}
                 title="Соберите бургер"
             />
             <AppContentBlock
                 content={
-                    <BurgerConstructor
-                        ingredients={ingredients}
-                        chosenBunsId={chosenBunsId}
-                        chosenIngredientsIdList={chosenIngredientsIdList}
-                    />
+                    <BurgerConstructor chosenIngredients={chosenIngredients} />
                 }
             />
         </main>

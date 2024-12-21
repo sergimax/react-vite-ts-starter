@@ -5,78 +5,39 @@ import {
     DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './style.module.css';
-import { BurgerConstructorProps, ChosenIngredients } from './types';
-import { useEffect, useState } from 'react';
-import { IngredientTypeName, IngredientWithCounter } from '../../types/types';
+import { BurgerConstructorProps } from './types';
 
 /**
  * Текущий состав бургера
  */
 export const BurgerConstructor = ({
-    ingredients,
-    chosenBunsId,
-    chosenIngredientsIdList,
+    chosenIngredients,
 }: BurgerConstructorProps) => {
+    console.log('chosenIngredients', chosenIngredients);
+
     const containerClass: string = `pl-4 ${styles.container}`;
     const calculationClass: string = `mt-10 mr-4 ${styles.calculation}`;
 
-    const [chosenIngredientsData, setChosenIngredientsData] =
-        useState<ChosenIngredients>({ bun: null, ingredients: [] });
-
-    useEffect(() => {
-        if (!ingredients) return;
-
-        if (chosenBunsId) {
-            setChosenIngredientsData({
-                ...chosenIngredientsData,
-                bun:
-                    ingredients
-                        .get(IngredientTypeName.BUN)
-                        ?.find((bun) => bun._id === chosenBunsId) || null,
-            });
-        }
-
-        if (chosenIngredientsIdList.length) {
-            // FIXME возможно, упростить хранение ингредиентов и их разбивку на типы
-            const sauseList: IngredientWithCounter[] =
-                ingredients.get(IngredientTypeName.SAUCE) || [];
-            const mainList: IngredientWithCounter[] =
-                ingredients.get(IngredientTypeName.MAIN) || [];
-            const ingredientList = [...sauseList, ...mainList];
-
-            const chosenIngredientList: Array<IngredientWithCounter> = [];
-
-            chosenIngredientsIdList.forEach((ingredientId) => {
-                ingredientList.find((element) => {
-                    if (element._id === ingredientId)
-                        chosenIngredientList.push(element);
-                });
-            });
-
-            chosenIngredientList.length &&
-                setChosenIngredientsData({
-                    ...chosenIngredientsData,
-                    ingredients: chosenIngredientList,
-                });
-        }
-    }, [ingredients, chosenBunsId, chosenIngredientsIdList]);
+    if (!chosenIngredients.bun) {
+        return <></>;
+    }
 
     return (
         <div className={containerClass}>
             <div className={styles.burgerConstructor}>
-                {chosenIngredientsData.bun && (
+                {chosenIngredients.bun && (
                     <ConstructorElement
                         type="top"
                         isLocked={true}
-                        text={chosenIngredientsData.bun.name}
-                        price={chosenIngredientsData.bun.price}
-                        thumbnail={chosenIngredientsData.bun.image_mobile}
+                        text={chosenIngredients.bun.name}
+                        price={chosenIngredients.bun.price}
+                        thumbnail={chosenIngredients.bun.image_mobile}
                         extraClass="ml-8 mb-4"
                     />
                 )}
                 <div className={styles.ingredients}>
-                    {chosenIngredientsData &&
-                        chosenIngredientsData.ingredients.map(
+                    {chosenIngredients.ingredients &&
+                        chosenIngredients.ingredients.map(
                             (ingredient, index) => (
                                 <div key={index}>
                                     <DragIcon type="primary" />
@@ -91,13 +52,13 @@ export const BurgerConstructor = ({
                         )}
                 </div>
 
-                {chosenIngredientsData.bun && (
+                {chosenIngredients.bun && (
                     <ConstructorElement
                         type="bottom"
                         isLocked={true}
-                        text={chosenIngredientsData.bun.name}
-                        price={chosenIngredientsData.bun.price}
-                        thumbnail={chosenIngredientsData.bun.image_mobile}
+                        text={chosenIngredients.bun.name}
+                        price={chosenIngredients.bun.price}
+                        thumbnail={chosenIngredients.bun.image_mobile}
                         extraClass="ml-8 mt-4"
                     />
                 )}
