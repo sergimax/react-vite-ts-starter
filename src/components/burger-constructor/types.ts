@@ -1,5 +1,4 @@
-import { Ingredient } from '../../types/types';
-import { IngredientWithCounter } from '../burger-ingredients/types';
+import { Ingredient, IngredientWithCounter } from '../../types/types';
 
 export type BurgerConstructorProps = {
     // FIXME убрать undefined после проработки запроса за данными

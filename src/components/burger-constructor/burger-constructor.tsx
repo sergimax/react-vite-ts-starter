@@ -7,10 +7,7 @@ import {
 import styles from './style.module.css';
 import { BurgerConstructorProps, ChosenIngredients } from './types';
 import { useEffect, useState } from 'react';
-import {
-    IngredientTypeName,
-    IngredientWithCounter,
-} from '../burger-ingredients/types';
+import { IngredientTypeName, IngredientWithCounter } from '../../types/types';
 
 /**
  * Текущий состав бургера
@@ -79,17 +76,19 @@ export const BurgerConstructor = ({
                 )}
                 <div className={styles.ingredients}>
                     {chosenIngredientsData &&
-                        chosenIngredientsData.ingredients.map((ingredient, index) => (
-                            <div key={index}>
-                                <DragIcon type="primary" />
-                                <ConstructorElement
-                                    text={ingredient.name}
-                                    price={ingredient.price}
-                                    thumbnail={ingredient.image_mobile}
-                                    extraClass="ml-2 mb-4"
-                                />
-                            </div>
-                        ))}
+                        chosenIngredientsData.ingredients.map(
+                            (ingredient, index) => (
+                                <div key={index}>
+                                    <DragIcon type="primary" />
+                                    <ConstructorElement
+                                        text={ingredient.name}
+                                        price={ingredient.price}
+                                        thumbnail={ingredient.image_mobile}
+                                        extraClass="ml-2 mb-4"
+                                    />
+                                </div>
+                            )
+                        )}
                 </div>
 
                 {chosenIngredientsData.bun && (

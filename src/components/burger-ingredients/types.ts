@@ -1,19 +1,9 @@
-import { Ingredient } from "../../types/types";
-
-export enum IngredientTypeName {
-    BUN = 'bun',
-    MAIN = 'main',
-    SAUCE = 'sauce',
-}
+import { IngredientTypeName, IngredientWithCounter } from '../../types/types';
 
 export type IngredientCategory = {
     value: string;
     title: string;
     typeName: IngredientTypeName;
-};
-
-export type IngredientWithCounter = Ingredient & {
-    quantity?: number;
 };
 
 export type BurgerIngredientsProps = {

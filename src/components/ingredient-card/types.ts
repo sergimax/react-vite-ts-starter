@@ -1,4 +1,4 @@
-import { IngredientWithCounter } from '../burger-ingredients/types';
+import { IngredientWithCounter } from "../../types/types";
 
 export type IngredientCardProps = {
     data: IngredientWithCounter;

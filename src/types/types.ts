@@ -12,3 +12,19 @@ export type Ingredient = {
     image_large: string;
     __v: number;
 };
+
+/**
+ * Наименования типов ингредиентов в ответе API
+ */
+export enum IngredientTypeName {
+    BUN = 'bun',
+    MAIN = 'main',
+    SAUCE = 'sauce',
+}
+
+/**
+ * Данные об ингридиенте с учетом количества выбранных для использования
+ */
+export type IngredientWithCounter = Ingredient & {
+    quantity?: number;
+};

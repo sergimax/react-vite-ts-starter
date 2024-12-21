@@ -1,4 +1,5 @@
-import { IngredientCategory, IngredientTypeName } from "./types";
+import { IngredientTypeName } from "../../types/types";
+import { IngredientCategory } from "./types";
 
 export const ingredientCategories: Array<IngredientCategory> = [
     {

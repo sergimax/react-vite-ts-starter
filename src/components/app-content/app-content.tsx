@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { AppContentBlock } from '../app-content-block';
 import { BurgerConstructor } from '../burger-constructor';
 import { BurgerIngredients } from '../burger-ingredients';
-import { IngredientTypeName, IngredientWithCounter } from '../burger-ingredients/types';
 import { data } from '../../utils/data';
 import styles from './style.module.css';
+import { IngredientTypeName, IngredientWithCounter } from '../../types/types';
 
 export const AppContent = () => {
     const [ingredients, setIngredients] =
@@ -31,7 +31,10 @@ export const AppContent = () => {
             } else {
                 sortedIngredients.set(ingredient.type, [ingredient]);
                 // Установка первой встреченной булки как булки по умолчанию
-                if (!chosenBunsId && ingredient.type === IngredientTypeName.BUN) {
+                if (
+                    !chosenBunsId &&
+                    ingredient.type === IngredientTypeName.BUN
+                ) {
                     setChosenBunsId(ingredient._id);
                 }
             }
@@ -46,14 +49,16 @@ export const AppContent = () => {
         <main className={styles.main}>
             <AppContentBlock
                 content={<BurgerIngredients ingredients={ingredients} />}
-                title='Соберите бургер'
+                title="Соберите бургер"
             />
             <AppContentBlock
-                content={<BurgerConstructor
-                    ingredients={ingredients}
-                    chosenBunsId={chosenBunsId}
-                    chosenIngredientsIdList={chosenIngredientsIdList}
-                />}
+                content={
+                    <BurgerConstructor
+                        ingredients={ingredients}
+                        chosenBunsId={chosenBunsId}
+                        chosenIngredientsIdList={chosenIngredientsIdList}
+                    />
+                }
             />
         </main>
     );
