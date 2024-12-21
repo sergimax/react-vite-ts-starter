@@ -73,7 +73,7 @@ export const BurgerConstructor = ({
                         text={chosenBunData.name}
                         price={chosenBunData.price}
                         thumbnail={chosenBunData.image_mobile}
-                        extraClass="ml-8"
+                        extraClass="ml-8 mb-4"
                     />
                 )}
                 <div className={styles.ingredients}>
@@ -98,7 +98,7 @@ export const BurgerConstructor = ({
                         text={chosenBunData.name}
                         price={chosenBunData.price}
                         thumbnail={chosenBunData.image_mobile}
-                        extraClass="ml-8"
+                        extraClass="ml-8 mt-4"
                     />
                 )}
             </div>
