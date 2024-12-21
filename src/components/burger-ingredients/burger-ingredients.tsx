@@ -1,38 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from './style.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import { data } from '../../utils/data';
 import { ingredientCategories } from './constants';
-import { IngredientWithCounter } from './types';
+import { BurgerIngredientsProps } from './types';
 import { BurgerIngredientsCategory } from '../burger-ingredients-category';
 
 /**
  * Cписок ингредиентов
  */
-export const BurgerIngredients = () => {
+export const BurgerIngredients = ({ ingredients }: BurgerIngredientsProps) => {
     const [current, setCurrent] = useState(ingredientCategories[0].value);
-    const [ingredients, setIngredients] =
-        useState<Map<string, Array<IngredientWithCounter>>>();
     const categoriesClass: string = `custom-scroll ${styles.categories}`;
-
-    useEffect(() => {
-        const sortedIngredients = new Map<string, Array<IngredientWithCounter>>();
-        // TODO вынести загрузку и обработку
-        // TODO перенести в /utils
-        data.forEach((ingredient) => {
-            const ingredientType = sortedIngredients.get(ingredient.type);
-            if (ingredientType) {
-                sortedIngredients.set(ingredient.type, [
-                    ...ingredientType,
-                    ingredient,
-                ]);
-            } else {
-                sortedIngredients.set(ingredient.type, [ingredient]);
-            }
-        });
-
-        setIngredients(sortedIngredients);
-    }, []);
 
     return (
         <>
