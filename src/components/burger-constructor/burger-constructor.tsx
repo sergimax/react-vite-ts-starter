@@ -1,5 +1,7 @@
 import {
+    Button,
     ConstructorElement,
+    CurrencyIcon,
     DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './style.module.css';
@@ -23,6 +25,8 @@ export const BurgerConstructor = ({
     // типографику,
     // TODO: Отображение списка организуйте самостоятельно. Подумайте над реализацией и возможным ограничением высоты блока, в том числе и на разных разрешениях экранов. Скроллбар не распространяется на заблокированные позиции конструктора.
     const containerClass: string = `pl-4 ${styles.container}`;
+    const calculationClass: string = `mt-10 mr-4 ${styles.calculation}`;
+
     const [chosenBunData, setChosenBunData] = useState<
         IngredientWithCounter | undefined
     >();
@@ -107,6 +111,19 @@ export const BurgerConstructor = ({
                         extraClass="ml-8"
                     />
                 )}
+            </div>
+            {/* Блок калькуляции и кнопки */}
+            <div className={calculationClass}>
+                <span className="text_type_digits-medium pr-2">610</span>
+                <CurrencyIcon type="primary" />
+                <Button
+                    htmlType="button"
+                    type="primary"
+                    size="large"
+                    extraClass="ml-10"
+                >
+                    Оформить заказ
+                </Button>
             </div>
         </div>
     );

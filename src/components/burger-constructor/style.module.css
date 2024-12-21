@@ -6,5 +6,13 @@
 .ingredients {
     border: 1px dotted rgb(255, 0, 212);
     overflow-y: overlay;
-    height: 464px;
+    max-height: 464px;
+    scrollbar-width: thin;
+    scrollbar-gutter: none;
+}
+
+.calculation {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
