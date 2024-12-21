@@ -42,33 +42,19 @@ export const AppContent = () => {
         setChosenIngredientsIdList([]);
     }, []);
 
-    const ActiveBlocks = [
-        {
-            content: <BurgerIngredients ingredients={ingredients} />,
-            title: 'Соберите бургер',
-        },
-        {
-            content: (
-                <BurgerConstructor
+    return (
+        <main className={styles.main}>
+            <AppContentBlock
+                content={<BurgerIngredients ingredients={ingredients} />}
+                title='Соберите бургер'
+            />
+            <AppContentBlock
+                content={<BurgerConstructor
                     ingredients={ingredients}
                     chosenBunsId={chosenBunsId}
                     chosenIngredientsIdList={chosenIngredientsIdList}
-                />
-            ),
-        },
-    ];
-
-    return (
-        <main className={styles.main}>
-            {ActiveBlocks.map((block, index) => {
-                return (
-                    <AppContentBlock
-                        key={index}
-                        content={block.content}
-                        title={block.title}
-                    />
-                );
-            })}
+                />}
+            />
         </main>
     );
 };
