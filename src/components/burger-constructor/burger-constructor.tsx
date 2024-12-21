@@ -5,7 +5,7 @@ import {
     DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './style.module.css';
-import { BurgerConstructorProps } from './types';
+import { BurgerConstructorProps, ChosenIngredients } from './types';
 import { useEffect, useState } from 'react';
 import {
     IngredientTypeName,
@@ -23,22 +23,20 @@ export const BurgerConstructor = ({
     const containerClass: string = `pl-4 ${styles.container}`;
     const calculationClass: string = `mt-10 mr-4 ${styles.calculation}`;
 
-    const [chosenBunData, setChosenBunData] = useState<
-        IngredientWithCounter | undefined
-    >();
-    const [chosenIngredientsData, setIngredientsData] = useState<
-        Array<IngredientWithCounter>
-    >([]);
+    const [chosenIngredientsData, setChosenIngredientsData] =
+        useState<ChosenIngredients>({ bun: null, ingredients: [] });
 
     useEffect(() => {
         if (!ingredients) return;
 
         if (chosenBunsId) {
-            setChosenBunData(
-                ingredients
-                    .get(IngredientTypeName.BUN)
-                    ?.find((bun) => bun._id === chosenBunsId)
-            );
+            setChosenIngredientsData({
+                ...chosenIngredientsData,
+                bun:
+                    ingredients
+                        .get(IngredientTypeName.BUN)
+                        ?.find((bun) => bun._id === chosenBunsId) || null,
+            });
         }
 
         if (chosenIngredientsIdList.length) {
@@ -59,26 +57,29 @@ export const BurgerConstructor = ({
             });
 
             chosenIngredientList.length &&
-                setIngredientsData(chosenIngredientList);
+                setChosenIngredientsData({
+                    ...chosenIngredientsData,
+                    ingredients: chosenIngredientList,
+                });
         }
     }, [ingredients, chosenBunsId, chosenIngredientsIdList]);
 
     return (
         <div className={containerClass}>
             <div className={styles.burgerConstructor}>
-                {chosenBunData && (
+                {chosenIngredientsData.bun && (
                     <ConstructorElement
                         type="top"
                         isLocked={true}
-                        text={chosenBunData.name}
-                        price={chosenBunData.price}
-                        thumbnail={chosenBunData.image_mobile}
+                        text={chosenIngredientsData.bun.name}
+                        price={chosenIngredientsData.bun.price}
+                        thumbnail={chosenIngredientsData.bun.image_mobile}
                         extraClass="ml-8 mb-4"
                     />
                 )}
                 <div className={styles.ingredients}>
                     {chosenIngredientsData &&
-                        chosenIngredientsData.map((ingredient, index) => (
+                        chosenIngredientsData.ingredients.map((ingredient, index) => (
                             <div key={index}>
                                 <DragIcon type="primary" />
                                 <ConstructorElement
@@ -91,13 +92,13 @@ export const BurgerConstructor = ({
                         ))}
                 </div>
 
-                {chosenBunData && (
+                {chosenIngredientsData.bun && (
                     <ConstructorElement
                         type="bottom"
                         isLocked={true}
-                        text={chosenBunData.name}
-                        price={chosenBunData.price}
-                        thumbnail={chosenBunData.image_mobile}
+                        text={chosenIngredientsData.bun.name}
+                        price={chosenIngredientsData.bun.price}
+                        thumbnail={chosenIngredientsData.bun.image_mobile}
                         extraClass="ml-8 mt-4"
                     />
                 )}
