@@ -6,49 +6,47 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './style.module.css';
 import { MenuButton } from '../menu-button';
+import { AppHeaderProps } from './types';
+import { Page } from '../app/types';
 
 /**
  * Шапка приложения
  */
-export const AppHeader = () => {
-    const leftMenuItems = [
-        {
-            text: 'Конструктор',
-            icon: <BurgerIcon type="primary" />,
-        },
-        {
-            text: 'Лента заказов',
-            icon: <ListIcon type="primary" />,
-        },
-    ];
-    const righMenuItems = [
-        {
-            text: 'Личный кабинет',
-            icon: <ProfileIcon type="primary" />,
-        },
-    ];
-
+export const AppHeader = ({ activePage }: AppHeaderProps) => {
     return (
         <header>
             <nav className={styles.navigation}>
                 <div className={styles['left-icons']}>
-                    {leftMenuItems.map((item, index) => (
-                        <MenuButton
-                            title={item.text}
-                            icon={item.icon}
-                            key={index}
+                    <MenuButton title="Конструктор">
+                        <BurgerIcon
+                            type={
+                                activePage === Page.CONSTRUCTOR
+                                    ? 'primary'
+                                    : 'secondary'
+                            }
                         />
-                    ))}
+                    </MenuButton>
+                    <MenuButton title="Лента заказов">
+                        <ListIcon
+                            type={
+                                activePage === Page.ORDERS
+                                    ? 'primary'
+                                    : 'secondary'
+                            }
+                        />
+                    </MenuButton>
                 </div>
                 <Logo className={styles.logo} />
                 <div className={styles['right-icons']}>
-                    {righMenuItems.map((item, index) => (
-                        <MenuButton
-                            title={item.text}
-                            icon={item.icon}
-                            key={index}
+                    <MenuButton title="Личный кабинет">
+                        <ProfileIcon
+                            type={
+                                activePage === Page.ACCOUNT
+                                    ? 'primary'
+                                    : 'secondary'
+                            }
                         />
-                    ))}
+                    </MenuButton>
                 </div>
             </nav>
         </header>

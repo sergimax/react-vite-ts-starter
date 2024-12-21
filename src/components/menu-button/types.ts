@@ -1,4 +1,4 @@
 export type MenuButtonProps = {
-    icon: JSX.Element;
+    children: JSX.Element;
     title: string;
 };
