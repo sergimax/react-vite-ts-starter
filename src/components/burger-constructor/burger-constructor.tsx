@@ -20,10 +20,6 @@ export const BurgerConstructor = ({
     chosenBunsId,
     chosenIngredientsIdList,
 }: BurgerConstructorProps) => {
-    // TODO: Из библиотеки UI-компонентов возьмите следующие:
-    // кнопку,
-    // типографику,
-    // TODO: Отображение списка организуйте самостоятельно. Подумайте над реализацией и возможным ограничением высоты блока, в том числе и на разных разрешениях экранов. Скроллбар не распространяется на заблокированные позиции конструктора.
     const containerClass: string = `pl-4 ${styles.container}`;
     const calculationClass: string = `mt-10 mr-4 ${styles.calculation}`;
 

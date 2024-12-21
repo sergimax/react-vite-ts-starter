@@ -10,7 +10,6 @@ import { BurgerIngredientsCategory } from '../burger-ingredients-category';
  */
 export const BurgerIngredients = ({ ingredients }: BurgerIngredientsProps) => {
     const [current, setCurrent] = useState(ingredientCategories[0].value);
-    const categoriesClass: string = `custom-scroll ${styles.categories}`;
 
     return (
         <>
@@ -28,7 +27,7 @@ export const BurgerIngredients = ({ ingredients }: BurgerIngredientsProps) => {
                     );
                 })}
             </div>
-            <div className={categoriesClass}>
+            <div className={styles.categories}>
                 {/* TODO Заменить на функцию ? */}
                 {/* TODO Вариант при отсутствии данных в категории */}
                 {ingredientCategories.map((category, index) => {
