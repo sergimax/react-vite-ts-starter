@@ -7,7 +7,6 @@ import {
     IngredientWithCounter,
     Page,
 } from '../../types/types';
-import { AppContentBlock } from '../app-content-block';
 import { BurgerIngredients } from '../burger-ingredients';
 import { BurgerConstructor } from '../burger-constructor';
 import { data } from '../../utils/data';
@@ -62,19 +61,8 @@ function App() {
         <>
             <AppHeader activePage={activePage} />
             <main className={styles.main}>
-                <AppContentBlock
-                    content={
-                        <BurgerIngredients ingredients={ingredientsByType} />
-                    }
-                    title="Соберите бургер"
-                />
-                <AppContentBlock
-                    content={
-                        <BurgerConstructor
-                            chosenIngredients={chosenIngredients}
-                        />
-                    }
-                />
+                <BurgerIngredients ingredients={ingredientsByType} />
+                <BurgerConstructor chosenIngredients={chosenIngredients} />
             </main>
         </>
     );

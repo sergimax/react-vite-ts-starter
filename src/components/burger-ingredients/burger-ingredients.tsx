@@ -9,10 +9,12 @@ import { BurgerIngredientsCategory } from '../burger-ingredients-category';
  * Cписок ингредиентов
  */
 export const BurgerIngredients = ({ ingredients }: BurgerIngredientsProps) => {
+    const titleClasses = `text_type_main-large pt-10 pb-5 ${styles.title}`;
     const [current, setCurrent] = useState(ingredientCategories[0].value);
 
     return (
-        <>
+        <section className={styles['app-content-block']}>
+            <h1 className={titleClasses}>Соберите бургер</h1>
             <div className={styles.tabs}>
                 {ingredientCategories.map((category, index) => {
                     return (
@@ -43,6 +45,6 @@ export const BurgerIngredients = ({ ingredients }: BurgerIngredientsProps) => {
                     );
                 })}
             </div>
-        </>
+        </section>
     );
 };

@@ -8,3 +8,14 @@
 .tabs {
     display: flex;
 }
+
+.title {
+    margin: 0px;
+    height: 40px;
+}
+
+.app-content-block {
+    max-width: 600px;
+    width: 100%;
+    height: 100%;
+}

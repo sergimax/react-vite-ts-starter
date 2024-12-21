@@ -15,7 +15,7 @@ export const BurgerConstructor = ({
 }: BurgerConstructorProps) => {
     console.log('chosenIngredients', chosenIngredients);
 
-    const containerClass: string = `pl-4 ${styles.container}`;
+    const containerClass: string = `pl-4 mt-25 ${styles.container}`;
     const calculationClass: string = `mt-10 mr-4 ${styles.calculation}`;
 
     if (!chosenIngredients.bun) {
@@ -23,7 +23,7 @@ export const BurgerConstructor = ({
     }
 
     return (
-        <div className={containerClass}>
+        <section className={containerClass}>
             <div className={styles.burgerConstructor}>
                 {chosenIngredients.bun && (
                     <ConstructorElement
@@ -76,6 +76,6 @@ export const BurgerConstructor = ({
                     Оформить заказ
                 </Button>
             </div>
-        </div>
+        </section>
     );
 };
