@@ -5,7 +5,6 @@ import {
     ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './style.module.css';
-import { MenuButton } from '../menu-button';
 import { AppHeaderProps } from './types';
 import { Page } from '../app/types';
 
@@ -17,7 +16,7 @@ export const AppHeader = ({ activePage }: AppHeaderProps) => {
         <header>
             <nav className={styles.navigation}>
                 <div className={styles['left-icons']}>
-                    <MenuButton title="Конструктор">
+                    <a className={styles['menu-button']}>
                         <BurgerIcon
                             type={
                                 activePage === Page.CONSTRUCTOR
@@ -25,8 +24,11 @@ export const AppHeader = ({ activePage }: AppHeaderProps) => {
                                     : 'secondary'
                             }
                         />
-                    </MenuButton>
-                    <MenuButton title="Лента заказов">
+                        <span className="ml-2 text_type_main-default">
+                            Конструктор
+                        </span>
+                    </a>
+                    <a className={styles['menu-button']}>
                         <ListIcon
                             type={
                                 activePage === Page.ORDERS
@@ -34,11 +36,14 @@ export const AppHeader = ({ activePage }: AppHeaderProps) => {
                                     : 'secondary'
                             }
                         />
-                    </MenuButton>
+                        <span className="ml-2 text_type_main-default">
+                            Лента заказов
+                        </span>
+                    </a>
                 </div>
                 <Logo className={styles.logo} />
                 <div className={styles['right-icons']}>
-                    <MenuButton title="Личный кабинет">
+                    <a className={styles['menu-button']}>
                         <ProfileIcon
                             type={
                                 activePage === Page.ACCOUNT
@@ -46,7 +51,10 @@ export const AppHeader = ({ activePage }: AppHeaderProps) => {
                                     : 'secondary'
                             }
                         />
-                    </MenuButton>
+                        <span className="ml-2 text_type_main-default">
+                            Личный кабинет
+                        </span>
+                    </a>
                 </div>
             </nav>
         </header>
