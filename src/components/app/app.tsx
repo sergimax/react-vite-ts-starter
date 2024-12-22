@@ -45,7 +45,6 @@ function App() {
                     !chosenIngredients.bun &&
                     ingredient.type === IngredientTypeName.BUN
                 ) {
-                    console.log('ingredient.type', ingredient);
                     setChosenIngredients({
                         ...chosenIngredients,
                         bun: ingredient,

@@ -8,4 +8,5 @@ body {
     display: flex;
     justify-content: center;
     height: calc(100vh - 88px);
+    gap: 40px;
 }

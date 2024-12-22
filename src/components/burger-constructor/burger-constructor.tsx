@@ -15,7 +15,7 @@ export const BurgerConstructor = ({
 }: BurgerConstructorProps) => {
     console.log('chosenIngredients', chosenIngredients);
 
-    const containerClass: string = `ml-4 mt-25 ${styles.container}`;
+    const containerClass: string = `pl-4 pt-25 ${styles.container}`;
     const calculationClass: string = `mt-10 mr-4 ${styles.calculation}`;
 
     if (!chosenIngredients.bun) {
@@ -32,7 +32,7 @@ export const BurgerConstructor = ({
                     text={chosenIngredients.bun.name + ' (верх)'}
                     price={chosenIngredients.bun.price}
                     thumbnail={chosenIngredients.bun.image_mobile}
-                    extraClass="ml-8 mb-4"
+                    extraClass="ml-8 mb-4 mr-4"
                 />
             )}
 
