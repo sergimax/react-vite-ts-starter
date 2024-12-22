@@ -15,7 +15,7 @@ export const BurgerConstructor = ({
 }: BurgerConstructorProps) => {
     console.log('chosenIngredients', chosenIngredients);
 
-    const containerClass: string = `pl-4 mt-25 ${styles.container}`;
+    const containerClass: string = `ml-4 mt-25 ${styles.container}`;
     const calculationClass: string = `mt-10 mr-4 ${styles.calculation}`;
 
     if (!chosenIngredients.bun) {
@@ -24,45 +24,46 @@ export const BurgerConstructor = ({
 
     return (
         <section className={containerClass}>
-            <div className={styles.burgerConstructor}>
-                {chosenIngredients.bun && (
-                    <ConstructorElement
-                        type="top"
-                        isLocked={true}
-                        text={chosenIngredients.bun.name}
-                        price={chosenIngredients.bun.price}
-                        thumbnail={chosenIngredients.bun.image_mobile}
-                        extraClass="ml-8 mb-4"
-                    />
-                )}
-                <div className={styles.ingredients}>
-                    {chosenIngredients.ingredients &&
-                        chosenIngredients.ingredients.map(
-                            (ingredient, index) => (
-                                <div key={index}>
-                                    <DragIcon type="primary" />
-                                    <ConstructorElement
-                                        text={ingredient.name}
-                                        price={ingredient.price}
-                                        thumbnail={ingredient.image_mobile}
-                                        extraClass="ml-2 mb-4"
-                                    />
-                                </div>
-                            )
-                        )}
-                </div>
+            {/* Верхняя булка бургера */}
+            {chosenIngredients.bun && (
+                <ConstructorElement
+                    type="top"
+                    isLocked={true}
+                    text={chosenIngredients.bun.name + ' (верх)'}
+                    price={chosenIngredients.bun.price}
+                    thumbnail={chosenIngredients.bun.image_mobile}
+                    extraClass="ml-8 mb-4"
+                />
+            )}
 
-                {chosenIngredients.bun && (
-                    <ConstructorElement
-                        type="bottom"
-                        isLocked={true}
-                        text={chosenIngredients.bun.name}
-                        price={chosenIngredients.bun.price}
-                        thumbnail={chosenIngredients.bun.image_mobile}
-                        extraClass="ml-8 mt-4"
-                    />
-                )}
+            {/* Начинка бургера */}
+            <div className={styles.ingredients}>
+                {chosenIngredients.ingredients &&
+                    chosenIngredients.ingredients.map((ingredient, index) => (
+                        <div key={index}>
+                            <DragIcon type="primary" />
+                            <ConstructorElement
+                                text={ingredient.name}
+                                price={ingredient.price}
+                                thumbnail={ingredient.image_mobile}
+                                extraClass="ml-2 mb-4"
+                            />
+                        </div>
+                    ))}
             </div>
+
+            {/* Нижняя булка бургера */}
+            {chosenIngredients.bun && (
+                <ConstructorElement
+                    type="bottom"
+                    isLocked={true}
+                    text={chosenIngredients.bun.name + ' (низ)'}
+                    price={chosenIngredients.bun.price}
+                    thumbnail={chosenIngredients.bun.image_mobile}
+                    extraClass="ml-8 mt-4"
+                />
+            )}
+
             {/* Блок калькуляции и кнопки */}
             <div className={calculationClass}>
                 <span className="text_type_digits-medium pr-2">610</span>
