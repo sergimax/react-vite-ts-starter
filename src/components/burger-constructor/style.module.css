@@ -1,0 +1,21 @@
+.container {
+    max-width: 600px;
+    height: 100%;
+}
+
+.ingredients {
+    overflow-y: scroll;
+    /*
+    ingredient - 80px
+    padding between ingredients - 16px
+    */
+    height: calc(80px * 5 + 16px * 4);
+    scrollbar-width: thin;
+    scrollbar-gutter: none;
+}
+
+.calculation {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}

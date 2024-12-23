@@ -1,0 +1,25 @@
+.app-content-block {
+    max-width: 600px;
+}
+
+.categories {
+    flex: 1;
+    /*
+    header - 88px
+    block title - 100px
+    tabs - 56px
+    */
+    height: calc(100vh - 88px - 100px - 56px);
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-gutter: none;
+}
+
+.tabs {
+    display: flex;
+}
+
+.title {
+    margin: 0px;
+    height: 40px;
+}
