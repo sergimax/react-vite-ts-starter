@@ -3,8 +3,8 @@ import { AppHeader } from '../app-header';
 import styles from './app.module.css';
 import {
     ChosenIngredients,
+    Ingredient,
     IngredientTypeName,
-    IngredientWithCounter,
     Page,
 } from '../../types/types';
 import { BurgerIngredients } from '../burger-ingredients';
@@ -13,9 +13,9 @@ import { API_ENDPOINT, API_URL } from '../../constants/constants';
 import { GetIngredientsDTO } from './types';
 
 function App() {
-    const [isLoading, setIsLoading] = useState(false);
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [errorWithLoading, setErrorWithLoading] = useState('');
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string>('');
+    const [ingredients, setIngredients] = useState<Array<Ingredient>>([]);
 
     // TODO Подключитесь к API
     const [activePage, setActivePage] = useState<Page>(Page.CONSTRUCTOR);
@@ -24,9 +24,6 @@ function App() {
         setActivePage(Page.CONSTRUCTOR);
     }, []);
 
-    const [ingredientsByType, setIngredientsByType] =
-        useState<Map<string, Array<IngredientWithCounter>>>();
-
     const [chosenIngredients, setChosenIngredients] =
         useState<ChosenIngredients>({ bun: null, ingredients: [] });
 
@@ -34,6 +31,7 @@ function App() {
         async function fetchIngredients() {
             try {
                 setIsLoading(true);
+
                 const ingredientsResponse = await fetch(
                     `${API_URL}/${API_ENDPOINT.INGREDIENTS}`,
                     {
@@ -45,71 +43,71 @@ function App() {
 
                 if (!ingredientsResponse.ok) {
                     throw new Error(
-                        `Response status: ${ingredientsResponse.status}`
+                        `Статус ответа: ${ingredientsResponse.status}`
                     );
                 }
 
                 const ingredientsData: GetIngredientsDTO =
                     await ingredientsResponse.json();
 
+                // Проверка успешности выполнения запроса
                 if (!ingredientsData.success) {
-                    throw new Error(`Unsuccessfull loading`);
+                    throw new Error(`Неуспешный статус загрузки`);
                 }
 
-                if (!ingredientsData.data || !ingredientsData.data.length) {
-                    throw new Error(`Empty list`);
+                // Проверка пришедшего массива на наличие данных
+                if (!ingredientsData.data?.length) {
+                    throw new Error(`Пустой список ингредиентов`);
                 }
 
-                ingredientsData.data.forEach((ingredient) => {
-                    const ingredientType = sortedIngredients.get(
-                        ingredient.type
-                    );
-                    if (ingredientType) {
-                        sortedIngredients.set(ingredient.type, [
-                            ...ingredientType,
-                            ingredient,
-                        ]);
-                    } else {
-                        sortedIngredients.set(ingredient.type, [ingredient]);
-                        // Установка первой встреченной булки как булки по умолчанию
-                        if (
-                            !chosenIngredients.bun &&
+                // FIXME заменить при реализации функционала выбора состава бургера
+                const someBun: Ingredient | undefined =
+                    ingredientsData.data.find(
+                        (ingredient) =>
                             ingredient.type === IngredientTypeName.BUN
-                        ) {
-                            setChosenIngredients({
-                                ...chosenIngredients,
-                                bun: ingredient,
-                            });
-                        }
-                    }
+                    );
+
+                if (!someBun) {
+                    throw new Error(`Отсутствуют булки среди ингредиентов`);
+                }
+
+                setChosenIngredients({
+                    bun: someBun,
+                    ingredients: [],
                 });
 
+                setIngredients(ingredientsData.data);
                 setIsLoading(false);
-                setIsLoaded(true);
             } catch (error) {
+                console.error('Произошла ошибка: ', error);
                 setIsLoading(false);
-                setErrorWithLoading('ERROR');
-
-                console.error('error', error);
+                setError(`Произошла ошибка: ${error as string}`);
             }
         }
 
-        const sortedIngredients = new Map<
-            string,
-            Array<IngredientWithCounter>
-        >();
-
         fetchIngredients();
-
-        setIngredientsByType(sortedIngredients);
     }, []);
 
     return (
         <>
             <AppHeader activePage={activePage} />
             <main className={styles.main}>
-                <BurgerIngredients ingredients={ingredientsByType} />
-                <BurgerConstructor chosenIngredients={chosenIngredients} />
+                {isLoading ? (
+                    <h1 className="text_type_main-large pt-10 pb-5">
+                        Загрузка списка продуктов
+                    </h1>
+                ) : error ? (
+                    <h1 className="text_type_main-large pt-10 pb-5">
+                        {error}
+                    </h1>
+                ) : ingredients.length > 0 && (
+                    <>
+                        <BurgerIngredients ingredients={ingredients} />
+                        <BurgerConstructor
+                            chosenIngredients={chosenIngredients}
+                        />
+                    </>
+                )}
             </main>
         </>
     );
