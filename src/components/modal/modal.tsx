@@ -2,6 +2,7 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ModalProps } from './types';
 import styles from './modal.module.css';
 import { createPortal } from 'react-dom';
+import { ModalOverlay } from '../modal-overlay';
 
 export const Modal = ({ title = '', children }: ModalProps) => {
     const modalClasses: string = `${styles.container}`;
@@ -10,13 +11,16 @@ export const Modal = ({ title = '', children }: ModalProps) => {
     const contentClasses: string = `pb-15 ${styles.content}`;
 
     return createPortal(
-        <div className={modalClasses}>
-            <div className={modalHeadingClasses}>
-                <h2 className={titleClasses}>{title}</h2>
-                <CloseIcon type="primary" />
+        <>
+            <div className={modalClasses}>
+                <div className={modalHeadingClasses}>
+                    <h2 className={titleClasses}>{title}</h2>
+                    <CloseIcon type="primary" />
+                </div>
+                <div className={contentClasses}>{children}</div>
             </div>
-            <div className={contentClasses}>{children}</div>
-        </div>,
+            <ModalOverlay />
+        </>,
         document.body
     );
 };
