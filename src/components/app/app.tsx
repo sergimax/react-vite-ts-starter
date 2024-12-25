@@ -16,16 +16,13 @@ function App() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
     const [ingredients, setIngredients] = useState<Array<Ingredient>>([]);
-
-    // TODO Подключитесь к API
     const [activePage, setActivePage] = useState<Page>(Page.CONSTRUCTOR);
+    const [chosenIngredients, setChosenIngredients] =
+        useState<ChosenIngredients>({ bun: null, ingredients: [] });
 
     useEffect(() => {
         setActivePage(Page.CONSTRUCTOR);
     }, []);
-
-    const [chosenIngredients, setChosenIngredients] =
-        useState<ChosenIngredients>({ bun: null, ingredients: [] });
 
     useEffect(() => {
         async function fetchIngredients() {
@@ -97,16 +94,16 @@ function App() {
                         Загрузка списка продуктов
                     </h1>
                 ) : error ? (
-                    <h1 className="text_type_main-large pt-10 pb-5">
-                        {error}
-                    </h1>
-                ) : ingredients.length > 0 && (
-                    <>
-                        <BurgerIngredients ingredients={ingredients} />
-                        <BurgerConstructor
-                            chosenIngredients={chosenIngredients}
-                        />
-                    </>
+                    <h1 className="text_type_main-large pt-10 pb-5">{error}</h1>
+                ) : (
+                    ingredients.length > 0 && (
+                        <>
+                            <BurgerIngredients ingredients={ingredients} />
+                            <BurgerConstructor
+                                chosenIngredients={chosenIngredients}
+                            />
+                        </>
+                    )
                 )}
             </main>
         </>
