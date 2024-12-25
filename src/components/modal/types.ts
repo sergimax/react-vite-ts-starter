@@ -1,4 +1,4 @@
 export type ModalProps = {
-    title: string;
+    title?: string;
     children: JSX.Element;
 };

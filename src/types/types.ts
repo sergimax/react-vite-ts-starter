@@ -45,3 +45,11 @@ export type ChosenIngredients = {
     bun: Ingredient | null;
     ingredients: Array<Ingredient>;
 };
+
+/**
+ * Содержимое модального окна
+ */
+export type ModalContent = {
+    title?: string;
+    content: JSX.Element;
+};

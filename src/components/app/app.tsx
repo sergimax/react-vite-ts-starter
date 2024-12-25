@@ -5,12 +5,14 @@ import {
     ChosenIngredients,
     Ingredient,
     IngredientTypeName,
+    ModalContent,
     Page,
 } from '../../types/types';
 import { BurgerIngredients } from '../burger-ingredients';
 import { BurgerConstructor } from '../burger-constructor';
 import { API_ENDPOINT, API_URL } from '../../constants/constants';
 import { GetIngredientsDTO } from './types';
+import { Modal } from '../modal';
 
 function App() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -19,6 +21,19 @@ function App() {
     const [activePage, setActivePage] = useState<Page>(Page.CONSTRUCTOR);
     const [chosenIngredients, setChosenIngredients] =
         useState<ChosenIngredients>({ bun: null, ingredients: [] });
+
+    // Управление модальным окном
+    // TODO Вынести в кастомный хук
+    const [isModalShown, setIsModalShown] = useState(false);
+    const [modalData, setModalData] = useState<ModalContent | null>(null);
+    const closeModal = () => {
+        setModalData(null);
+        setIsModalShown(false);
+    };
+    const openModal = (content: ModalContent) => {
+        setModalData(content);
+        setIsModalShown(true);
+    };
 
     useEffect(() => {
         setActivePage(Page.CONSTRUCTOR);
@@ -106,6 +121,12 @@ function App() {
                     )
                 )}
             </main>
+            {isModalShown && modalData && (
+                <Modal
+                    title={modalData.title}
+                    children={modalData.content}
+                ></Modal>
+            )}
         </>
     );
 }
