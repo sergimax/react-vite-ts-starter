@@ -8,4 +8,5 @@ export type IngredientCategory = {
 
 export type BurgerIngredientsProps = {
     ingredients: Array<Ingredient>;
+    onIngredientClick: () => void;
 };

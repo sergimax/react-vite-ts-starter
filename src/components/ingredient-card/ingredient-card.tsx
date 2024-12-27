@@ -5,14 +5,20 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngredientCardProps } from './types';
 
-export const IngredientCard = ({ data }: IngredientCardProps) => {
+export const IngredientCard = ({
+    data,
+    onIngredientClick,
+}: IngredientCardProps) => {
     const contentClass: string = `ml-4 mt-6 ${styles.content}`;
     const imageClass: string = `pl-4 pr-4 pb-1 ${styles.image}`;
     const priceClass: string = `pb-1 ${styles.price}`;
     const nameClass: string = `text_type_main-default ${styles.name}`;
 
     return (
-        <div className={contentClass}>
+        <div
+            className={contentClass}
+            onClick={() => onIngredientClick(data._id)}
+        >
             {data.quantity && data.quantity > 0 && (
                 <Counter
                     count={data.quantity}

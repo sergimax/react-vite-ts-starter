@@ -113,7 +113,15 @@ function App() {
                 ) : (
                     ingredients.length > 0 && (
                         <>
-                            <BurgerIngredients ingredients={ingredients} />
+                            <BurgerIngredients
+                                ingredients={ingredients}
+                                onIngredientClick={(
+                                    ingredient?: Ingredient
+                                ) => {
+                                    console.log('click');
+                                    console.log(ingredient);
+                                }}
+                            />
                             <BurgerConstructor
                                 chosenIngredients={chosenIngredients}
                             />

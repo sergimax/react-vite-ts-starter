@@ -1,6 +1,7 @@
-import { IngredientWithCounter } from '../burger-ingredients/types';
+import { Ingredient } from "../../types/types";
 
 export type BurgerIngredientsCategoryProps = {
     title: string;
-    category: Array<IngredientWithCounter>;
+    category: Array<Ingredient>;
+    onIngredientClick: () => void;
 };

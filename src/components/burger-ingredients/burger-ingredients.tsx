@@ -9,7 +9,10 @@ import { Ingredient, IngredientTypeName } from '../../types/types';
 /**
  * Cписок ингредиентов
  */
-export const BurgerIngredients = ({ ingredients }: BurgerIngredientsProps) => {
+export const BurgerIngredients = ({
+    ingredients,
+    onIngredientClick,
+}: BurgerIngredientsProps) => {
     const titleClasses = `text_type_main-large pt-10 pb-5 ${styles.title}`;
     const [currentTab, setCurrentTab] = useState(ingredientCategories[0].value);
 
@@ -58,14 +61,17 @@ export const BurgerIngredients = ({ ingredients }: BurgerIngredientsProps) => {
                 <BurgerIngredientsCategory
                     category={bunsList}
                     title={'Булки'}
+                    onIngredientClick={onIngredientClick}
                 />
                 <BurgerIngredientsCategory
                     category={saucesList}
                     title={'Соусы'}
+                    onIngredientClick={onIngredientClick}
                 />
                 <BurgerIngredientsCategory
                     category={mainsList}
                     title={'Начинки'}
+                    onIngredientClick={onIngredientClick}
                 />
             </div>
         </section>

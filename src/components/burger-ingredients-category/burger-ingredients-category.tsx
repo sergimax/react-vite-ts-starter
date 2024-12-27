@@ -5,6 +5,7 @@ import { IngredientCard } from '../ingredient-card';
 export const BurgerIngredientsCategory = ({
     title,
     category,
+    onIngredientClick,
 }: BurgerIngredientsCategoryProps) => {
     const categoryTitleClass: string = `text_type_main-medium pt-10 ${styles.title}`;
 
@@ -17,6 +18,7 @@ export const BurgerIngredientsCategory = ({
                         <IngredientCard
                             data={element}
                             key={index}
+                            onIngredientClick={onIngredientClick}
                         />
                     );
                 })}
