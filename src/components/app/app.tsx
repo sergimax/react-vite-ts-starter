@@ -125,6 +125,7 @@ function App() {
                 <Modal
                     title={modalData.title}
                     children={modalData.content}
+                    onClose={closeModal}
                 ></Modal>
             )}
         </>

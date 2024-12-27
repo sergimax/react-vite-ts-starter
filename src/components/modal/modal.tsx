@@ -4,7 +4,7 @@ import styles from './modal.module.css';
 import { createPortal } from 'react-dom';
 import { ModalOverlay } from '../modal-overlay';
 
-export const Modal = ({ title = '', children }: ModalProps) => {
+export const Modal = ({ title = '', children, onClose }: ModalProps) => {
     const modalClasses: string = `${styles.container}`;
     const modalHeadingClasses: string = `pt-10 pl-10 pr-10 ${styles['modal-heading']}`;
     const titleClasses: string = `text_type_main-large  ${styles.title}`;
@@ -15,11 +15,14 @@ export const Modal = ({ title = '', children }: ModalProps) => {
             <div className={modalClasses}>
                 <div className={modalHeadingClasses}>
                     <h2 className={titleClasses}>{title}</h2>
-                    <CloseIcon type="primary" />
+                    <CloseIcon
+                        type="primary"
+                        onClick={onClose}
+                    />
                 </div>
                 <div className={contentClasses}>{children}</div>
             </div>
-            <ModalOverlay />
+            <ModalOverlay onClose={onClose} />
         </>,
         document.body
     );
