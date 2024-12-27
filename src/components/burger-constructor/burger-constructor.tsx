@@ -6,12 +6,15 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './style.module.css';
 import { BurgerConstructorProps } from './types';
+import { OrderModalContent } from '../order-modal-content';
+import { DEFAULT_ORDER_ID } from './constants';
 
 /**
  * Текущий состав бургера
  */
 export const BurgerConstructor = ({
     chosenIngredients,
+    onFormAnOrderClick,
 }: BurgerConstructorProps) => {
     console.log('chosenIngredients', chosenIngredients);
 
@@ -73,6 +76,13 @@ export const BurgerConstructor = ({
                     type="primary"
                     size="large"
                     extraClass="ml-10"
+                    onClick={() =>
+                        onFormAnOrderClick({
+                            content: (
+                                <OrderModalContent orderId={DEFAULT_ORDER_ID} />
+                            ),
+                        })
+                    }
                 >
                     Оформить заказ
                 </Button>

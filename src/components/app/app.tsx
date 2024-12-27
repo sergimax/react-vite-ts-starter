@@ -119,6 +119,7 @@ function App() {
                             />
                             <BurgerConstructor
                                 chosenIngredients={chosenIngredients}
+                                onFormAnOrderClick={openModal}
                             />
                         </>
                     )
