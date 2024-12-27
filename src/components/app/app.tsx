@@ -35,25 +35,6 @@ function App() {
         setIsModalShown(true);
     };
 
-    /**
-     * Реакция на нажатие Escape
-     */
-    useEffect(() => {
-        document.addEventListener(
-            'keydown',
-            (event) => event.key === 'Escape' && closeModal(),
-            false
-        );
-
-        return () => {
-            document.removeEventListener(
-                'keydown',
-                (event) => event.key === 'Escape' && closeModal(),
-                false
-            );
-        };
-    }, []);
-
     useEffect(() => {
         setActivePage(Page.CONSTRUCTOR);
     }, []);
