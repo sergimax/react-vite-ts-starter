@@ -3,7 +3,7 @@
         0 0 16px rgba(51, 51, 255, 0.25), 0 0 8px rgba(51, 51, 255, 0.25);
 }
 
-img {
+.image {
     position: absolute;
     transform: translate(-50%, -50%);
 }

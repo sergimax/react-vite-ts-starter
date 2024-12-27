@@ -20,9 +20,18 @@ export const OrderModalContent = ({ orderId }: OrderModalContentProps) => {
                     type="primary"
                     className={styles['check-mark']}
                 />
-                <img src={vectorImage1}></img>
-                <img src={vectorImage2}></img>
-                <img src={vectorImage3}></img>
+                <img
+                    src={vectorImage1}
+                    className={styles.image}
+                ></img>
+                <img
+                    src={vectorImage2}
+                    className={styles.image}
+                ></img>
+                <img
+                    src={vectorImage3}
+                    className={styles.image}
+                ></img>
             </div>
 
             <div className="text_type_main-default mb-2 mt-15">
