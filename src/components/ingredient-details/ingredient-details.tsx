@@ -1,9 +1,7 @@
-import { IngredientModalContentProps } from './types';
+import { IngredientDetailsProps } from './types';
 import styles from './style.module.css';
 
-export const IngredientModalContent = ({
-    data,
-}: IngredientModalContentProps) => {
+export const IngredientDetails = ({ data }: IngredientDetailsProps) => {
     const characteristicsClass: string = `${styles.characteristics}`;
     const characteristicClass: string = `text_type_main-default text_color_inactive ${styles.characteristic}`;
     const characteristicValueClass: string = `text_type_digits-default mt-2`;

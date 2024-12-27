@@ -1,5 +1,5 @@
 import { Ingredient } from '../../types/types';
 
-export type IngredientModalContentProps = {
+export type IngredientDetailsProps = {
     data: Ingredient;
 };

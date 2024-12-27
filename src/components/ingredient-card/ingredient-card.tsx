@@ -4,8 +4,8 @@ import {
     CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngredientCardProps } from './types';
-import { IngredientModalContent } from '../ingredient-modal-content';
 import { useMemo } from 'react';
+import { IngredientDetails } from '../ingredient-details';
 
 export const IngredientCard = ({
     data,
@@ -19,7 +19,7 @@ export const IngredientCard = ({
      * Содержимое модального окна при клике на ингредиент
      */
     const modalContent: JSX.Element = useMemo(
-        () => <IngredientModalContent data={data} />,
+        () => <IngredientDetails data={data} />,
         [data]
     );
 
