@@ -1,4 +1,8 @@
-import { Ingredient, IngredientTypeName } from '../../types/types';
+import {
+    Ingredient,
+    IngredientTypeName,
+    ModalContent,
+} from '../../types/types';
 
 export type IngredientCategory = {
     value: string;
@@ -8,5 +12,5 @@ export type IngredientCategory = {
 
 export type BurgerIngredientsProps = {
     ingredients: Array<Ingredient>;
-    onIngredientClick: () => void;
+    onIngredientClick: (content: ModalContent) => void;
 };

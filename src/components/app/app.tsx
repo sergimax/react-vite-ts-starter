@@ -115,12 +115,7 @@ function App() {
                         <>
                             <BurgerIngredients
                                 ingredients={ingredients}
-                                onIngredientClick={(
-                                    ingredient?: Ingredient
-                                ) => {
-                                    console.log('click');
-                                    console.log(ingredient);
-                                }}
+                                onIngredientClick={openModal}
                             />
                             <BurgerConstructor
                                 chosenIngredients={chosenIngredients}
