@@ -6,7 +6,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './style.module.css';
 import { BurgerConstructorProps } from './types';
-import { OrderModalContent } from '../order-modal-content';
+import { OrderDetails } from '../order-details';
 import { DEFAULT_ORDER_ID } from './constants';
 
 /**
@@ -77,7 +77,7 @@ export const BurgerConstructor = ({
                     onClick={() =>
                         onFormAnOrderClick({
                             content: (
-                                <OrderModalContent orderId={DEFAULT_ORDER_ID} />
+                                <OrderDetails orderId={DEFAULT_ORDER_ID} />
                             ),
                         })
                     }
