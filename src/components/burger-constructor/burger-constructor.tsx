@@ -16,8 +16,6 @@ export const BurgerConstructor = ({
     chosenIngredients,
     onFormAnOrderClick,
 }: BurgerConstructorProps) => {
-    console.log('chosenIngredients', chosenIngredients);
-
     const containerClass: string = `pl-4 pt-25 ${styles.container}`;
     const calculationClass: string = `mt-10 mr-4 ${styles.calculation}`;
 
