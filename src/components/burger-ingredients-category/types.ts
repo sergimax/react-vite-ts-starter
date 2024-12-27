@@ -1,7 +1,7 @@
-import { Ingredient } from "../../types/types";
+import { Ingredient, ModalContent } from '../../types/types';
 
 export type BurgerIngredientsCategoryProps = {
     title: string;
     category: Array<Ingredient>;
-    onIngredientClick: () => void;
+    onIngredientClick: (content: ModalContent) => void;
 };
