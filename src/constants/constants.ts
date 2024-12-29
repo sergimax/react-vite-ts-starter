@@ -4,7 +4,16 @@ export enum API_ENDPOINT {
     INGREDIENTS = 'ingredients',
 }
 
+/**
+ * Типы назначения модального окна
+ */
 export enum MODAL_TYPE {
+    /**
+     * Подробная информация по ингредиенту
+     */
     INGREDIENT_DETAILS = 'INGREDIENT_DETAILS',
+    /**
+     * Информация по заказу
+     */
     ORDER = 'ORDER',
 }

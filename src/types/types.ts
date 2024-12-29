@@ -1,5 +1,8 @@
 import { MODAL_TYPE } from '../constants/constants';
 
+/**
+ * Данные по ингредиенту
+ */
 export type Ingredient = {
     _id: string;
     name: string;
@@ -34,7 +37,7 @@ export enum IngredientCategoryTypeLocalName {
 }
 
 /**
- * Данные об ингридиенте с учетом количества выбранных для использования
+ * Данные об ингредиенте с учетом количества выбранных для использования
  */
 export type IngredientWithCounter = Ingredient & {
     quantity?: number;
@@ -71,7 +74,7 @@ export type ModalContent = {
 export type ModalType = keyof typeof MODAL_TYPE;
 
 /**
- * Данные для модального окна Деталей о продукте
+ * Данные для модального окна Деталей о ингредиенте
  */
 export type IngredientDeatilsData = {
     title: string;
@@ -86,6 +89,9 @@ export type OrderData = {
     chosenIngredients: ChosenIngredients;
 };
 
+/**
+ * Данные для модального окна
+ */
 export type DataForModal = {
     type: ModalType;
     orderData?: OrderData;
