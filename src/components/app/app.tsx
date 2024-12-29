@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import { AppHeader } from '../app-header';
-import styles from './app.module.css';
+import { BurgerConstructor } from '../burger-constructor';
+import { BurgerIngredients } from '../burger-ingredients';
+import { IngredientDetails } from '../ingredient-details';
+import { Modal } from '../modal';
+import { OrderDetails } from '../order-details';
 import {
     ChosenIngredients,
     DataForModal,
@@ -9,13 +13,9 @@ import {
     ModalContent,
     Page,
 } from '../../types/types';
-import { BurgerIngredients } from '../burger-ingredients';
-import { BurgerConstructor } from '../burger-constructor';
-import { API_ENDPOINT, API_URL, MODAL_TYPE } from '../../constants/constants';
 import { GetIngredientsDTO } from './types';
-import { Modal } from '../modal';
-import { IngredientDetails } from '../ingredient-details';
-import { OrderDetails } from '../order-details';
+import { API_ENDPOINT, API_URL, MODAL_TYPE } from '../../constants/constants';
+import styles from './app.module.css';
 
 function App() {
     const [isLoading, setIsLoading] = useState<boolean>(false);

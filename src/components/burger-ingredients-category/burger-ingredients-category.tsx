@@ -1,6 +1,6 @@
+import { IngredientCard } from '../ingredient-card';
 import { BurgerIngredientsCategoryProps } from './types';
 import styles from './style.module.css';
-import { IngredientCard } from '../ingredient-card';
 
 export const BurgerIngredientsCategory = ({
     title,

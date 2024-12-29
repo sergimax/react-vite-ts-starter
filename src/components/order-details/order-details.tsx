@@ -1,9 +1,9 @@
+import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { OrderDetailsProps } from './types';
-import styles from './style.module.css';
 import vectorImage1 from '../../images/Vector 1.svg';
 import vectorImage2 from '../../images/Vector 2.svg';
 import vectorImage3 from '../../images/Vector 3.svg';
-import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import styles from './style.module.css';
 
 export const OrderDetails = ({ orderId }: OrderDetailsProps) => {
     const orderIdClasses: string = `text_type_digits-large mb-8 ${styles['order-id']}`;

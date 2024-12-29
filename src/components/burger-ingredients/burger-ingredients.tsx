@@ -1,14 +1,14 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import styles from './style.module.css';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ingredientCategories } from './constants';
-import { BurgerIngredientsProps } from './types';
 import { BurgerIngredientsCategory } from '../burger-ingredients-category';
+import { BurgerIngredientsProps } from './types';
 import {
     Ingredient,
     IngredientCategoryTypeLocalName,
     IngredientTypeName,
 } from '../../types/types';
+import { ingredientCategories } from './constants';
+import styles from './style.module.css';
 
 /**
  * Cписок ингредиентов

@@ -1,10 +1,10 @@
-import styles from './style.module.css';
 import {
     Counter,
     CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngredientCardProps } from './types';
 import { MODAL_TYPE } from '../../constants/constants';
+import styles from './style.module.css';
 
 export const IngredientCard = ({
     data,

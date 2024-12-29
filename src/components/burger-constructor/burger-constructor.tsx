@@ -4,10 +4,10 @@ import {
     CurrencyIcon,
     DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import styles from './style.module.css';
 import { BurgerConstructorProps } from './types';
 import { DEFAULT_ORDER_ID } from './constants';
 import { MODAL_TYPE } from '../../constants/constants';
+import styles from './style.module.css';
 
 /**
  * Текущий состав бургера
