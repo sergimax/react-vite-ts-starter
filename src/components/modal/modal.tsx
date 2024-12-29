@@ -38,6 +38,7 @@ export const Modal = ({ title = '', children, onClose }: ModalProps) => {
                     <CloseIcon
                         type="primary"
                         onClick={onClose}
+                        className={styles["close-icon"]}
                     />
                 </div>
                 <div className={contentClasses}>{children}</div>
