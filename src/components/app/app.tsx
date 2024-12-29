@@ -14,6 +14,8 @@ import { BurgerConstructor } from '../burger-constructor';
 import { API_ENDPOINT, API_URL, MODAL_TYPE } from '../../constants/constants';
 import { GetIngredientsDTO } from './types';
 import { Modal } from '../modal';
+import { IngredientDetails } from '../ingredient-details';
+import { OrderDetails } from '../order-details';
 
 function App() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -35,18 +37,27 @@ function App() {
 
     const openModal = (data: DataForModal): void => {
         if (data.type === MODAL_TYPE.ORDER && data.orderData) {
-            console.log('openModal', data.type, data.orderData);
+            setModalData({
+                content: <OrderDetails orderId={data.orderData.orderId} />,
+            });
+            setIsModalShown(true);
         }
 
         if (
             data.type === MODAL_TYPE.INGREDIENT_DETAILS &&
             data.ingredientData
         ) {
-            console.log('openModal', data.type, data.ingredientData);
-        }
+            const ingredientData = ingredients.find(
+                (element) => element._id === data.ingredientData?.ingredientId
+            );
 
-        // setModalData(content);
-        setIsModalShown(true);
+            ingredientData &&
+                setModalData({
+                    title: data.ingredientData.title,
+                    content: <IngredientDetails data={ingredientData} />,
+                });
+            setIsModalShown(true);
+        }
     };
 
     useEffect(() => {
@@ -116,7 +127,10 @@ function App() {
 
     return (
         <>
+            {/* Блок заголовка страницы */}
             <AppHeader activePage={activePage} />
+
+            {/* Блок основного содержимого страницы */}
             <main className={styles.main}>
                 {isLoading ? (
                     <h1 className="text_type_main-large pt-10 pb-5">
@@ -139,6 +153,8 @@ function App() {
                     )
                 )}
             </main>
+
+            {/* Блок модального окна */}
             {isModalShown && modalData && (
                 <Modal
                     title={modalData.title}
