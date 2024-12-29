@@ -47,6 +47,9 @@ export const BurgerIngredients = ({
     const mainsRef = useRef<HTMLDivElement>(null);
     const categoriesRef = useRef<HTMLDivElement>(null);
 
+    /**
+     * Переключение категорий ингредиентов с скроллом до  выбранной
+     */
     useEffect(() => {
         const categoriesRefCurrent = categoriesRef.current;
         if (!categoriesRefCurrent) {
@@ -109,19 +112,19 @@ export const BurgerIngredients = ({
             >
                 <BurgerIngredientsCategory
                     category={bunsList}
-                    title={'Булки'}
+                    title={IngredientCategoryTypeLocalName.BUN}
                     onIngredientClick={onIngredientClick}
                     innerRef={bunsRef}
                 />
                 <BurgerIngredientsCategory
                     category={saucesList}
-                    title={'Соусы'}
+                    title={IngredientCategoryTypeLocalName.SAUCE}
                     onIngredientClick={onIngredientClick}
                     innerRef={saucesRef}
                 />
                 <BurgerIngredientsCategory
                     category={mainsList}
-                    title={'Начинки'}
+                    title={IngredientCategoryTypeLocalName.MAIN}
                     onIngredientClick={onIngredientClick}
                     innerRef={mainsRef}
                 />
