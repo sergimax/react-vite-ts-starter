@@ -23,6 +23,15 @@ export enum IngredientTypeName {
 }
 
 /**
+ * Наименования категорий ингредиентов на русском
+ */
+export enum IngredientCategoryTypeLocalName {
+    BUN = 'Булки',
+    MAIN = 'Начинки',
+    SAUCE = 'Соусы',
+}
+
+/**
  * Данные об ингридиенте с учетом количества выбранных для использования
  */
 export type IngredientWithCounter = Ingredient & {
