@@ -1,9 +1,9 @@
 import { RefObject } from 'react';
-import { Ingredient, ModalContent } from '../../types/types';
+import { DataForModal, Ingredient } from '../../types/types';
 
 export type BurgerIngredientsCategoryProps = {
     title: string;
     category: Array<Ingredient>;
-    onIngredientClick: (content: ModalContent) => void;
+    onIngredientClick: (data: DataForModal) => void;
     innerRef: RefObject<HTMLDivElement>;
 };

@@ -1,7 +1,7 @@
 import {
+    DataForModal,
     Ingredient,
     IngredientTypeName,
-    ModalContent,
 } from '../../types/types';
 
 export type IngredientCategory = {
@@ -12,5 +12,5 @@ export type IngredientCategory = {
 
 export type BurgerIngredientsProps = {
     ingredients: Array<Ingredient>;
-    onIngredientClick: (content: ModalContent) => void;
+    onIngredientClick: (data: DataForModal) => void;
 };

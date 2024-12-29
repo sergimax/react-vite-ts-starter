@@ -1,3 +1,5 @@
+import { MODAL_TYPE } from '../constants/constants';
+
 export type Ingredient = {
     _id: string;
     name: string;
@@ -61,4 +63,31 @@ export type ChosenIngredients = {
 export type ModalContent = {
     title?: string;
     content: JSX.Element;
+};
+
+/**
+ * Типы модального окна
+ */
+export type ModalType = keyof typeof MODAL_TYPE;
+
+/**
+ * Данные для модального окна Деталей о продукте
+ */
+export type IngredientDeatilsData = {
+    title: string;
+    ingredientId: string;
+};
+
+/**
+ * Данные для модального окна Заказа
+ */
+export type OrderData = {
+    orderId: string;
+    chosenIngredients: ChosenIngredients;
+};
+
+export type DataForModal = {
+    type: ModalType;
+    orderData?: OrderData;
+    ingredientData?: IngredientDeatilsData;
 };

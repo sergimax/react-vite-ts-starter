@@ -1,6 +1,6 @@
-import { IngredientWithCounter, ModalContent } from '../../types/types';
+import { DataForModal, IngredientWithCounter } from '../../types/types';
 
 export type IngredientCardProps = {
     data: IngredientWithCounter;
-    onIngredientClick: (modalData: ModalContent) => void;
+    onIngredientClick: (data: DataForModal) => void;
 };

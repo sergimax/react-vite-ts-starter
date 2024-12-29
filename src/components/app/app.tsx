@@ -3,6 +3,7 @@ import { AppHeader } from '../app-header';
 import styles from './app.module.css';
 import {
     ChosenIngredients,
+    DataForModal,
     Ingredient,
     IngredientTypeName,
     ModalContent,
@@ -10,7 +11,7 @@ import {
 } from '../../types/types';
 import { BurgerIngredients } from '../burger-ingredients';
 import { BurgerConstructor } from '../burger-constructor';
-import { API_ENDPOINT, API_URL } from '../../constants/constants';
+import { API_ENDPOINT, API_URL, MODAL_TYPE } from '../../constants/constants';
 import { GetIngredientsDTO } from './types';
 import { Modal } from '../modal';
 
@@ -26,12 +27,25 @@ function App() {
     // TODO Вынести в кастомный хук
     const [isModalShown, setIsModalShown] = useState(false);
     const [modalData, setModalData] = useState<ModalContent | null>(null);
+
     const closeModal = () => {
         setModalData(null);
         setIsModalShown(false);
     };
-    const openModal = (content: ModalContent) => {
-        setModalData(content);
+
+    const openModal = (data: DataForModal): void => {
+        if (data.type === MODAL_TYPE.ORDER && data.orderData) {
+            console.log('openModal', data.type, data.orderData);
+        }
+
+        if (
+            data.type === MODAL_TYPE.INGREDIENT_DETAILS &&
+            data.ingredientData
+        ) {
+            console.log('openModal', data.type, data.ingredientData);
+        }
+
+        // setModalData(content);
         setIsModalShown(true);
     };
 
