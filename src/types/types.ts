@@ -1,3 +1,8 @@
+import { MODAL_TYPE } from '../constants/constants';
+
+/**
+ * Данные по ингредиенту
+ */
 export type Ingredient = {
     _id: string;
     name: string;
@@ -23,7 +28,16 @@ export enum IngredientTypeName {
 }
 
 /**
- * Данные об ингридиенте с учетом количества выбранных для использования
+ * Наименования категорий ингредиентов на русском
+ */
+export enum IngredientCategoryTypeLocalName {
+    BUN = 'Булки',
+    MAIN = 'Начинки',
+    SAUCE = 'Соусы',
+}
+
+/**
+ * Данные об ингредиенте с учетом количества выбранных для использования
  */
 export type IngredientWithCounter = Ingredient & {
     quantity?: number;
@@ -44,4 +58,42 @@ export enum Page {
 export type ChosenIngredients = {
     bun: Ingredient | null;
     ingredients: Array<Ingredient>;
+};
+
+/**
+ * Содержимое модального окна
+ */
+export type ModalContent = {
+    title?: string;
+    content: JSX.Element;
+};
+
+/**
+ * Типы модального окна
+ */
+export type ModalType = keyof typeof MODAL_TYPE;
+
+/**
+ * Данные для модального окна Деталей о ингредиенте
+ */
+export type IngredientDeatilsData = {
+    title: string;
+    ingredientId: string;
+};
+
+/**
+ * Данные для модального окна Заказа
+ */
+export type OrderData = {
+    orderId: string;
+    chosenIngredients: ChosenIngredients;
+};
+
+/**
+ * Данные для модального окна
+ */
+export type DataForModal = {
+    type: ModalType;
+    orderData?: OrderData;
+    ingredientData?: IngredientDeatilsData;
 };

@@ -4,17 +4,18 @@ import {
     CurrencyIcon,
     DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import styles from './style.module.css';
 import { BurgerConstructorProps } from './types';
+import { DEFAULT_ORDER_ID } from './constants';
+import { MODAL_TYPE } from '../../constants/constants';
+import styles from './style.module.css';
 
 /**
  * Текущий состав бургера
  */
 export const BurgerConstructor = ({
     chosenIngredients,
+    onFormAnOrderClick,
 }: BurgerConstructorProps) => {
-    console.log('chosenIngredients', chosenIngredients);
-
     const containerClass: string = `pl-4 pt-25 ${styles.container}`;
     const calculationClass: string = `mt-10 mr-4 ${styles.calculation}`;
 
@@ -73,6 +74,15 @@ export const BurgerConstructor = ({
                     type="primary"
                     size="large"
                     extraClass="ml-10"
+                    onClick={() =>
+                        onFormAnOrderClick({
+                            type: MODAL_TYPE.ORDER,
+                            orderData: {
+                                orderId: DEFAULT_ORDER_ID,
+                                chosenIngredients,
+                            },
+                        })
+                    }
                 >
                     Оформить заказ
                 </Button>

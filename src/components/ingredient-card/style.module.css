@@ -4,6 +4,7 @@
     align-items: center;
     max-width: 272px;
     position: relative;
+    cursor: pointer;
 }
 
 .content:nth-child(even) {

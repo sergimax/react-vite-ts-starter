@@ -1,4 +1,8 @@
-import { IngredientTypeName, IngredientWithCounter } from '../../types/types';
+import {
+    DataForModal,
+    Ingredient,
+    IngredientTypeName,
+} from '../../types/types';
 
 export type IngredientCategory = {
     value: string;
@@ -7,6 +11,6 @@ export type IngredientCategory = {
 };
 
 export type BurgerIngredientsProps = {
-    // FIXME убрать undefined после проработки запроса за данными
-    ingredients: Map<string, Array<IngredientWithCounter>> | undefined;
+    ingredients: Array<Ingredient>;
+    onIngredientClick: (data: DataForModal) => void;
 };

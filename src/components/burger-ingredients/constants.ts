@@ -1,20 +1,23 @@
-import { IngredientTypeName } from "../../types/types";
-import { IngredientCategory } from "./types";
+import {
+    IngredientCategoryTypeLocalName,
+    IngredientTypeName,
+} from '../../types/types';
+import { IngredientCategory } from './types';
 
 export const ingredientCategories: Array<IngredientCategory> = [
     {
-        value: 'Булки',
-        title: 'Булки',
+        value: IngredientCategoryTypeLocalName.BUN,
+        title: IngredientCategoryTypeLocalName.BUN,
         typeName: IngredientTypeName.BUN,
     },
     {
-        value: 'Соусы',
-        title: 'Соусы',
+        value: IngredientCategoryTypeLocalName.SAUCE,
+        title: IngredientCategoryTypeLocalName.SAUCE,
         typeName: IngredientTypeName.SAUCE,
     },
     {
-        value: 'Начинки',
-        title: 'Начинки',
+        value: IngredientCategoryTypeLocalName.MAIN,
+        title: IngredientCategoryTypeLocalName.MAIN,
         typeName: IngredientTypeName.MAIN,
     },
 ];
