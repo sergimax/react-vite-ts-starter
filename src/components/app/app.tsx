@@ -1,18 +1,21 @@
 import { useEffect, useState } from 'react';
 import { AppHeader } from '../app-header';
-import styles from './app.module.css';
+import { BurgerConstructor } from '../burger-constructor';
+import { BurgerIngredients } from '../burger-ingredients';
+import { IngredientDetails } from '../ingredient-details';
+import { Modal } from '../modal';
+import { OrderDetails } from '../order-details';
 import {
     ChosenIngredients,
+    DataForModal,
     Ingredient,
     IngredientTypeName,
     ModalContent,
     Page,
 } from '../../types/types';
-import { BurgerIngredients } from '../burger-ingredients';
-import { BurgerConstructor } from '../burger-constructor';
-import { API_ENDPOINT, API_URL } from '../../constants/constants';
 import { GetIngredientsDTO } from './types';
-import { Modal } from '../modal';
+import { API_ENDPOINT, API_URL, MODAL_TYPE } from '../../constants/constants';
+import styles from './app.module.css';
 
 function App() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -26,13 +29,35 @@ function App() {
     // TODO Вынести в кастомный хук
     const [isModalShown, setIsModalShown] = useState(false);
     const [modalData, setModalData] = useState<ModalContent | null>(null);
+
     const closeModal = () => {
         setModalData(null);
         setIsModalShown(false);
     };
-    const openModal = (content: ModalContent) => {
-        setModalData(content);
-        setIsModalShown(true);
+
+    const openModal = (data: DataForModal): void => {
+        if (data.type === MODAL_TYPE.ORDER && data.orderData) {
+            setModalData({
+                content: <OrderDetails orderId={data.orderData.orderId} />,
+            });
+            setIsModalShown(true);
+        }
+
+        if (
+            data.type === MODAL_TYPE.INGREDIENT_DETAILS &&
+            data.ingredientData
+        ) {
+            const ingredientData = ingredients.find(
+                (element) => element._id === data.ingredientData?.ingredientId
+            );
+
+            ingredientData &&
+                setModalData({
+                    title: data.ingredientData.title,
+                    content: <IngredientDetails data={ingredientData} />,
+                });
+            setIsModalShown(true);
+        }
     };
 
     useEffect(() => {
@@ -102,7 +127,10 @@ function App() {
 
     return (
         <>
+            {/* Блок заголовка страницы */}
             <AppHeader activePage={activePage} />
+
+            {/* Блок основного содержимого страницы */}
             <main className={styles.main}>
                 {isLoading ? (
                     <h1 className="text_type_main-large pt-10 pb-5">
@@ -125,6 +153,8 @@ function App() {
                     )
                 )}
             </main>
+
+            {/* Блок модального окна */}
             {isModalShown && modalData && (
                 <Modal
                     title={modalData.title}

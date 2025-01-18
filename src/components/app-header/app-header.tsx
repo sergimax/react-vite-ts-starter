@@ -4,9 +4,9 @@ import {
     Logo,
     ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import styles from './style.module.css';
 import { AppHeaderProps } from './types';
 import { Page } from '../../types/types';
+import styles from './style.module.css';
 
 /**
  * Шапка приложения

@@ -1,6 +1,6 @@
-import { ChosenIngredients, ModalContent } from '../../types/types';
+import { ChosenIngredients, DataForModal } from '../../types/types';
 
 export type BurgerConstructorProps = {
     chosenIngredients: ChosenIngredients;
-    onFormAnOrderClick: (content: ModalContent) => void;
+    onFormAnOrderClick: (data: DataForModal) => void;
 };

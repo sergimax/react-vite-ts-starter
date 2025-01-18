@@ -1,9 +1,9 @@
+import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ModalOverlay } from '../modal-overlay';
 import { ModalProps } from './types';
 import styles from './modal.module.css';
-import { createPortal } from 'react-dom';
-import { ModalOverlay } from '../modal-overlay';
-import { useEffect } from 'react';
 
 export const Modal = ({ title = '', children, onClose }: ModalProps) => {
     const modalClasses: string = `${styles.container}`;
@@ -38,6 +38,7 @@ export const Modal = ({ title = '', children, onClose }: ModalProps) => {
                     <CloseIcon
                         type="primary"
                         onClick={onClose}
+                        className={styles["close-icon"]}
                     />
                 </div>
                 <div className={contentClasses}>{children}</div>
