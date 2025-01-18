@@ -16,7 +16,9 @@ export type IngredientsState = {
     // объект созданного заказа.
     order?: number;
 
-    // загружены ли ингредиенты
+    // Завершена ли загрузка
     isLoaded: boolean;
+    // Производится ли загрузка
+    isLoading: boolean
     error?: string;
 };

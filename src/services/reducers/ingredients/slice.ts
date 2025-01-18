@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { INGREDIENTS_STATE_NAME } from './constants';
 import { fetchIngredients } from './thunks';
 import { IngredientsState } from './types';
+import { Ingredient, IngredientTypeName } from '../../../types/types';
 
 const initialState: IngredientsState = {
     ingredients: [],
@@ -10,6 +11,7 @@ const initialState: IngredientsState = {
     order: undefined,
 
     isLoaded: false,
+    isLoading: false,
     error: undefined,
 };
 
@@ -48,15 +50,36 @@ const ingredientsSlice = createSlice({
     },
     extraReducers(builder) {
         builder
+            .addCase(fetchIngredients.pending, (state, action) => {
+                state.isLoading = true;
+            })
             .addCase(fetchIngredients.fulfilled, (state, action) => {
-                console.log('fetchIngredients.fulfilled');
-                console.log(action);
+                state.isLoading = false;
                 state.isLoaded = true;
+                state.ingredients = action.payload.data;
+
+                const someBun: Ingredient | undefined =
+                    action.payload.data.find(
+                        (ingredient) =>
+                            ingredient.type === IngredientTypeName.BUN
+                    );
+
+                if (!someBun) {
+                    state.error =
+                        'Ошибка получения списка ингредиентов. Отсутствуют булки среди ингредиентов';
+
+                    console.error(
+                        'Ошибка получения списка ингредиентов. Отсутствуют булки среди ингредиентов'
+                    );
+                } else {
+                    state.constructorContent = {
+                        ...state.constructorContent,
+                        bun: someBun,
+                    };
+                }
             })
             .addCase(fetchIngredients.rejected, (state, action) => {
-                console.log('fetchIngredients.rejected');
-                console.log(action);
-
+                state.isLoading = false;
                 state.isLoaded = true;
                 state.error = action.payload;
             });

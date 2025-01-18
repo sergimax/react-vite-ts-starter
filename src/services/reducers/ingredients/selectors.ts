@@ -5,10 +5,13 @@ const rootSelector = (state: AppState) => state.model.ingredients;
 export const ingredientsIsLoadedSelector = (state: AppState) =>
     rootSelector(state).isLoaded;
 
+export const ingredientsIsLoadingSelector = (state: AppState) =>
+    rootSelector(state).isLoading;
+
 export const ingredientsErrorSelector = (state: AppState) =>
     rootSelector(state).error;
 
-export const ingredientsListErrorSelector = (state: AppState) =>
+export const ingredientsListSelector = (state: AppState) =>
     rootSelector(state).ingredients;
 
 export const ingredientsConstructorContentSelector = (state: AppState) =>
