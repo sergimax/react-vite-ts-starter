@@ -18,6 +18,33 @@ const ingredientsSlice = createSlice({
     initialState,
     reducers: {
         resetIngredientsState: () => initialState,
+        setConstructorIngredients: (state, action) => {
+            const { value } = action.payload;
+
+            // TODO Добавить добравление ингредиента в список?
+            state.constructorContent = {
+                ...state.constructorContent,
+                ingredients: value,
+            };
+        },
+        setConstructorBun: (state, action) => {
+            const { value } = action.payload;
+
+            state.constructorContent = {
+                ...state.constructorContent,
+                bun: value,
+            };
+        },
+        setIngredientInfo: (state, action) => {
+            const { value } = action.payload;
+
+            state.ingredientInfo = value;
+        },
+        setOrderValue: (state, action) => {
+            const { value } = action.payload;
+
+            state.order = value;
+        },
     },
     extraReducers(builder) {
         builder
