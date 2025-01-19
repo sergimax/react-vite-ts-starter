@@ -17,6 +17,8 @@ import {
     ingredientsIsLoadingSelector,
     ingredientsListSelector,
 } from '../../services/reducers/ingredients/selectors';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 function App() {
     const dispatch = useAppDispatch();
@@ -93,31 +95,33 @@ function App() {
             {/* Блок заголовка страницы */}
             <AppHeader activePage={activePage} />
 
-            {/* Блок основного содержимого страницы */}
-            <main className={styles.main}>
-                {isIngredientsLoding ? (
-                    <h1 className="text_type_main-large pt-10 pb-5">
-                        Загрузка списка продуктов
-                    </h1>
-                ) : errorWithIngredientsFetch ? (
-                    <h1 className="text_type_main-large pt-10 pb-5">
-                        {errorWithIngredientsFetch}
-                    </h1>
-                ) : (
-                    ingredientsList.length > 0 && (
-                        <>
-                            <BurgerIngredients
-                                ingredients={ingredientsList}
-                                onIngredientClick={openModal}
-                            />
-                            <BurgerConstructor
-                                chosenIngredients={constructorContent}
-                                onFormAnOrderClick={openModal}
-                            />
-                        </>
-                    )
-                )}
-            </main>
+            <DndProvider backend={HTML5Backend}>
+                {/* Блок основного содержимого страницы */}
+                <main className={styles.main}>
+                    {isIngredientsLoding ? (
+                        <h1 className="text_type_main-large pt-10 pb-5">
+                            Загрузка списка продуктов
+                        </h1>
+                    ) : errorWithIngredientsFetch ? (
+                        <h1 className="text_type_main-large pt-10 pb-5">
+                            {errorWithIngredientsFetch}
+                        </h1>
+                    ) : (
+                        ingredientsList.length > 0 && (
+                            <>
+                                <BurgerIngredients
+                                    ingredients={ingredientsList}
+                                    onIngredientClick={openModal}
+                                />
+                                <BurgerConstructor
+                                    chosenIngredients={constructorContent}
+                                    onFormAnOrderClick={openModal}
+                                />
+                            </>
+                        )
+                    )}
+                </main>
+            </DndProvider>
 
             {/* Блок модального окна */}
             {isModalShown && modalData && (
