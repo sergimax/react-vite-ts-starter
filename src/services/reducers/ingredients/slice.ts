@@ -58,13 +58,23 @@ const ingredientsSlice = createSlice({
                 state.isLoaded = true;
                 state.ingredients = action.payload.data;
 
-                const someBun: Ingredient | undefined =
+                /**
+                 * Проверка наличия и выбор булки для отображения в конструкторе бургера
+                 *
+                 * Поскольку в макетах и по заданию спринта 1:
+                 * 1. по умолчанию присутсвует булка
+                 * 2. не было обозначено возможности отсуствия булки в бургере, отсутсвует макет
+                 * 3. все расчеты (лента заказов, единичный заказ) ведутся с учетом наличия булки
+                 */
+
+                // Булка для подстановки в конструктор по умолчанию
+                const defaultBun: Ingredient | undefined =
                     action.payload.data.find(
                         (ingredient) =>
                             ingredient.type === IngredientTypeName.BUN
                     );
 
-                if (!someBun) {
+                if (!defaultBun) {
                     state.error =
                         'Ошибка получения списка ингредиентов. Отсутствуют булки среди ингредиентов';
 
@@ -74,7 +84,7 @@ const ingredientsSlice = createSlice({
                 } else {
                     state.constructorContent = {
                         ...state.constructorContent,
-                        bun: someBun,
+                        bun: defaultBun,
                     };
                 }
             })
