@@ -5,11 +5,7 @@ import { BurgerIngredients } from '../burger-ingredients';
 import { IngredientDetails } from '../ingredient-details';
 import { Modal } from '../modal';
 import { OrderDetails } from '../order-details';
-import {
-    DataForModal,
-    ModalContent,
-    Page,
-} from '../../types/types';
+import { DataForModal, ModalContent, Page } from '../../types/types';
 import { MODAL_TYPE } from '../../constants/constants';
 import styles from './app.module.css';
 import { fetchIngredients } from '../../services/reducers/ingredients/thunks';
@@ -40,11 +36,16 @@ function App() {
     const [isModalShown, setIsModalShown] = useState(false);
     const [modalData, setModalData] = useState<ModalContent | null>(null);
 
+    // Закрытие модального окна
     const closeModal = () => {
         setModalData(null);
         setIsModalShown(false);
     };
 
+    /**
+     * Открыть модальное окно с передачей данный для отображения
+     * @param { DataForModal } data Описание отображаемых данных
+     */
     const openModal = (data: DataForModal): void => {
         if (data.type === MODAL_TYPE.ORDER && data.orderData) {
             setModalData({
@@ -75,6 +76,7 @@ function App() {
         dispatch(fetchIngredients());
     }, [dispatch]);
 
+    //FIXME убрать?
     useEffect(() => {
         if (isIngredientsLoaded && !errorWithIngredientsFetch) {
             console.log('isIngredientsLoaded');
