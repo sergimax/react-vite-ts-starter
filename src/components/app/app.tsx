@@ -98,7 +98,9 @@ function App() {
                         Загрузка списка продуктов
                     </h1>
                 ) : errorWithIngredientsFetch ? (
-                    <h1 className="text_type_main-large pt-10 pb-5">{error}</h1>
+                    <h1 className="text_type_main-large pt-10 pb-5">
+                        {errorWithIngredientsFetch}
+                    </h1>
                 ) : (
                     ingredientsList.length > 0 && (
                         <>
