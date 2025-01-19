@@ -32,14 +32,26 @@ const ingredientsSlice = createSlice({
                 ...value,
                 uniqueId: uniqueId,
             };
+            console.log(uniqueId);
 
-            // TODO Добавить добравление ингредиента в список?
             state.constructorContent = {
                 ...state.constructorContent,
                 ingredients: [
                     ...state.constructorContent.ingredients,
                     newIngredient,
                 ],
+            };
+        },
+        deleteCoonstructorIngredient: (state, action) => {
+            console.log('> deleteCoonstructorIngredient');
+
+            const { value } = action.payload;
+
+            state.constructorContent = {
+                ...state.constructorContent,
+                ingredients: state.constructorContent.ingredients.filter(
+                    (ingredient) => ingredient.uniqueId != value.uniqueId
+                ),
             };
         },
         setConstructorBun: (state, action) => {
@@ -121,6 +133,7 @@ export const {
     setConstructorBun,
     setIngredientInfo,
     setOrderValue,
+    deleteCoonstructorIngredient,
 } = ingredientsSlice.actions;
 
 export const ingredientsReducer = ingredientsSlice.reducer;

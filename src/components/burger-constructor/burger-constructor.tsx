@@ -11,9 +11,11 @@ import styles from './style.module.css';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { useDrop } from 'react-dnd';
 import {
+    deleteCoonstructorIngredient,
     setConstructorBun,
     setConstructorIngredients,
 } from '../../services/reducers/ingredients';
+import { UniqueIngredientItem } from '../../types/types';
 
 /**
  * Текущий состав бургера
@@ -54,6 +56,16 @@ export const BurgerConstructor = ({
         return <></>;
     }
 
+    function handleDeleteIngredient(ingredient: UniqueIngredientItem) {
+        console.log('ingredient', ingredient);
+
+        dispatch(
+            deleteCoonstructorIngredient({
+                value: ingredient,
+            })
+        );
+    }
+
     return (
         <section
             className={containerClass}
@@ -74,14 +86,16 @@ export const BurgerConstructor = ({
             {/* Начинка бургера */}
             <div className={styles.ingredients}>
                 {chosenIngredients.ingredients &&
-                    chosenIngredients.ingredients.map((ingredient, index) => (
-                        <div key={index}>
+                    chosenIngredients.ingredients.map((ingredient) => (
+                        <div key={ingredient.uniqueId}>
                             <DragIcon type="primary" />
                             <ConstructorElement
                                 text={ingredient.name}
                                 price={ingredient.price}
                                 thumbnail={ingredient.image_mobile}
-                                handleClose={() => console.log('handleClose')}
+                                handleClose={() =>
+                                    handleDeleteIngredient(ingredient)
+                                }
                                 extraClass="ml-2 mb-4"
                             />
                         </div>
