@@ -5,6 +5,7 @@ import {
 import { IngredientCardProps } from './types';
 import { MODAL_TYPE } from '../../constants/constants';
 import styles from './style.module.css';
+import { useDrag } from 'react-dnd';
 
 export const IngredientCard = ({
     data,
@@ -14,6 +15,11 @@ export const IngredientCard = ({
     const imageClass: string = `pl-4 pr-4 pb-1 ${styles.image}`;
     const priceClass: string = `pb-1 ${styles.price}`;
     const nameClass: string = `text_type_main-default ${styles.name}`;
+
+    const [, dragRef] = useDrag({
+        type: 'ingredient',
+        item: data,
+    });
 
     return (
         <div
@@ -27,6 +33,7 @@ export const IngredientCard = ({
                     },
                 })
             }
+            ref={dragRef}
         >
             {data.quantity && data.quantity > 0 && (
                 <Counter
