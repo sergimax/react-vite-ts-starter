@@ -35,7 +35,7 @@ export const IngredientCard = ({
             }
             ref={dragRef}
         >
-            {data.quantity && data.quantity > 0 && (
+            {(!!data.quantity && data.quantity > 0) && (
                 <Counter
                     count={data.quantity}
                     size="default"

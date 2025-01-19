@@ -5,6 +5,7 @@ import { IngredientsState } from './types';
 import {
     Ingredient,
     IngredientTypeName,
+    IngredientWithCounter,
     UniqueIngredientItem,
 } from '../../../types/types';
 
@@ -41,6 +42,19 @@ const ingredientsSlice = createSlice({
                     newIngredient,
                 ],
             };
+
+            // Обновление счетчика ингредиента
+            state.ingredients = [...state.ingredients].map((ingredient) => {
+                if (ingredient._id !== newIngredient._id) {
+                    return ingredient;
+                }
+                if (ingredient.quantity) {
+                    ingredient.quantity++;
+                } else {
+                    ingredient.quantity = 1;
+                }
+                return ingredient;
+            });
         },
         deleteCoonstructorIngredient: (state, action) => {
             console.log('> deleteCoonstructorIngredient');
@@ -53,6 +67,17 @@ const ingredientsSlice = createSlice({
                     (ingredient) => ingredient.uniqueId != value.uniqueId
                 ),
             };
+
+            // Обновление счетчика ингредиента при удалении
+            state.ingredients = [...state.ingredients].map((ingredient) => {
+                if (ingredient._id !== value._id) {
+                    return ingredient;
+                }
+                if (ingredient.quantity) {
+                    ingredient.quantity--;
+                }
+                return ingredient;
+            });
         },
         setConstructorBun: (state, action) => {
             console.log('setConstructorBun');
@@ -67,6 +92,17 @@ const ingredientsSlice = createSlice({
                 ...state.constructorContent,
                 bun: newBun,
             };
+
+            // Обновление счетчика булки
+            state.ingredients = [...state.ingredients].map((ingredient) => {
+                if (ingredient._id !== newBun._id) {
+                    ingredient.quantity = 0;
+                    return ingredient;
+                } else {
+                    ingredient.quantity = 1;
+                    return ingredient;
+                }
+            });
         },
         setIngredientInfo: (state, action) => {
             const { value } = action.payload;
@@ -99,7 +135,7 @@ const ingredientsSlice = createSlice({
                  */
 
                 // Булка для подстановки в конструктор по умолчанию
-                const defaultBun: Ingredient | undefined =
+                const defaultBun: IngredientWithCounter | undefined =
                     action.payload.data.find(
                         (ingredient) =>
                             ingredient.type === IngredientTypeName.BUN
@@ -113,9 +149,11 @@ const ingredientsSlice = createSlice({
                         'Ошибка получения списка ингредиентов. Отсутствуют булки среди ингредиентов'
                     );
                 } else {
+                    defaultBun.quantity = 1;
+
                     state.constructorContent = {
                         ...state.constructorContent,
-                        bun: defaultBun,
+                        bun: { ...defaultBun, uniqueId: Date.now() },
                     };
                 }
             })

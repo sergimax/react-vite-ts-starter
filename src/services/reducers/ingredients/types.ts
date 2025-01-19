@@ -1,4 +1,4 @@
-import { ChosenIngredients, Ingredient } from '../../../types/types';
+import { ChosenIngredients, Ingredient, IngredientWithCounter } from '../../../types/types';
 import { AppState } from '../../store';
 
 export type FetchIngredientsAsyncThunkConfig = {
@@ -8,7 +8,7 @@ export type FetchIngredientsAsyncThunkConfig = {
 
 export type IngredientsState = {
     // список всех полученных ингредиентов,
-    ingredients: Array<Ingredient>;
+    ingredients: Array<IngredientWithCounter>;
     // список всех ингредиентов в текущем конструкторе бургера,
     constructorContent: ChosenIngredients;
     // объект текущего просматриваемого ингредиента,
