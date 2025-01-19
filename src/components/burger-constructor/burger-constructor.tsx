@@ -21,6 +21,7 @@ import {
 } from '../../services/reducers/ingredients/selectors';
 import { useEffect, useMemo } from 'react';
 import { BurgerConstructorIngredient } from '../burger-constructor-ingredient';
+import { v4 as uuidv4 } from 'uuid';
 
 /**
  * Текущий состав бургера
@@ -45,14 +46,14 @@ export const BurgerConstructor = ({
                 dispatch(
                     setConstructorBun({
                         value: item,
-                        uniqueId: Date.now(),
+                        uniqueId: uuidv4(),
                     })
                 );
             } else {
                 dispatch(
                     setConstructorIngredients({
                         value: item,
-                        uniqueId: Date.now(),
+                        uniqueId: uuidv4(),
                     })
                 );
             }
