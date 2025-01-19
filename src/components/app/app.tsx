@@ -78,14 +78,6 @@ function App() {
         dispatch(fetchIngredients());
     }, [dispatch]);
 
-    //FIXME убрать?
-    useEffect(() => {
-        if (isIngredientsLoaded && !errorWithIngredientsFetch) {
-            console.log('isIngredientsLoaded');
-            console.log('ingredientsList', ingredientsList);
-        }
-    }, [isIngredientsLoaded, errorWithIngredientsFetch]);
-
     useEffect(() => {
         setActivePage(Page.CONSTRUCTOR);
     }, []);

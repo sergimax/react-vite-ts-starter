@@ -25,14 +25,11 @@ const ingredientsSlice = createSlice({
     reducers: {
         resetIngredientsState: () => initialState,
         setConstructorIngredients: (state, action) => {
-            console.log('> setConstructorIngredients');
-
             const { value, uniqueId } = action.payload;
             const newIngredient: UniqueIngredientItem = {
                 ...value,
                 uniqueId: uniqueId,
             };
-            console.log(uniqueId);
 
             state.constructorContent = {
                 ...state.constructorContent,
@@ -56,8 +53,6 @@ const ingredientsSlice = createSlice({
             });
         },
         deleteCoonstructorIngredient: (state, action) => {
-            console.log('> deleteCoonstructorIngredient');
-
             const { value } = action.payload;
 
             state.constructorContent = {
@@ -79,8 +74,6 @@ const ingredientsSlice = createSlice({
             });
         },
         setConstructorBun: (state, action) => {
-            console.log('setConstructorBun');
-
             const { value, uniqueId } = action.payload;
             const newBun: UniqueIngredientItem = {
                 ...value,

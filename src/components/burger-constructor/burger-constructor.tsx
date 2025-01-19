@@ -37,8 +37,6 @@ export const BurgerConstructor = ({
         accept: 'ingredient',
         drop(item) {
             if (item.type === 'bun') {
-                console.log('BUN');
-                console.log('item', item);
                 dispatch(
                     setConstructorBun({
                         value: item,
