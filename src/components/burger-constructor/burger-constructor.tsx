@@ -5,7 +5,6 @@ import {
     DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { BurgerConstructorProps } from './types';
-import { DEFAULT_ORDER_ID } from './constants';
 import { MODAL_TYPE } from '../../constants/constants';
 import styles from './style.module.css';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
@@ -19,6 +18,7 @@ import { UniqueIngredientItem } from '../../types/types';
 import { createOrder } from '../../services/reducers/ingredients/thunks';
 import { ingredientsOrderSelector } from '../../services/reducers/ingredients/selectors';
 import { useEffect, useMemo } from 'react';
+import { BurgerConstructorIngredient } from '../burger-constructor-ingredient';
 
 /**
  * Текущий состав бургера
@@ -85,16 +85,16 @@ export const BurgerConstructor = ({
         }
     }, [orderNumber]);
 
-    if (!chosenIngredients.bun) {
-        return <></>;
-    }
-
     function handleDeleteIngredient(ingredient: UniqueIngredientItem) {
         dispatch(
             deleteCoonstructorIngredient({
                 value: ingredient,
             })
         );
+    }
+
+    if (!chosenIngredients.bun) {
+        return <></>;
     }
 
     return (
@@ -117,19 +117,17 @@ export const BurgerConstructor = ({
             {/* Начинка бургера */}
             <div className={styles.ingredients}>
                 {chosenIngredients.ingredients &&
-                    chosenIngredients.ingredients.map((ingredient) => (
-                        <div key={ingredient.uniqueId}>
-                            <DragIcon type="primary" />
-                            <ConstructorElement
-                                text={ingredient.name}
-                                price={ingredient.price}
-                                thumbnail={ingredient.image_mobile}
-                                handleClose={() =>
-                                    handleDeleteIngredient(ingredient)
-                                }
-                                extraClass="ml-2 mb-4"
-                            />
-                        </div>
+                    chosenIngredients.ingredients.map((ingredient, index) => (
+                        <BurgerConstructorIngredient
+                            text={ingredient.name}
+                            price={ingredient.price}
+                            thumbnail={ingredient.image_mobile}
+                            handleClose={() =>
+                                handleDeleteIngredient(ingredient)
+                            }
+                            key={ingredient.uniqueId}
+                            index={index}
+                        />
                     ))}
             </div>
 
