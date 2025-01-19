@@ -89,7 +89,7 @@ export type IngredientDeatilsData = {
  * Данные для модального окна Заказа
  */
 export type OrderData = {
-    orderId: string;
+    orderId: number;
     chosenIngredients: ChosenIngredients;
 };
 

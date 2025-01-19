@@ -16,6 +16,9 @@ import {
     setConstructorIngredients,
 } from '../../services/reducers/ingredients';
 import { UniqueIngredientItem } from '../../types/types';
+import { createOrder } from '../../services/reducers/ingredients/thunks';
+import { ingredientsOrderSelector } from '../../services/reducers/ingredients/selectors';
+import { useEffect } from 'react';
 
 /**
  * Текущий состав бургера
@@ -25,6 +28,8 @@ export const BurgerConstructor = ({
     onFormAnOrderClick,
 }: BurgerConstructorProps) => {
     const dispatch = useAppDispatch();
+
+    const orderNumber = useAppSelector(ingredientsOrderSelector);
 
     const containerClass: string = `pl-4 pt-25 ${styles.container}`;
     const calculationClass: string = `mt-10 mr-4 ${styles.calculation}`;
@@ -52,13 +57,23 @@ export const BurgerConstructor = ({
         },
     });
 
+    useEffect(() => {
+        if (orderNumber) {
+            onFormAnOrderClick({
+                type: MODAL_TYPE.ORDER,
+                orderData: {
+                    orderId: orderNumber,
+                    chosenIngredients,
+                },
+            });
+        }
+    }, [orderNumber]);
+
     if (!chosenIngredients.bun) {
         return <></>;
     }
 
     function handleDeleteIngredient(ingredient: UniqueIngredientItem) {
-        console.log('ingredient', ingredient);
-
         dispatch(
             deleteCoonstructorIngredient({
                 value: ingredient,
@@ -123,15 +138,16 @@ export const BurgerConstructor = ({
                     type="primary"
                     size="large"
                     extraClass="ml-10"
-                    onClick={() =>
-                        onFormAnOrderClick({
-                            type: MODAL_TYPE.ORDER,
-                            orderData: {
-                                orderId: DEFAULT_ORDER_ID,
-                                chosenIngredients,
-                            },
-                        })
-                    }
+                    onClick={() => {
+                        const list = [
+                            chosenIngredients.bun?._id,
+                            ...chosenIngredients.ingredients.map(
+                                (ingredient) => ingredient._id
+                            ),
+                        ];
+
+                        dispatch(createOrder(list));
+                    }}
                 >
                     Оформить заказ
                 </Button>

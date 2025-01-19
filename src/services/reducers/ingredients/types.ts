@@ -6,6 +6,11 @@ export type FetchIngredientsAsyncThunkConfig = {
     rejectValue: string;
 };
 
+export type PostOrderAsyncThunkConfig = {
+    state: AppState;
+    rejectValue: string;
+};
+
 export type IngredientsState = {
     // список всех полученных ингредиентов,
     ingredients: Array<IngredientWithCounter>;

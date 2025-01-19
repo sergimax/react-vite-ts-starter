@@ -18,7 +18,7 @@ export const ingredientsConstructorContentSelector = (state: AppState) =>
     rootSelector(state).constructorContent;
 
 export const ingredientsOrderSelector = (state: AppState) =>
-    rootSelector(state).constructorContent;
+    rootSelector(state).order;
 
 export const ingredientsInfoSelector = (state: AppState) =>
     rootSelector(state).ingredientInfo;

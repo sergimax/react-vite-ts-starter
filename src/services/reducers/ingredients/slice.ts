@@ -1,9 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { INGREDIENTS_STATE_NAME } from './constants';
-import { fetchIngredients } from './thunks';
+import { createOrder, fetchIngredients } from './thunks';
 import { IngredientsState } from './types';
 import {
-    Ingredient,
     IngredientTypeName,
     IngredientWithCounter,
     UniqueIngredientItem,
@@ -117,7 +116,7 @@ const ingredientsSlice = createSlice({
     },
     extraReducers(builder) {
         builder
-            .addCase(fetchIngredients.pending, (state, action) => {
+            .addCase(fetchIngredients.pending, (state) => {
                 state.isLoading = true;
             })
             .addCase(fetchIngredients.fulfilled, (state, action) => {
@@ -160,6 +159,12 @@ const ingredientsSlice = createSlice({
             .addCase(fetchIngredients.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isLoaded = true;
+                state.error = action.payload;
+            })
+            .addCase(createOrder.fulfilled, (state, action) => {
+                state.order = action.payload.order.number;
+            })
+            .addCase(createOrder.rejected, (state, action) => {
                 state.error = action.payload;
             });
     },
