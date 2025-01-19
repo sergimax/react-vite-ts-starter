@@ -15,7 +15,10 @@ import {
 } from '../../services/reducers/ingredients';
 import { UniqueIngredientItem } from '../../types/types';
 import { createOrder } from '../../services/reducers/ingredients/thunks';
-import { ingredientsOrderSelector } from '../../services/reducers/ingredients/selectors';
+import {
+    ingredientsConstructorContentSelector,
+    ingredientsOrderSelector,
+} from '../../services/reducers/ingredients/selectors';
 import { useEffect, useMemo } from 'react';
 import { BurgerConstructorIngredient } from '../burger-constructor-ingredient';
 
@@ -23,12 +26,14 @@ import { BurgerConstructorIngredient } from '../burger-constructor-ingredient';
  * Текущий состав бургера
  */
 export const BurgerConstructor = ({
-    chosenIngredients,
     onFormAnOrderClick,
 }: BurgerConstructorProps) => {
     const dispatch = useAppDispatch();
 
     const orderNumber = useAppSelector(ingredientsOrderSelector);
+    const chosenIngredients = useAppSelector(
+        ingredientsConstructorContentSelector
+    );
 
     const containerClass: string = `pl-4 pt-25 ${styles.container}`;
     const calculationClass: string = `mt-10 mr-4 ${styles.calculation}`;

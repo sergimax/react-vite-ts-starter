@@ -11,9 +11,7 @@ import styles from './app.module.css';
 import { fetchIngredients } from '../../services/reducers/ingredients/thunks';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import {
-    ingredientsConstructorContentSelector,
     ingredientsErrorSelector,
-    ingredientsIsLoadedSelector,
     ingredientsIsLoadingSelector,
     ingredientsListSelector,
 } from '../../services/reducers/ingredients/selectors';
@@ -23,13 +21,9 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 function App() {
     const dispatch = useAppDispatch();
 
-    const isIngredientsLoaded = useAppSelector(ingredientsIsLoadedSelector);
     const isIngredientsLoding = useAppSelector(ingredientsIsLoadingSelector);
     const ingredientsList = useAppSelector(ingredientsListSelector);
     const errorWithIngredientsFetch = useAppSelector(ingredientsErrorSelector);
-    const constructorContent = useAppSelector(
-        ingredientsConstructorContentSelector
-    );
 
     const [activePage, setActivePage] = useState<Page>(Page.CONSTRUCTOR);
 
@@ -102,11 +96,9 @@ function App() {
                         ingredientsList.length > 0 && (
                             <>
                                 <BurgerIngredients
-                                    ingredients={ingredientsList}
                                     onIngredientClick={openModal}
                                 />
                                 <BurgerConstructor
-                                    chosenIngredients={constructorContent}
                                     onFormAnOrderClick={openModal}
                                 />
                             </>

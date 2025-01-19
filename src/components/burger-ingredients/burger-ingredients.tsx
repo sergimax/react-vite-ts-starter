@@ -9,14 +9,17 @@ import {
 } from '../../types/types';
 import { ingredientCategories } from './constants';
 import styles from './style.module.css';
+import { useAppSelector } from '../../services/hooks';
+import { ingredientsListSelector } from '../../services/reducers/ingredients/selectors';
 
 /**
  * Cписок ингредиентов
  */
 export const BurgerIngredients = ({
-    ingredients,
     onIngredientClick,
 }: BurgerIngredientsProps) => {
+    const ingredients = useAppSelector(ingredientsListSelector);
+
     const titleClasses = `text_type_main-large pt-10 pb-5 ${styles.title}`;
     const [currentTab, setCurrentTab] = useState(ingredientCategories[0].value);
     const [isScrolling, setIsScrolling] = useState(false);
