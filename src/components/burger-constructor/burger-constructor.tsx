@@ -18,7 +18,7 @@ import {
 import { UniqueIngredientItem } from '../../types/types';
 import { createOrder } from '../../services/reducers/ingredients/thunks';
 import { ingredientsOrderSelector } from '../../services/reducers/ingredients/selectors';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 
 /**
  * Текущий состав бургера
@@ -56,6 +56,22 @@ export const BurgerConstructor = ({
             }
         },
     });
+
+    const totalSum = useMemo(() => {
+        let sum = 0;
+        if (chosenIngredients.bun) {
+            sum += chosenIngredients.bun?.price * 2;
+        }
+
+        if (chosenIngredients.ingredients.length) {
+            sum += chosenIngredients.ingredients.reduce(
+                (accumulator, current) => accumulator + current.price,
+                0
+            );
+        }
+
+        return sum;
+    }, [chosenIngredients]);
 
     useEffect(() => {
         if (orderNumber) {
@@ -131,7 +147,7 @@ export const BurgerConstructor = ({
 
             {/* Блок калькуляции и кнопки */}
             <div className={calculationClass}>
-                <span className="text_type_digits-medium pr-2">610</span>
+                <span className="text_type_digits-medium pr-2">{totalSum}</span>
                 <CurrencyIcon type="primary" />
                 <Button
                     htmlType="button"
