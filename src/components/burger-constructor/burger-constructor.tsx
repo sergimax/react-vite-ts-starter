@@ -2,7 +2,6 @@ import {
     Button,
     ConstructorElement,
     CurrencyIcon,
-    DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { BurgerConstructorProps } from './types';
 import { MODAL_TYPE } from '../../constants/constants';
@@ -119,9 +118,7 @@ export const BurgerConstructor = ({
                 {chosenIngredients.ingredients &&
                     chosenIngredients.ingredients.map((ingredient, index) => (
                         <BurgerConstructorIngredient
-                            text={ingredient.name}
-                            price={ingredient.price}
-                            thumbnail={ingredient.image_mobile}
+                            ingredient={ingredient}
                             handleClose={() =>
                                 handleDeleteIngredient(ingredient)
                             }
