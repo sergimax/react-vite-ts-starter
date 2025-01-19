@@ -8,6 +8,12 @@ import { BurgerConstructorProps } from './types';
 import { DEFAULT_ORDER_ID } from './constants';
 import { MODAL_TYPE } from '../../constants/constants';
 import styles from './style.module.css';
+import { useAppDispatch, useAppSelector } from '../../services/hooks';
+import { useDrop } from 'react-dnd';
+import {
+    setConstructorBun,
+    setConstructorIngredients,
+} from '../../services/reducers/ingredients';
 
 /**
  * Текущий состав бургера
@@ -16,15 +22,43 @@ export const BurgerConstructor = ({
     chosenIngredients,
     onFormAnOrderClick,
 }: BurgerConstructorProps) => {
+    const dispatch = useAppDispatch();
+
     const containerClass: string = `pl-4 pt-25 ${styles.container}`;
     const calculationClass: string = `mt-10 mr-4 ${styles.calculation}`;
+
+    const [, dropTarget] = useDrop({
+        accept: 'ingredient',
+        drop(item) {
+            if (item.type === 'bun') {
+                console.log('BUN');
+                console.log('item', item);
+                dispatch(
+                    setConstructorBun({
+                        value: item,
+                        uniqueId: Date.now(),
+                    })
+                );
+            } else {
+                dispatch(
+                    setConstructorIngredients({
+                        value: item,
+                        uniqueId: Date.now(),
+                    })
+                );
+            }
+        },
+    });
 
     if (!chosenIngredients.bun) {
         return <></>;
     }
 
     return (
-        <section className={containerClass}>
+        <section
+            className={containerClass}
+            ref={dropTarget}
+        >
             {/* Верхняя булка бургера */}
             {chosenIngredients.bun && (
                 <ConstructorElement
@@ -47,6 +81,7 @@ export const BurgerConstructor = ({
                                 text={ingredient.name}
                                 price={ingredient.price}
                                 thumbnail={ingredient.image_mobile}
+                                handleClose={() => console.log('handleClose')}
                                 extraClass="ml-2 mb-4"
                             />
                         </div>

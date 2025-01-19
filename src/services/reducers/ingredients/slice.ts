@@ -2,7 +2,11 @@ import { createSlice } from '@reduxjs/toolkit';
 import { INGREDIENTS_STATE_NAME } from './constants';
 import { fetchIngredients } from './thunks';
 import { IngredientsState } from './types';
-import { Ingredient, IngredientTypeName } from '../../../types/types';
+import {
+    Ingredient,
+    IngredientTypeName,
+    UniqueIngredientItem,
+} from '../../../types/types';
 
 const initialState: IngredientsState = {
     ingredients: [],
@@ -21,20 +25,35 @@ const ingredientsSlice = createSlice({
     reducers: {
         resetIngredientsState: () => initialState,
         setConstructorIngredients: (state, action) => {
-            const { value } = action.payload;
+            console.log('> setConstructorIngredients');
+
+            const { value, uniqueId } = action.payload;
+            const newIngredient: UniqueIngredientItem = {
+                ...value,
+                uniqueId: uniqueId,
+            };
 
             // TODO Добавить добравление ингредиента в список?
             state.constructorContent = {
                 ...state.constructorContent,
-                ingredients: value,
+                ingredients: [
+                    ...state.constructorContent.ingredients,
+                    newIngredient,
+                ],
             };
         },
         setConstructorBun: (state, action) => {
-            const { value } = action.payload;
+            console.log('setConstructorBun');
+
+            const { value, uniqueId } = action.payload;
+            const newBun: UniqueIngredientItem = {
+                ...value,
+                uniqueId: uniqueId,
+            };
 
             state.constructorContent = {
                 ...state.constructorContent,
-                bun: value,
+                bun: newBun,
             };
         },
         setIngredientInfo: (state, action) => {
@@ -96,6 +115,12 @@ const ingredientsSlice = createSlice({
     },
 });
 
-export const { resetIngredientsState } = ingredientsSlice.actions;
+export const {
+    resetIngredientsState,
+    setConstructorIngredients,
+    setConstructorBun,
+    setIngredientInfo,
+    setOrderValue,
+} = ingredientsSlice.actions;
 
 export const ingredientsReducer = ingredientsSlice.reducer;
