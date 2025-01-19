@@ -113,6 +113,24 @@ const ingredientsSlice = createSlice({
 
             state.order = value;
         },
+        moveIngredientsInConstructor: (state, action) => {
+            const { movedIngredientIndex, targetIngredientIndex } =
+                action.payload;
+            const newIngredientsOrder = [
+                ...state.constructorContent.ingredients,
+            ];
+
+            // Смена мест ингредиентов
+            [
+                newIngredientsOrder[movedIngredientIndex],
+                newIngredientsOrder[targetIngredientIndex],
+            ] = [
+                newIngredientsOrder[targetIngredientIndex],
+                newIngredientsOrder[movedIngredientIndex],
+            ];
+
+            state.constructorContent.ingredients = newIngredientsOrder;
+        },
     },
     extraReducers(builder) {
         builder
@@ -177,6 +195,7 @@ export const {
     setIngredientInfo,
     setOrderValue,
     deleteCoonstructorIngredient,
+    moveIngredientsInConstructor,
 } = ingredientsSlice.actions;
 
 export const ingredientsReducer = ingredientsSlice.reducer;
