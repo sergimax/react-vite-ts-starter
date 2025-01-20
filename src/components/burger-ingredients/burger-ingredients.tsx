@@ -9,16 +9,20 @@ import {
 } from '../../types/types';
 import { ingredientCategories } from './constants';
 import styles from './style.module.css';
+import { useAppSelector } from '../../services/hooks';
+import { ingredientsListSelector } from '../../services/reducers/ingredients/selectors';
 
 /**
  * Cписок ингредиентов
  */
 export const BurgerIngredients = ({
-    ingredients,
     onIngredientClick,
 }: BurgerIngredientsProps) => {
+    const ingredients = useAppSelector(ingredientsListSelector);
+
     const titleClasses = `text_type_main-large pt-10 pb-5 ${styles.title}`;
     const [currentTab, setCurrentTab] = useState(ingredientCategories[0].value);
+    const [isScrolling, setIsScrolling] = useState(false);
 
     const bunsList: Array<Ingredient> = useMemo(
         () =>
@@ -48,44 +52,76 @@ export const BurgerIngredients = ({
     const categoriesRef = useRef<HTMLDivElement>(null);
 
     /**
-     * Переключение категорий ингредиентов с скроллом до  выбранной
+     * Переключение категорий ингредиентов с скроллом до выбранной
+     * @param tabName Наименование выбранной вкладки
+     * @param isOnClick Производится переключение по клику
      */
-    useEffect(() => {
+    function changeCurrentTab(
+        tabName: string,
+        isOnClick: boolean = false
+    ): void {
+        setCurrentTab(tabName);
+
+        if (!isOnClick) {
+            return;
+        }
+
         const categoriesRefCurrent = categoriesRef.current;
         if (!categoriesRefCurrent) {
             return;
         }
 
-        switch (currentTab) {
+        setIsScrolling(true);
+
+        switch (tabName) {
             case IngredientCategoryTypeLocalName.BUN:
                 bunsRef.current &&
-                    categoriesRefCurrent.scrollTo({
+                    categoriesRefCurrent.scrollBy({
                         top:
                             bunsRef.current.getBoundingClientRect().y -
                             categoriesRefCurrent.getBoundingClientRect().y,
                         behavior: 'smooth',
                     });
-                return;
+                break;
             case IngredientCategoryTypeLocalName.SAUCE:
                 saucesRef.current &&
-                    categoriesRefCurrent.scrollTo({
+                    categoriesRefCurrent.scrollBy({
                         top:
                             saucesRef.current.getBoundingClientRect().y -
                             categoriesRefCurrent.getBoundingClientRect().y,
                         behavior: 'smooth',
                     });
-                return;
+                break;
             case IngredientCategoryTypeLocalName.MAIN:
                 mainsRef.current &&
-                    categoriesRefCurrent.scrollTo({
+                    categoriesRefCurrent.scrollBy({
                         top:
                             mainsRef.current.getBoundingClientRect().y -
                             categoriesRefCurrent.getBoundingClientRect().y,
                         behavior: 'smooth',
                     });
-                return;
+                break;
         }
-    }, [currentTab]);
+        setIsScrolling(false);
+    }
+
+    function onCategoriesScroll() {
+        if (!categoriesRef.current || !bunsRef.current) {
+            return;
+        }
+
+        const delta =
+            categoriesRef.current.getBoundingClientRect().y -
+            bunsRef.current.getBoundingClientRect().y;
+
+        if (delta >= 0 && delta < 195) {
+            changeCurrentTab(IngredientCategoryTypeLocalName.BUN);
+        } else if (delta >= 195 && delta < 812) {
+            changeCurrentTab(IngredientCategoryTypeLocalName.SAUCE);
+        } else {
+            changeCurrentTab(IngredientCategoryTypeLocalName.MAIN);
+        }
+    }
 
     return (
         <section className={styles['app-content-block']}>
@@ -98,7 +134,7 @@ export const BurgerIngredients = ({
                             key={index}
                             value={category.value}
                             active={currentTab === category.value}
-                            onClick={setCurrentTab}
+                            onClick={(value) => changeCurrentTab(value, true)}
                         >
                             {category.title}
                         </Tab>
@@ -108,6 +144,7 @@ export const BurgerIngredients = ({
             {/* Блок категорий продуктов */}
             <div
                 className={styles.categories}
+                onScroll={() => !isScrolling && onCategoriesScroll()}
                 ref={categoriesRef}
             >
                 <BurgerIngredientsCategory

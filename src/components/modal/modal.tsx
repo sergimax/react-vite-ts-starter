@@ -11,20 +11,20 @@ export const Modal = ({ title = '', children, onClose }: ModalProps) => {
     const titleClasses: string = `text_type_main-large  ${styles.title}`;
     const contentClasses: string = `pb-15 ${styles.content}`;
 
+    function handleEscapeKeyPress(event: KeyboardEvent): void {
+        event.key === 'Escape' && onClose();
+    }
+
     /**
      * Реакция на нажатие Escape
      */
     useEffect(() => {
-        document.addEventListener(
-            'keydown',
-            (event) => event.key === 'Escape' && onClose(),
-            false
-        );
+        document.addEventListener('keydown', handleEscapeKeyPress, false);
 
         return () => {
             document.removeEventListener(
                 'keydown',
-                (event) => event.key === 'Escape' && onClose(),
+                handleEscapeKeyPress,
                 false
             );
         };
@@ -38,7 +38,7 @@ export const Modal = ({ title = '', children, onClose }: ModalProps) => {
                     <CloseIcon
                         type="primary"
                         onClick={onClose}
-                        className={styles["close-icon"]}
+                        className={styles['close-icon']}
                     />
                 </div>
                 <div className={contentClasses}>{children}</div>

@@ -56,9 +56,13 @@ export enum Page {
  * Состав бургера
  */
 export type ChosenIngredients = {
-    bun: Ingredient | null;
-    ingredients: Array<Ingredient>;
+    bun: UniqueIngredientItem | null;
+    ingredients: Array<UniqueIngredientItem>;
 };
+
+export type UniqueIngredientItem = Ingredient & {
+    uniqueId: number,
+}
 
 /**
  * Содержимое модального окна
@@ -85,7 +89,7 @@ export type IngredientDeatilsData = {
  * Данные для модального окна Заказа
  */
 export type OrderData = {
-    orderId: string;
+    orderId: number;
     chosenIngredients: ChosenIngredients;
 };
 
