@@ -14,6 +14,11 @@ export type AccountState = {
     isExecuteResetLoaded: boolean;
     isExecuteResetLoading: boolean;
     isExecuteResetSuccessfull: boolean;
+
+    registerError?: string;
+    isRegisterLoaded: boolean;
+    isRegisterLoading: boolean;
+    isRegisterSuccessfull: boolean;
 };
 
 export type AskResetPasswordAsyncThunkConfig = {
@@ -44,3 +49,20 @@ export type ExecuteResetPasswordAsyncThunkConfig = {
     state: AppState;
     rejectValue: string;
 };
+
+export type RegisterAccountData = {
+    email: string;
+    password: string;
+    name: string;
+};
+
+export type RegisterAccountDTO = {
+    success: boolean;
+    message: string;
+};
+
+export type RegisterAccountAsyncThunkConfig = {
+    state: AppState;
+    rejectValue: string;
+};
+

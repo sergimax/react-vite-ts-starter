@@ -7,6 +7,14 @@ export {
     isExecuteResetPasswordLoadingSelector,
     isExecuteResetPasswordSuccessfullSelector,
     ExecuteResetPasswordErrorSelector,
+    isRegisterAccountLoadedSelector,
+    isRegisterAccountLoadingSelector,
+    isRegisterAccountSuccessfullSelector,
+    registerAccountErrorSelector,
 } from './selectors';
-export { askResetPassword, executeResetPassword } from './thunks';
+export {
+    askResetPassword,
+    executeResetPassword,
+    registerAccount,
+} from './thunks';
 export { accountReducer, resetAccountState } from './slice';

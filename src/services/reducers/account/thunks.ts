@@ -7,6 +7,9 @@ import {
     ExecuteResetPasswordData,
     ExecuteResetPasswordDTO,
     ExecuteResetPasswordAsyncThunkConfig,
+    RegisterAccountDTO,
+    RegisterAccountAsyncThunkConfig,
+    RegisterAccountData,
 } from './types';
 import { ACCOUNT_STATE_NAME } from './constants';
 
@@ -91,6 +94,54 @@ export const executeResetPassword = createAsyncThunk<
             }
 
             return executePasswordResetData;
+        } catch (error) {
+            console.error('Произошла ошибка: ', error);
+
+            return rejectWithValue(error as string);
+        }
+    }
+);
+
+export const registerAccount = createAsyncThunk<
+    RegisterAccountDTO,
+    RegisterAccountData,
+    RegisterAccountAsyncThunkConfig
+>(
+    `${ACCOUNT_STATE_NAME}/password-reset`,
+    async (accountData, { rejectWithValue }) => {
+        try {
+            const RegisterAccountResponse = await fetch(
+                `${API_URL}/${API_ENDPOINT.REGISTER_ACCOUNT}`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: accountData.email,
+                        password: accountData.password,
+                        name: accountData.name,
+                    }),
+                }
+            );
+            console.log('RegisterAccountResponse', RegisterAccountResponse);
+
+            if (!RegisterAccountResponse.ok) {
+                throw new Error(
+                    `Статус ответа: ${RegisterAccountResponse.status}`
+                );
+            }
+
+            const RegisterAccountData: RegisterAccountDTO =
+                await RegisterAccountResponse.json();
+            console.log('RegisterAccountData', RegisterAccountData);
+
+            // Проверка успешности выполнения запроса
+            if (!RegisterAccountData.success) {
+                throw new Error(`Неуспешный статус регистрации аккаунта`);
+            }
+
+            return RegisterAccountData;
         } catch (error) {
             console.error('Произошла ошибка: ', error);
 

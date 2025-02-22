@@ -5,6 +5,7 @@ export enum API_ENDPOINT {
     ORDERS = 'orders',
     PASSWORD_RESET_ASK = 'password-reset',
     PASSWORD_RESET_EXECUTE = 'password-reset/reset',
+    REGISTER_ACCOUNT = 'auth/register',
 }
 
 /**
