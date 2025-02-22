@@ -10,6 +10,7 @@ import {
     RegisterAccountDTO,
     RegisterAccountAsyncThunkConfig,
     RegisterAccountData,
+    CustomError,
 } from './types';
 import { ACCOUNT_STATE_NAME } from './constants';
 
@@ -110,6 +111,11 @@ export const registerAccount = createAsyncThunk<
     `${ACCOUNT_STATE_NAME}/register`,
     async (accountData, { rejectWithValue }) => {
         try {
+            const customError: CustomError = {
+                status: undefined,
+                message: undefined,
+            };
+
             const RegisterAccountResponse = await fetch(
                 `${API_URL}/${API_ENDPOINT.REGISTER_ACCOUNT}`,
                 {
@@ -127,9 +133,7 @@ export const registerAccount = createAsyncThunk<
             console.log('RegisterAccountResponse', RegisterAccountResponse);
 
             if (!RegisterAccountResponse.ok) {
-                throw new Error(
-                    `Статус ответа: ${RegisterAccountResponse.status}`
-                );
+                customError.status = RegisterAccountResponse.status;
             }
 
             const RegisterAccountData: RegisterAccountDTO =
@@ -138,14 +142,20 @@ export const registerAccount = createAsyncThunk<
 
             // Проверка успешности выполнения запроса
             if (!RegisterAccountData.success) {
-                throw new Error(`Неуспешный статус регистрации аккаунта`);
+                throw customError;
             }
 
             return RegisterAccountData;
         } catch (error) {
-            console.error('Произошла ошибка: ', error);
+            console.error('Произошла ошибка регистрации: ', error);
+            if (
+                (error as CustomError).status ||
+                (error as CustomError).message
+            ) {
+                return rejectWithValue(error as CustomError);
+            }
 
-            return rejectWithValue(error as string);
+            return rejectWithValue({ message: error as string });
         }
     }
 );

@@ -22,7 +22,10 @@ const initialState: AccountState = {
     isExecuteResetLoading: false,
     isExecuteResetSuccessfull: false,
 
-    registerError: undefined,
+    registerError: {
+        message: undefined,
+        status: undefined,
+    },
     isRegisterLoaded: false,
     isRegisterLoading: false,
     isRegisterSuccessfull: false,
@@ -72,7 +75,10 @@ const accountSlice = createSlice({
                 state.isRegisterSuccessfull = action.payload.success;
             })
             .addCase(registerAccount.rejected, (state, action) => {
-                state.registerError = action.payload as string;
+                const error = action.payload;
+
+                state.registerError.status = error!.status;
+                state.registerError.message = error!.message;
             });
     },
 });

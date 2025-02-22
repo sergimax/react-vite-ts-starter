@@ -15,11 +15,16 @@ export type AccountState = {
     isExecuteResetLoading: boolean;
     isExecuteResetSuccessfull: boolean;
 
-    registerError?: string;
+    registerError: CustomError;
     isRegisterLoaded: boolean;
     isRegisterLoading: boolean;
     isRegisterSuccessfull: boolean;
 };
+
+export type CustomError = {
+    status?: number;
+    message?: string;
+}
 
 /**
  * Данные для запроса возможности сброса пароля
@@ -83,11 +88,12 @@ export type RegisterAccountDTO = {
      * Хранится в localStorage
      */
     refreshToken: string;
+    message?: string;
 };
 
 export type RegisterAccountAsyncThunkConfig = {
     state: AppState;
-    rejectValue: string;
+    rejectValue: CustomError;
 };
 
 /**
