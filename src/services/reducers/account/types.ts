@@ -21,6 +21,13 @@ export type AccountState = {
     isRegisterSuccessfull: boolean;
 };
 
+/**
+ * Данные для запроса возможности сброса пароля
+ */
+export type AskResetPasswordData = {
+    email: string;
+};
+
 export type AskResetPasswordAsyncThunkConfig = {
     state: AppState;
     rejectValue: string;
@@ -31,10 +38,9 @@ export type AskResetPasswordDTO = {
     message: string;
 };
 
-export type AskResetPasswordData = {
-    email: string;
-};
-
+/**
+ * Данные для исполнения сброса пароля
+ */
 export type ExecuteResetPasswordData = {
     password: string;
     token: string;
@@ -50,6 +56,9 @@ export type ExecuteResetPasswordAsyncThunkConfig = {
     rejectValue: string;
 };
 
+/**
+ * Данные для регистрации пользователя
+ */
 export type RegisterAccountData = {
     email: string;
     password: string;
@@ -71,6 +80,9 @@ export type RegisterAccountAsyncThunkConfig = {
     rejectValue: string;
 };
 
+/**
+ * Данные для авторизации пользователя
+ */
 export type LoginAccountData = {
     email: string;
     password: string;
@@ -87,6 +99,9 @@ export type LoginAccountAsyncThunkConfig = {
     rejectValue: string;
 };
 
+/**
+ * Данные для выхода пользователя из системы
+ */
 export type LogoutAccountData = {
     email: string;
     password: string;
@@ -103,6 +118,9 @@ export type LogoutAccountAsyncThunkConfig = {
     rejectValue: string;
 };
 
+/**
+ * Данные для обновления токена пользователя
+ */
 export type RefreshTokenAccountData = {
     email: string;
     password: string;
