@@ -8,4 +8,5 @@ export enum ROUTE_PATH {
     ORDER_LIST = '/order-list',
     HISTORY = '/history',
     NOT_FOUND = '*',
+    DEFAULT = '/',
 }

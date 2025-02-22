@@ -6,6 +6,7 @@ function App() {
     return (
         <>
             <BrowserRouter>
+                {/* TODO app header as separate component outside of Routes ?*/}
                 <Routes>
                     <Route
                         path={ROUTE_PATH.NOT_FOUND}
@@ -13,7 +14,7 @@ function App() {
                     />
                     <Route path="*" />
                     <Route
-                        path="/"
+                        path={ROUTE_PATH.DEFAULT}
                         element={<OrderConstructor />}
                     />
                     <Route path={ROUTE_PATH.LOGIN} />

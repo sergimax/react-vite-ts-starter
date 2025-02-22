@@ -1,5 +1,5 @@
-import { Page } from '../../types/types';
+import { ROUTE_PATH } from '../app/constants';
 
 export type AppHeaderProps = {
-    activePage: Page;
+    activePage: ROUTE_PATH;
 };

@@ -7,6 +7,7 @@ import {
 import { AppHeaderProps } from './types';
 import { Page } from '../../types/types';
 import styles from './style.module.css';
+import { ROUTE_PATH } from '../app/constants';
 
 /**
  * Шапка приложения
@@ -19,7 +20,7 @@ export const AppHeader = ({ activePage }: AppHeaderProps) => {
                     <a className={styles['menu-button']}>
                         <BurgerIcon
                             type={
-                                activePage === Page.CONSTRUCTOR
+                                activePage === ROUTE_PATH.DEFAULT
                                     ? 'primary'
                                     : 'secondary'
                             }
@@ -31,7 +32,7 @@ export const AppHeader = ({ activePage }: AppHeaderProps) => {
                     <a className={styles['menu-button']}>
                         <ListIcon
                             type={
-                                activePage === Page.ORDERS
+                                activePage === ROUTE_PATH.ORDER_LIST
                                     ? 'primary'
                                     : 'secondary'
                             }
@@ -46,7 +47,7 @@ export const AppHeader = ({ activePage }: AppHeaderProps) => {
                     <a className={styles['menu-button']}>
                         <ProfileIcon
                             type={
-                                activePage === Page.ACCOUNT
+                                activePage === ROUTE_PATH.PROFILE
                                     ? 'primary'
                                     : 'secondary'
                             }
