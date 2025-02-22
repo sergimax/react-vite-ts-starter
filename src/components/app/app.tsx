@@ -1,9 +1,17 @@
-import { OrderConstructor } from '../../pages/order-constructor';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { OrderConstructor } from '../../pages';
 
 function App() {
     return (
         <>
-            <OrderConstructor />
+            <BrowserRouter>
+                <Routes>
+                    <Route
+                        path="/"
+                        element={<OrderConstructor />}
+                    />
+                </Routes>
+            </BrowserRouter>
         </>
     );
 }
