@@ -1,12 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { API_ENDPOINT, API_URL } from '../../../constants/constants';
-import { PasswordResetAsyncThunkConfig, PasswordResetDTO } from './types';
+import { ResetPasswordAsyncThunkConfig, ResetPasswordDTO } from './types';
 import { ACCOUNT_STATE_NAME } from './constants';
 
-export const passwordReset = createAsyncThunk<
-    PasswordResetDTO,
+export const resetPassword = createAsyncThunk<
+    ResetPasswordDTO,
     void,
-    PasswordResetAsyncThunkConfig
+    ResetPasswordAsyncThunkConfig
 >(
     `${ACCOUNT_STATE_NAME}/password-reset`,
     async (email, { rejectWithValue }) => {
@@ -30,15 +30,15 @@ export const passwordReset = createAsyncThunk<
                 );
             }
 
-            const resetData: PasswordResetDTO =
+            const resetPasswordData: ResetPasswordDTO =
                 await passwordResetResponse.json();
 
             // Проверка успешности выполнения запроса
-            if (!resetData.success) {
+            if (!resetPasswordData.success) {
                 throw new Error(`Неуспешный статус сброса пароля`);
             }
 
-            return resetData;
+            return resetPasswordData;
         } catch (error) {
             console.error('Произошла ошибка: ', error);
 

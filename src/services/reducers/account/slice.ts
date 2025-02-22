@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ACCOUNT_STATE_NAME } from './constants';
 import { AccountState } from './types';
-import { passwordReset } from './thunks';
+import { resetPassword } from './thunks';
 
 const initialState: AccountState = {
     email: '',
@@ -21,16 +21,16 @@ const accountSlice = createSlice({
     },
     extraReducers(builder) {
         builder
-            .addCase(passwordReset.pending, (state) => {
+            .addCase(resetPassword.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(passwordReset.fulfilled, (state, action) => {
+            .addCase(resetPassword.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isLoaded = true;
 
                 state.isResetSuccessfull = action.payload.success;
             })
-            .addCase(passwordReset.rejected, (state, action) => {
+            .addCase(resetPassword.rejected, (state, action) => {
                 state.error = action.payload as string;
             });
     },

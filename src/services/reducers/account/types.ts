@@ -1,10 +1,5 @@
 import { AppState } from '../../store';
 
-export type PasswordResetAsyncThunkConfig = {
-    state: AppState;
-    rejectValue: string;
-};
-
 export type AccountState = {
     email: string;
     name: string;
@@ -16,7 +11,12 @@ export type AccountState = {
     isResetSuccessfull: boolean;
 };
 
-export type PasswordResetDTO = {
+export type ResetPasswordAsyncThunkConfig = {
+    state: AppState;
+    rejectValue: string;
+};
+
+export type ResetPasswordDTO = {
     success: boolean;
     message: string;
 };
