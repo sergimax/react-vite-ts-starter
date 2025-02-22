@@ -5,7 +5,6 @@ import {
     ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { AppHeaderProps } from './types';
-import { Page } from '../../types/types';
 import styles from './style.module.css';
 import { ROUTE_PATH } from '../app/constants';
 
