@@ -47,7 +47,6 @@ export const Login = () => {
                         htmlType="button"
                         type="primary"
                         size="medium"
-                        extraClass={styles.button}
                         onClick={() => console.log('ENTER')}
                     >
                         Войти
