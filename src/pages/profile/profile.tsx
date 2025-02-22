@@ -39,7 +39,7 @@ export const Profile = () => {
 
     return (
         <>
-            <AppHeader activePage={activePage} />
+            <AppHeader />
             <div className={styles.container}>
                 <div className={styles.navigation}>
                     <div className="text_type_main-medium">

@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ROUTE_PATH } from '../../components/app/constants';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
-import {
-    activePageSelector,
-    setActivePage,
-} from '../../services/reducers/pages';
+import { setActivePage } from '../../services/reducers/pages';
 import { AppHeader } from '../../components/app-header';
 import styles from './styles.module.css';
 import {
@@ -21,7 +18,6 @@ export const ForgotPassword = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const activePage = useAppSelector(activePageSelector);
     const isAskResetSuccessfull = useAppSelector(
         isAskResetPasswordSuccessfullSelector
     );
@@ -53,7 +49,7 @@ export const ForgotPassword = () => {
 
     return (
         <>
-            <AppHeader activePage={activePage} />
+            <AppHeader />
             <div className={styles.container}>
                 <div className={styles['login-form']}>
                     <div className="text_type_main-medium">

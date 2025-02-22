@@ -1,10 +1,6 @@
 import { useEffect, useState } from 'react';
 import { AppHeader } from '../../components/app-header';
-import { useAppDispatch, useAppSelector } from '../../services/hooks';
-import {
-    activePageSelector,
-    setActivePage,
-} from '../../services/reducers/pages';
+import { setActivePage } from '../../services/reducers/pages';
 import { ROUTE_PATH } from '../../components/app/constants';
 
 import styles from './styles.module.css';
@@ -30,7 +26,7 @@ export const Register = () => {
 
     return (
         <>
-            <AppHeader activePage={activePage} />
+            <AppHeader />
             <div className={styles.container}>
                 <div className={styles['register-form']}>
                     <div className="text_type_main-medium">Регистрация</div>

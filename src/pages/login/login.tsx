@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AppHeader } from '../../components/app-header';
-import { useAppDispatch, useAppSelector } from '../../services/hooks';
-import {
-    activePageSelector,
-    setActivePage,
-} from '../../services/reducers/pages';
+import { useAppDispatch } from '../../services/hooks';
+import { setActivePage } from '../../services/reducers/pages';
 import { ROUTE_PATH } from '../../components/app/constants';
 import styles from './styles.module.css';
 import {
@@ -16,8 +13,6 @@ import {
 export const Login = () => {
     const dispatch = useAppDispatch();
 
-    const activePage = useAppSelector(activePageSelector);
-
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
 
@@ -27,7 +22,7 @@ export const Login = () => {
 
     return (
         <>
-            <AppHeader activePage={activePage} />
+            <AppHeader />
             <div className={styles.container}>
                 <div className={styles['login-form']}>
                     <div className="text_type_main-medium">Вход</div>

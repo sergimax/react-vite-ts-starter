@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-
-import { DataForModal, ModalContent, Page } from '../../types/types';
+import { DataForModal, ModalContent } from '../../types/types';
 import { fetchIngredients } from '../../services/reducers/ingredients/thunks';
 import { IngredientDetails } from '../../components/ingredient-details';
 import {
@@ -17,8 +16,9 @@ import { Modal } from '../../components/modal';
 import { BurgerIngredients } from '../../components/burger-ingredients';
 import { BurgerConstructor } from '../../components/burger-constructor';
 import { AppHeader } from '../../components/app-header';
-
 import styles from './styles.module.css';
+import { setActivePage } from '../../services/reducers/pages';
+import { ROUTE_PATH } from '../../components/app/constants';
 
 export const OrderConstructor = () => {
     const dispatch = useAppDispatch();
@@ -26,8 +26,6 @@ export const OrderConstructor = () => {
     const isIngredientsLoding = useAppSelector(ingredientsIsLoadingSelector);
     const ingredientsList = useAppSelector(ingredientsListSelector);
     const errorWithIngredientsFetch = useAppSelector(ingredientsErrorSelector);
-
-    const [activePage, setActivePage] = useState<Page>(Page.CONSTRUCTOR);
 
     // Управление модальным окном
     // TODO Вынести в кастомный хук
@@ -71,18 +69,13 @@ export const OrderConstructor = () => {
 
     // Загрузка данных об ингредиентах
     useEffect(() => {
+        dispatch(setActivePage({ value: ROUTE_PATH.DEFAULT }));
         dispatch(fetchIngredients());
     }, [dispatch]);
 
-    useEffect(() => {
-        setActivePage(Page.CONSTRUCTOR);
-    }, []);
-
     return (
         <>
-            {/* Блок заголовка страницы */}
-            <AppHeader activePage={activePage} />
-
+            <AppHeader />
             <DndProvider backend={HTML5Backend}>
                 {/* Блок основного содержимого страницы */}
                 <main className={styles.main}>
