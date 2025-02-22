@@ -3,6 +3,10 @@ export {
     isAskResetPasswordLoadingSelector,
     isAskResetPasswordSuccessfullSelector,
     askResetPasswordErrorSelector,
+    isExecuteResetPasswordLoadedSelector,
+    isExecuteResetPasswordLoadingSelector,
+    isExecuteResetPasswordSuccessfullSelector,
+    ExecuteResetPasswordErrorSelector,
 } from './selectors';
-export { askResetPassword } from './thunks';
+export { askResetPassword, executeResetPassword } from './thunks';
 export { accountReducer, resetAccountState } from './slice';

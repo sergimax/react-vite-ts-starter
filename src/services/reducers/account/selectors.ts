@@ -13,3 +13,15 @@ export const isAskResetPasswordSuccessfullSelector = (state: AppState) =>
 
 export const askResetPasswordErrorSelector = (state: AppState) =>
     rootSelector(state).askResetError;
+
+export const isExecuteResetPasswordLoadingSelector = (state: AppState) =>
+    rootSelector(state).isExecuteResetLoading;
+
+export const isExecuteResetPasswordLoadedSelector = (state: AppState) =>
+    rootSelector(state).isExecuteResetLoaded;
+
+export const isExecuteResetPasswordSuccessfullSelector = (state: AppState) =>
+    rootSelector(state).isExecuteResetSuccessfull;
+
+export const ExecuteResetPasswordErrorSelector = (state: AppState) =>
+    rootSelector(state).executeResetError;
