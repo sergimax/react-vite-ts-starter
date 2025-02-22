@@ -11,17 +11,45 @@ import {
     Button,
     EmailInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import {
+    isResetPasswordSuccessfullSelector,
+    resetPassword,
+} from '../../services/reducers/account';
+import { useNavigate } from 'react-router-dom';
 
 export const ForgotPassword = () => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     const activePage = useAppSelector(activePageSelector);
+    const isResetSuccessfull = useAppSelector(
+        isResetPasswordSuccessfullSelector
+    );
 
     const [email, setEmail] = useState<string>('');
 
     useEffect(() => {
         dispatch(setActivePage({ value: ROUTE_PATH.LOGIN }));
     }, [dispatch]);
+
+    function sendResetPasswordRequest() {
+        // optional email validation
+        if (email) {
+            dispatch(
+                resetPassword({
+                    email: email,
+                })
+            );
+        }
+    }
+
+    useEffect(() => {
+        if (isResetSuccessfull) {
+            console.log('isResetSuccessfull');
+            setEmail('');
+            navigate(ROUTE_PATH.RESET_PASSWORD);
+        }
+    }, [isResetSuccessfull, navigate]);
 
     return (
         <>
@@ -42,7 +70,7 @@ export const ForgotPassword = () => {
                         htmlType="button"
                         type="primary"
                         size="medium"
-                        onClick={() => console.log('ENTER')}
+                        onClick={sendResetPasswordRequest}
                     >
                         Восстановить
                     </Button>
