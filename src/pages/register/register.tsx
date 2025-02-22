@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { AppHeader } from '../../components/app-header';
 import { setActivePage } from '../../services/reducers/pages';
 import { ROUTE_PATH } from '../../components/app/constants';
@@ -10,19 +11,51 @@ import {
     Input,
     PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import {
+    isRegisterAccountSuccessfullSelector,
+    registerAccount,
+} from '../../services/reducers/account';
 
 export const Register = () => {
     const dispatch = useAppDispatch();
 
-    const activePage = useAppSelector(activePageSelector);
+    const isRegisterSuccessfull = useAppSelector(
+        isRegisterAccountSuccessfullSelector
+    );
 
     const [name, setName] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
 
+    function registerNewAccount(
+        name: string,
+        email: string,
+        password: string
+    ): void {
+        if (!name || !email || !password) {
+            console.log('no registration data set');
+            return;
+        }
+
+        dispatch(
+            registerAccount({
+                name: name,
+                email: email,
+                password: password,
+            })
+        );
+    }
+
     useEffect(() => {
         dispatch(setActivePage({ value: ROUTE_PATH.REGISTER }));
     }, [dispatch]);
+
+    useEffect(() => {
+        if (isRegisterSuccessfull) {
+            // TODO navigation to ???
+            console.log('Success!');
+        }
+    }, [isRegisterSuccessfull]);
 
     return (
         <>
@@ -52,7 +85,9 @@ export const Register = () => {
                         htmlType="button"
                         type="primary"
                         size="medium"
-                        onClick={() => console.log('REGISTER')}
+                        onClick={() =>
+                            registerNewAccount(name, email, password)
+                        }
                     >
                         Зарегистрироваться
                     </Button>
