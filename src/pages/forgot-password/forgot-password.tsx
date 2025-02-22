@@ -22,7 +22,7 @@ export const ForgotPassword = () => {
     const navigate = useNavigate();
 
     const activePage = useAppSelector(activePageSelector);
-    const isResetSuccessfull = useAppSelector(
+    const isAskResetSuccessfull = useAppSelector(
         isAskResetPasswordSuccessfullSelector
     );
 
@@ -44,12 +44,12 @@ export const ForgotPassword = () => {
     }
 
     useEffect(() => {
-        if (isResetSuccessfull) {
+        if (isAskResetSuccessfull) {
             console.log('isResetSuccessfull');
             setEmail('');
             navigate(ROUTE_PATH.RESET_PASSWORD);
         }
-    }, [isResetSuccessfull, navigate]);
+    }, [isAskResetSuccessfull, navigate]);
 
     return (
         <>
