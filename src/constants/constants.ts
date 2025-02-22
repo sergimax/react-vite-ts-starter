@@ -5,7 +5,22 @@ export enum API_ENDPOINT {
     ORDERS = 'orders',
     PASSWORD_RESET_ASK = 'password-reset',
     PASSWORD_RESET_EXECUTE = 'password-reset/reset',
+    /**
+     * эндпоинт для авторизации
+     */
+    LOGIN_ACCOUNT = 'auth/login',
+    /**
+     * эндпоинт для регистрации пользователя
+     */
     REGISTER_ACCOUNT = 'auth/register',
+    /**
+     * эндпоинт для выхода из системы
+     */
+    LOGOUT_ACCOUNT = 'auth/logout',
+    /**
+     * эндпоинт обновления токена
+     */
+    REFRESH_TOKEN_ACCOUNT = 'auth/token',
 }
 
 /**

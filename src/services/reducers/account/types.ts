@@ -58,7 +58,12 @@ export type RegisterAccountData = {
 
 export type RegisterAccountDTO = {
     success: boolean;
-    message: string;
+    user: {
+        email: string;
+        name: string;
+    };
+    accessToken: string;
+    refreshToken: string;
 };
 
 export type RegisterAccountAsyncThunkConfig = {
@@ -66,3 +71,50 @@ export type RegisterAccountAsyncThunkConfig = {
     rejectValue: string;
 };
 
+export type LoginAccountData = {
+    email: string;
+    password: string;
+    name: string;
+};
+
+export type LoginAccountDTO = {
+    success: boolean;
+    message: string;
+};
+
+export type LoginAccountAsyncThunkConfig = {
+    state: AppState;
+    rejectValue: string;
+};
+
+export type LogoutAccountData = {
+    email: string;
+    password: string;
+    name: string;
+};
+
+export type LogoutAccountDTO = {
+    success: boolean;
+    message: string;
+};
+
+export type LogoutAccountAsyncThunkConfig = {
+    state: AppState;
+    rejectValue: string;
+};
+
+export type RefreshTokenAccountData = {
+    email: string;
+    password: string;
+    name: string;
+};
+
+export type RefreshTokenAccountDTO = {
+    success: boolean;
+    message: string;
+};
+
+export type RefreshTokenAccountAsyncThunkConfig = {
+    state: AppState;
+    rejectValue: string;
+};
