@@ -62,7 +62,7 @@ export const executeResetPassword = createAsyncThunk<
     ExecuteResetPasswordData,
     ExecuteResetPasswordAsyncThunkConfig
 >(
-    `${ACCOUNT_STATE_NAME}/password-reset`,
+    `${ACCOUNT_STATE_NAME}/password-reset/reset`,
     async (resetData, { rejectWithValue }) => {
         try {
             const executePasswordResetResponse = await fetch(
@@ -107,7 +107,7 @@ export const registerAccount = createAsyncThunk<
     RegisterAccountData,
     RegisterAccountAsyncThunkConfig
 >(
-    `${ACCOUNT_STATE_NAME}/password-reset`,
+    `${ACCOUNT_STATE_NAME}/register`,
     async (accountData, { rejectWithValue }) => {
         try {
             const RegisterAccountResponse = await fetch(

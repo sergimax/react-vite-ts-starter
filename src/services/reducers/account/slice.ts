@@ -11,10 +11,12 @@ const initialState: AccountState = {
     email: '',
     name: '',
     password: '',
+
     askResetError: undefined,
     isAskResetLoaded: false,
     isAskResetLoading: false,
     isAskResetSuccessfull: false,
+
     executeResetError: undefined,
     isExecuteResetLoaded: false,
     isExecuteResetLoading: false,

@@ -23,7 +23,7 @@ export const isExecuteResetPasswordLoadedSelector = (state: AppState) =>
 export const isExecuteResetPasswordSuccessfullSelector = (state: AppState) =>
     rootSelector(state).isExecuteResetSuccessfull;
 
-export const ExecuteResetPasswordErrorSelector = (state: AppState) =>
+export const executeResetPasswordErrorSelector = (state: AppState) =>
     rootSelector(state).executeResetError;
 
 export const isRegisterAccountLoadingSelector = (state: AppState) =>

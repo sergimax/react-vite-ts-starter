@@ -6,7 +6,7 @@ export {
     isExecuteResetPasswordLoadedSelector,
     isExecuteResetPasswordLoadingSelector,
     isExecuteResetPasswordSuccessfullSelector,
-    ExecuteResetPasswordErrorSelector,
+    executeResetPasswordErrorSelector,
     isRegisterAccountLoadedSelector,
     isRegisterAccountLoadingSelector,
     isRegisterAccountSuccessfullSelector,
