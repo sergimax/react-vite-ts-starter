@@ -1,16 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ACCOUNT_STATE_NAME } from './constants';
 import { AccountState } from './types';
-import { resetPassword } from './thunks';
+import { askResetPassword } from './thunks';
 
 const initialState: AccountState = {
     email: '',
     name: '',
     password: '',
-    error: undefined,
-    isLoaded: false,
-    isLoading: false,
-    isResetSuccessfull: false,
+    askResetError: undefined,
+    isAskResetLoaded: false,
+    isAskResetLoading: false,
+    isAskResetSuccessfull: false,
 };
 
 const accountSlice = createSlice({
@@ -21,17 +21,17 @@ const accountSlice = createSlice({
     },
     extraReducers(builder) {
         builder
-            .addCase(resetPassword.pending, (state) => {
-                state.isLoading = true;
+            .addCase(askResetPassword.pending, (state) => {
+                state.isAskResetLoading = true;
             })
-            .addCase(resetPassword.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.isLoaded = true;
+            .addCase(askResetPassword.fulfilled, (state, action) => {
+                state.isAskResetLoading = false;
+                state.isAskResetLoaded = true;
 
-                state.isResetSuccessfull = action.payload.success;
+                state.isAskResetSuccessfull = action.payload.success;
             })
-            .addCase(resetPassword.rejected, (state, action) => {
-                state.error = action.payload as string;
+            .addCase(askResetPassword.rejected, (state, action) => {
+                state.askResetError = action.payload as string;
             });
     },
 });

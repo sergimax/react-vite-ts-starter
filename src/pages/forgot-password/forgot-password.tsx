@@ -12,8 +12,8 @@ import {
     EmailInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import {
-    isResetPasswordSuccessfullSelector,
-    resetPassword,
+    isAskResetPasswordSuccessfullSelector,
+    askResetPassword,
 } from '../../services/reducers/account';
 import { useNavigate } from 'react-router-dom';
 
@@ -23,7 +23,7 @@ export const ForgotPassword = () => {
 
     const activePage = useAppSelector(activePageSelector);
     const isResetSuccessfull = useAppSelector(
-        isResetPasswordSuccessfullSelector
+        isAskResetPasswordSuccessfullSelector
     );
 
     const [email, setEmail] = useState<string>('');
@@ -36,7 +36,7 @@ export const ForgotPassword = () => {
         // optional email validation
         if (email) {
             dispatch(
-                resetPassword({
+                askResetPassword({
                     email: email,
                 })
             );

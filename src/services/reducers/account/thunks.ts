@@ -1,22 +1,22 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { API_ENDPOINT, API_URL } from '../../../constants/constants';
 import {
-    ResetData,
-    ResetPasswordAsyncThunkConfig,
-    ResetPasswordDTO,
+    AskResetPasswordData,
+    AskResetPasswordAsyncThunkConfig,
+    AskResetPasswordDTO,
 } from './types';
 import { ACCOUNT_STATE_NAME } from './constants';
 
-export const resetPassword = createAsyncThunk<
-    ResetPasswordDTO,
-    ResetData,
-    ResetPasswordAsyncThunkConfig
+export const askResetPassword = createAsyncThunk<
+    AskResetPasswordDTO,
+    AskResetPasswordData,
+    AskResetPasswordAsyncThunkConfig
 >(
     `${ACCOUNT_STATE_NAME}/password-reset`,
     async (resetData, { rejectWithValue }) => {
         try {
-            const passwordResetResponse = await fetch(
-                `${API_URL}/${API_ENDPOINT.PASSWORD_RESET}`,
+            const askPasswordResetResponse = await fetch(
+                `${API_URL}/${API_ENDPOINT.PASSWORD_RESET_ASK}`,
                 {
                     method: 'POST',
                     headers: {
@@ -28,21 +28,21 @@ export const resetPassword = createAsyncThunk<
                 }
             );
 
-            if (!passwordResetResponse.ok) {
+            if (!askPasswordResetResponse.ok) {
                 throw new Error(
-                    `Статус ответа: ${passwordResetResponse.status}`
+                    `Статус ответа: ${askPasswordResetResponse.status}`
                 );
             }
 
-            const resetPasswordData: ResetPasswordDTO =
-                await passwordResetResponse.json();
+            const askPasswordResetData: AskResetPasswordDTO =
+                await askPasswordResetResponse.json();
 
             // Проверка успешности выполнения запроса
-            if (!resetPasswordData.success) {
+            if (!askPasswordResetData.success) {
                 throw new Error(`Неуспешный статус сброса пароля`);
             }
 
-            return resetPasswordData;
+            return askPasswordResetData;
         } catch (error) {
             console.error('Произошла ошибка: ', error);
 

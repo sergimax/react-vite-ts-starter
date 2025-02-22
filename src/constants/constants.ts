@@ -3,7 +3,8 @@ export const API_URL: string = 'https://norma.nomoreparties.space/api';
 export enum API_ENDPOINT {
     INGREDIENTS = 'ingredients',
     ORDERS = 'orders',
-    PASSWORD_RESET = 'password-reset',
+    PASSWORD_RESET_ASK = 'password-reset',
+    PASSWORD_RESET_EXECUTE = 'password-reset/reset',
 }
 
 /**

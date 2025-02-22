@@ -4,23 +4,23 @@ export type AccountState = {
     email: string;
     name: string;
     password: string;
-    error?: string;
+    askResetError?: string;
 
-    isLoaded: boolean;
-    isLoading: boolean;
-    isResetSuccessfull: boolean;
+    isAskResetLoaded: boolean;
+    isAskResetLoading: boolean;
+    isAskResetSuccessfull: boolean;
 };
 
-export type ResetPasswordAsyncThunkConfig = {
+export type AskResetPasswordAsyncThunkConfig = {
     state: AppState;
     rejectValue: string;
 };
 
-export type ResetPasswordDTO = {
+export type AskResetPasswordDTO = {
     success: boolean;
     message: string;
 };
 
-export type ResetData = {
+export type AskResetPasswordData = {
     email: string;
 };

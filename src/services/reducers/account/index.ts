@@ -1,8 +1,8 @@
 export {
-    isResetPasswordLoadedSelector,
-    isResetPasswordLoadingSelector,
-    isResetPasswordSuccessfullSelector,
-    resetPasswordErrorSelector,
+    isAskResetPasswordLoadedSelector,
+    isAskResetPasswordLoadingSelector,
+    isAskResetPasswordSuccessfullSelector,
+    askResetPasswordErrorSelector,
 } from './selectors';
-export { resetPassword } from './thunks';
+export { askResetPassword } from './thunks';
 export { accountReducer, resetAccountState } from './slice';
