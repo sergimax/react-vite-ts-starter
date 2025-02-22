@@ -3,6 +3,7 @@ import {
     ForgotPassword,
     Login,
     OrderConstructor,
+    Profile,
     Register,
     ResetPassword,
 } from '../../pages';
@@ -39,7 +40,10 @@ function App() {
                         path={ROUTE_PATH.RESET_PASSWORD}
                         element={<ResetPassword />}
                     />
-                    <Route path={ROUTE_PATH.PROFILE} />
+                    <Route
+                        path={ROUTE_PATH.PROFILE}
+                        element={<Profile />}
+                    />
                     <Route path={ROUTE_PATH.INGREDIENTS} />
                     <Route path={ROUTE_PATH.ORDER_LIST} />
                     <Route path={ROUTE_PATH.HISTORY} />
