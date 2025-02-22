@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Login, OrderConstructor } from '../../pages';
+import { Login, OrderConstructor, Register } from '../../pages';
 import { ROUTE_PATH } from './constants';
 
 function App() {
@@ -21,7 +21,10 @@ function App() {
                         path={ROUTE_PATH.LOGIN}
                         element={<Login />}
                     />
-                    <Route path={ROUTE_PATH.REGISTER} />
+                    <Route
+                        path={ROUTE_PATH.REGISTER}
+                        element={<Register />}
+                    />
                     <Route path={ROUTE_PATH.FORGOT_PASSWORD} />
                     <Route path={ROUTE_PATH.RESET_PASSWORD} />
                     <Route path={ROUTE_PATH.PROFILE} />
