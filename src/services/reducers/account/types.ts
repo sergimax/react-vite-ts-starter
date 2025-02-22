@@ -7,7 +7,7 @@ export type AccountState = {
     error?: string;
 
     isLoaded: boolean;
-    isLoading: boolean
+    isLoading: boolean;
     isResetSuccessfull: boolean;
 };
 
@@ -19,4 +19,8 @@ export type ResetPasswordAsyncThunkConfig = {
 export type ResetPasswordDTO = {
     success: boolean;
     message: string;
+};
+
+export type ResetData = {
+    email: string;
 };

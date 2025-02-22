@@ -1,15 +1,19 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { API_ENDPOINT, API_URL } from '../../../constants/constants';
-import { ResetPasswordAsyncThunkConfig, ResetPasswordDTO } from './types';
+import {
+    ResetData,
+    ResetPasswordAsyncThunkConfig,
+    ResetPasswordDTO,
+} from './types';
 import { ACCOUNT_STATE_NAME } from './constants';
 
 export const resetPassword = createAsyncThunk<
     ResetPasswordDTO,
-    void,
+    ResetData,
     ResetPasswordAsyncThunkConfig
 >(
     `${ACCOUNT_STATE_NAME}/password-reset`,
-    async (email, { rejectWithValue }) => {
+    async (resetData, { rejectWithValue }) => {
         try {
             const passwordResetResponse = await fetch(
                 `${API_URL}/${API_ENDPOINT.PASSWORD_RESET}`,
@@ -19,7 +23,7 @@ export const resetPassword = createAsyncThunk<
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        email: email,
+                        email: resetData.email,
                     }),
                 }
             );
