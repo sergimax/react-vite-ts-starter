@@ -26,7 +26,7 @@ export const Register = () => {
 
     useEffect(() => {
         dispatch(setActivePage({ value: ROUTE_PATH.REGISTER }));
-    }, []);
+    }, [dispatch]);
 
     return (
         <>

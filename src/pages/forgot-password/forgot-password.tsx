@@ -21,7 +21,7 @@ export const ForgotPassword = () => {
 
     useEffect(() => {
         dispatch(setActivePage({ value: ROUTE_PATH.LOGIN }));
-    }, []);
+    }, [dispatch]);
 
     return (
         <>

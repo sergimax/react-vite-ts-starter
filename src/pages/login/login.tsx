@@ -23,7 +23,7 @@ export const Login = () => {
 
     useEffect(() => {
         dispatch(setActivePage({ value: ROUTE_PATH.LOGIN }));
-    }, []);
+    }, [dispatch]);
 
     return (
         <>
