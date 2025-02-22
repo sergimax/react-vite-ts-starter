@@ -1,5 +1,11 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { ForgotPassword, Login, OrderConstructor, Register } from '../../pages';
+import {
+    ForgotPassword,
+    Login,
+    OrderConstructor,
+    Register,
+    ResetPassword,
+} from '../../pages';
 import { ROUTE_PATH } from './constants';
 
 function App() {
@@ -29,7 +35,10 @@ function App() {
                         path={ROUTE_PATH.FORGOT_PASSWORD}
                         element={<ForgotPassword />}
                     />
-                    <Route path={ROUTE_PATH.RESET_PASSWORD} />
+                    <Route
+                        path={ROUTE_PATH.RESET_PASSWORD}
+                        element={<ResetPassword />}
+                    />
                     <Route path={ROUTE_PATH.PROFILE} />
                     <Route path={ROUTE_PATH.INGREDIENTS} />
                     <Route path={ROUTE_PATH.ORDER_LIST} />
