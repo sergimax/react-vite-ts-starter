@@ -71,7 +71,17 @@ export type RegisterAccountDTO = {
         email: string;
         name: string;
     };
+    /**
+     * Токен для получения и обновления данных пользователя через auth/user
+     *
+     * Передается в заголовке authorization
+     */
     accessToken: string;
+    /**
+     * Токен для выхода из системы и для получения нового accessToken , если последний перестал подходить и просрочился
+     *
+     * Хранится в localStorage
+     */
     refreshToken: string;
 };
 
@@ -86,12 +96,26 @@ export type RegisterAccountAsyncThunkConfig = {
 export type LoginAccountData = {
     email: string;
     password: string;
-    name: string;
 };
 
 export type LoginAccountDTO = {
     success: boolean;
-    message: string;
+    user: {
+        email: string;
+        name: string;
+    };
+    /**
+     * Токен для получения и обновления данных пользователя через auth/user
+     *
+     * Передается в заголовке authorization
+     */
+    accessToken: string;
+    /**
+     * Токен для выхода из системы и для получения нового accessToken , если последний перестал подходить и просрочился.
+     *
+     * Хранится в localStorage
+     */
+    refreshToken: string;
 };
 
 export type LoginAccountAsyncThunkConfig = {
@@ -103,9 +127,10 @@ export type LoginAccountAsyncThunkConfig = {
  * Данные для выхода пользователя из системы
  */
 export type LogoutAccountData = {
-    email: string;
-    password: string;
-    name: string;
+    /**
+     * refreshToken
+     */
+    token: string;
 };
 
 export type LogoutAccountDTO = {
@@ -122,14 +147,16 @@ export type LogoutAccountAsyncThunkConfig = {
  * Данные для обновления токена пользователя
  */
 export type RefreshTokenAccountData = {
-    email: string;
-    password: string;
-    name: string;
+    /**
+     * refreshToken
+     */
+    token: string;
 };
 
 export type RefreshTokenAccountDTO = {
     success: boolean;
-    message: string;
+    accessToken: string;
+    refreshToken: string;
 };
 
 export type RefreshTokenAccountAsyncThunkConfig = {
