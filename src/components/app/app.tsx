@@ -8,6 +8,7 @@ import {
     ResetPassword,
 } from '../../pages';
 import { ROUTE_PATH } from './constants';
+import { ProtectedRouteElement } from '../protected-route-element';
 
 function App() {
     return (
@@ -42,8 +43,13 @@ function App() {
                     />
                     <Route
                         path={ROUTE_PATH.PROFILE}
-                        element={<Profile />}
-                    />
+                        element={<ProtectedRouteElement />}
+                    >
+                        <Route
+                            path={ROUTE_PATH.PROFILE}
+                            element={<Profile />}
+                        />
+                    </Route>
                     <Route path={ROUTE_PATH.INGREDIENTS} />
                     <Route path={ROUTE_PATH.ORDER_LIST} />
                     <Route path={ROUTE_PATH.HISTORY} />
