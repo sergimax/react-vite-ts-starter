@@ -25,6 +25,9 @@ export type AccountState = {
     isLoginLoaded: boolean;
     isLoginLoading: boolean;
     isLoginSuccessfull: boolean;
+
+    logoutError: CustomError;
+    isLogoutSuccessfull: boolean;
 };
 
 export type CustomError = {
@@ -155,7 +158,7 @@ export type LogoutAccountDTO = {
 
 export type LogoutAccountAsyncThunkConfig = {
     state: AppState;
-    rejectValue: string;
+    rejectValue: CustomError;
 };
 
 /**

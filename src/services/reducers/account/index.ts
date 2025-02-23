@@ -26,5 +26,6 @@ export {
     registerAccount,
     loginAccount,
     refreshToken,
+    logoutAccount,
 } from './thunks';
 export { accountReducer, resetAccountState } from './slice';

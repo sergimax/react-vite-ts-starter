@@ -21,6 +21,7 @@ export function setCookie(
         console.log('N');
 
         const d = new Date();
+        // TODO ? Срок жизни токена accessToken — 20 минут.
         d.setTime(d.getTime() + exp * 1000);
         exp = param.expires = d;
     }
@@ -57,4 +58,10 @@ export function getCookie(name: string): string | undefined {
         )
     );
     return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+
+export function deleteCookie(name: string) {
+    setCookie(name, '', {
+        'max-age': '',
+    });
 }

@@ -5,6 +5,7 @@ import {
     askResetPassword,
     executeResetPassword,
     loginAccount,
+    logoutAccount,
     registerAccount,
 } from './thunks';
 
@@ -39,6 +40,12 @@ const initialState: AccountState = {
     isLoginLoaded: false,
     isLoginLoading: false,
     isLoginSuccessfull: false,
+
+    logoutError: {
+        message: undefined,
+        status: undefined,
+    },
+    isLogoutSuccessfull: false,
 };
 
 const accountSlice = createSlice({
@@ -102,7 +109,7 @@ const accountSlice = createSlice({
 
                 state.name = action.payload.user.name;
                 state.email = action.payload.user.email;
-                state.password = action.payload.user.password || "";
+                state.password = action.payload.user.password || '';
                 state.isAuthorized = true;
                 state.isLoginSuccessfull = action.payload.success;
             })
@@ -111,6 +118,19 @@ const accountSlice = createSlice({
 
                 state.loginError.status = error!.status;
                 state.loginError.message = error!.message;
+            });
+        builder
+            .addCase(logoutAccount.fulfilled, (state, action) => {
+                console.log('logoutAccount.fulfilled', action.payload);
+
+                state.isAuthorized = false;
+                state.isLogoutSuccessfull = action.payload.success;
+            })
+            .addCase(logoutAccount.rejected, (state, action) => {
+                const error = action.payload;
+
+                state.logoutError.status = error!.status;
+                state.logoutError.message = error!.message;
             });
     },
 });

@@ -17,9 +17,12 @@ import {
     RefreshTokenAccountData,
     RefreshTokenAccountDTO,
     RefreshTokenAccountAsyncThunkConfig,
+    LogoutAccountData,
+    LogoutAccountDTO,
+    LogoutAccountAsyncThunkConfig,
 } from './types';
 import { ACCOUNT_STATE_NAME } from './constants';
-import { setCookie } from './utils';
+import { deleteCookie, getCookie, setCookie } from './utils';
 
 export const askResetPassword = createAsyncThunk<
     AskResetPasswordDTO,
@@ -301,6 +304,57 @@ export const refreshToken = createAsyncThunk<
         return refreshTokenAccountData;
     } catch (error) {
         console.error('Произошла ошибка входа: ', error);
+        if ((error as CustomError).status || (error as CustomError).message) {
+            return rejectWithValue(error as CustomError);
+        }
+
+        return rejectWithValue({ message: error as string });
+    }
+});
+
+export const logoutAccount = createAsyncThunk<
+    LogoutAccountDTO,
+    LogoutAccountData,
+    LogoutAccountAsyncThunkConfig
+>(`${ACCOUNT_STATE_NAME}/logout`, async (accountData, { rejectWithValue }) => {
+    try {
+        const customError: CustomError = {
+            status: undefined,
+            message: undefined,
+        };
+
+        const LogoutAccountResponse = await fetch(
+            `${API_URL}/${API_ENDPOINT.LOGOUT_ACCOUNT}`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    token: getCookie('authToken'),
+                }),
+            }
+        );
+
+        if (!LogoutAccountResponse.ok) {
+            customError.status = LogoutAccountResponse.status;
+        }
+        console.log('LogoutAccountResponse', LogoutAccountResponse);
+
+        const LogoutAccountData: LogoutAccountDTO =
+            await LogoutAccountResponse.json();
+        console.log('LogoutAccountData', LogoutAccountData);
+
+        // Проверка успешности выполнения запроса
+        if (!LogoutAccountData.success) {
+            throw customError;
+        }
+
+        deleteCookie('accessToken');
+
+        return LogoutAccountData;
+    } catch (error) {
+        console.error('Произошла ошибка выхода: ', error);
         if ((error as CustomError).status || (error as CustomError).message) {
             return rejectWithValue(error as CustomError);
         }
