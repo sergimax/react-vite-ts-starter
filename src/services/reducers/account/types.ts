@@ -4,6 +4,7 @@ export type AccountState = {
     email: string;
     name: string;
     password: string;
+    isAuthorized: boolean;
 
     askResetError?: string;
     isAskResetLoaded: boolean;
@@ -19,12 +20,19 @@ export type AccountState = {
     isRegisterLoaded: boolean;
     isRegisterLoading: boolean;
     isRegisterSuccessfull: boolean;
+
+    loginError: CustomError;
+    isLoginLoaded: boolean;
+    isLoginLoading: boolean;
+    isLoginSuccessfull: boolean;
 };
 
 export type CustomError = {
     status?: number;
     message?: string;
-}
+};
+
+export type CookieParams = { [key: string]: string | number | Date | boolean };
 
 /**
  * Данные для запроса возможности сброса пароля
@@ -126,7 +134,7 @@ export type LoginAccountDTO = {
 
 export type LoginAccountAsyncThunkConfig = {
     state: AppState;
-    rejectValue: string;
+    rejectValue: CustomError;
 };
 
 /**

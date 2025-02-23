@@ -2,6 +2,13 @@ import { AppState } from '../../store';
 
 const rootSelector = (state: AppState) => state.model.account;
 
+export const emailSelector = (state: AppState) => rootSelector(state).email;
+
+export const nameSelector = (state: AppState) => rootSelector(state).name;
+
+export const isAuthorizedSelector = (state: AppState) =>
+    rootSelector(state).isAuthorized;
+
 export const isAskResetPasswordLoadingSelector = (state: AppState) =>
     rootSelector(state).isAskResetLoading;
 
@@ -37,3 +44,15 @@ export const isRegisterAccountSuccessfullSelector = (state: AppState) =>
 
 export const registerAccountErrorSelector = (state: AppState) =>
     rootSelector(state).registerError;
+
+export const isLoginLoadingSelector = (state: AppState) =>
+    rootSelector(state).isLoginLoaded;
+
+export const isLoginLoadedSelector = (state: AppState) =>
+    rootSelector(state).isLoginLoading;
+
+export const isLoginSuccessfullSelector = (state: AppState) =>
+    rootSelector(state).isLoginSuccessfull;
+
+export const loginErrorSelector = (state: AppState) =>
+    rootSelector(state).loginError;

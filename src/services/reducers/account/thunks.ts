@@ -11,8 +11,12 @@ import {
     RegisterAccountAsyncThunkConfig,
     RegisterAccountData,
     CustomError,
+    LoginAccountDTO,
+    LoginAccountData,
+    LoginAccountAsyncThunkConfig,
 } from './types';
 import { ACCOUNT_STATE_NAME } from './constants';
+import { setCookie } from './utils';
 
 export const askResetPassword = createAsyncThunk<
     AskResetPasswordDTO,
@@ -130,11 +134,11 @@ export const registerAccount = createAsyncThunk<
                     }),
                 }
             );
-            console.log('RegisterAccountResponse', RegisterAccountResponse);
 
             if (!RegisterAccountResponse.ok) {
                 customError.status = RegisterAccountResponse.status;
             }
+            console.log('RegisterAccountResponse', RegisterAccountResponse);
 
             const RegisterAccountData: RegisterAccountDTO =
                 await RegisterAccountResponse.json();
@@ -159,3 +163,71 @@ export const registerAccount = createAsyncThunk<
         }
     }
 );
+
+export const loginAccount = createAsyncThunk<
+    LoginAccountDTO,
+    LoginAccountData,
+    LoginAccountAsyncThunkConfig
+>(`${ACCOUNT_STATE_NAME}/login`, async (accountData, { rejectWithValue }) => {
+    try {
+        const customError: CustomError = {
+            status: undefined,
+            message: undefined,
+        };
+
+        const LoginAccountResponse = await fetch(
+            `${API_URL}/${API_ENDPOINT.LOGIN_ACCOUNT}`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: accountData.email,
+                    password: accountData.password,
+                }),
+            }
+        );
+
+        if (!LoginAccountResponse.ok) {
+            customError.status = LoginAccountResponse.status;
+        }
+        console.log('LoginAccountResponse', LoginAccountResponse);
+
+        const LoginAccountData: LoginAccountDTO =
+            await LoginAccountResponse.json();
+        console.log('LoginAccountData', LoginAccountData);
+
+        // Проверка успешности выполнения запроса
+        if (!LoginAccountData.success) {
+            throw customError;
+        }
+
+        let authToken: string = '';
+
+        if (LoginAccountData.accessToken) {
+            if (LoginAccountData.accessToken.indexOf('Bearer') === 0) {
+                authToken = LoginAccountData.accessToken.split('Bearer ')[1];
+            }
+        }
+
+        if (LoginAccountData.refreshToken) {
+            localStorage.setItem('refreshToken', LoginAccountData.refreshToken);
+        }
+
+        if (authToken.length) {
+            console.log('authToken', authToken);
+            // Сохраняем токен в куку token
+            setCookie('token', authToken);
+        }
+
+        return LoginAccountData;
+    } catch (error) {
+        console.error('Произошла ошибка входа: ', error);
+        if ((error as CustomError).status || (error as CustomError).message) {
+            return rejectWithValue(error as CustomError);
+        }
+
+        return rejectWithValue({ message: error as string });
+    }
+});

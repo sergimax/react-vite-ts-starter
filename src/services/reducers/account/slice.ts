@@ -4,6 +4,7 @@ import { AccountState } from './types';
 import {
     askResetPassword,
     executeResetPassword,
+    loginAccount,
     registerAccount,
 } from './thunks';
 
@@ -11,6 +12,7 @@ const initialState: AccountState = {
     email: '',
     name: '',
     password: '',
+    isAuthorized: false,
 
     askResetError: undefined,
     isAskResetLoaded: false,
@@ -29,6 +31,14 @@ const initialState: AccountState = {
     isRegisterLoaded: false,
     isRegisterLoading: false,
     isRegisterSuccessfull: false,
+
+    loginError: {
+        message: undefined,
+        status: undefined,
+    },
+    isLoginLoaded: false,
+    isLoginLoading: false,
+    isLoginSuccessfull: false,
 };
 
 const accountSlice = createSlice({
@@ -71,6 +81,7 @@ const accountSlice = createSlice({
             .addCase(registerAccount.fulfilled, (state, action) => {
                 state.isRegisterLoading = false;
                 state.isRegisterLoaded = true;
+                console.log('registerAccount.fulfilled', action.payload);
 
                 state.isRegisterSuccessfull = action.payload.success;
             })
@@ -79,6 +90,26 @@ const accountSlice = createSlice({
 
                 state.registerError.status = error!.status;
                 state.registerError.message = error!.message;
+            });
+        builder
+            .addCase(loginAccount.pending, (state) => {
+                state.isLoginLoading = true;
+            })
+            .addCase(loginAccount.fulfilled, (state, action) => {
+                state.isLoginLoading = false;
+                state.isLoginLoaded = true;
+                console.log('loginAccount.fulfilled', action.payload);
+
+                state.name = action.payload.user.name;
+                state.email = action.payload.user.email;
+                state.isAuthorized = true;
+                state.isLoginSuccessfull = action.payload.success;
+            })
+            .addCase(loginAccount.rejected, (state, action) => {
+                const error = action.payload;
+
+                state.loginError.status = error!.status;
+                state.loginError.message = error!.message;
             });
     },
 });
