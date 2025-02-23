@@ -4,9 +4,11 @@ import { AccountState } from './types';
 import {
     askResetPassword,
     executeResetPassword,
+    getAccountInformation,
     loginAccount,
     logoutAccount,
     registerAccount,
+    updateAccountInformation,
 } from './thunks';
 
 const initialState: AccountState = {
@@ -46,6 +48,14 @@ const initialState: AccountState = {
         status: undefined,
     },
     isLogoutSuccessfull: false,
+
+    accountInformationError: {
+        message: undefined,
+        status: undefined,
+    },
+    isAccountInformationLoaded: false,
+    isAccountInformationLoading: false,
+    isAccountInformationSuccessfull: false,
 };
 
 const accountSlice = createSlice({
@@ -131,6 +141,46 @@ const accountSlice = createSlice({
 
                 state.logoutError.status = error!.status;
                 state.logoutError.message = error!.message;
+            });
+        builder
+            .addCase(getAccountInformation.pending, (state) => {
+                state.isAccountInformationLoading = true;
+            })
+            .addCase(getAccountInformation.fulfilled, (state, action) => {
+                state.isAccountInformationLoading = false;
+                state.isAccountInformationLoaded = true;
+                console.log('getAccountInformation.fulfilled', action.payload);
+
+                state.name = action.payload.user.name;
+                state.email = action.payload.user.email;
+
+                state.isAccountInformationSuccessfull = action.payload.success;
+            })
+            .addCase(getAccountInformation.rejected, (state, action) => {
+                const error = action.payload;
+
+                state.accountInformationError.status = error!.status;
+                state.accountInformationError.message = error!.message;
+            });
+        builder
+            .addCase(updateAccountInformation.pending, (state) => {
+                state.isAccountInformationLoading = true;
+            })
+            .addCase(updateAccountInformation.fulfilled, (state, action) => {
+                state.isAccountInformationLoading = false;
+                state.isAccountInformationLoaded = true;
+                console.log('updateAccountInformation.fulfilled', action.payload);
+
+                state.name = action.payload.user.name;
+                state.email = action.payload.user.email;
+
+                state.isAccountInformationSuccessfull = action.payload.success;
+            })
+            .addCase(updateAccountInformation.rejected, (state, action) => {
+                const error = action.payload;
+
+                state.accountInformationError.status = error!.status;
+                state.accountInformationError.message = error!.message;
             });
     },
 });

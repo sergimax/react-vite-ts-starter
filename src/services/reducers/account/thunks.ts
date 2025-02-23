@@ -20,6 +20,11 @@ import {
     LogoutAccountData,
     LogoutAccountDTO,
     LogoutAccountAsyncThunkConfig,
+    GetAccountInformationDTO,
+    GetAccountInformationAsyncThunkConfig,
+    UpdateAccountInformationDTO,
+    UpdateAccountInformationData,
+    UpdateAccountInformationAsyncThunkConfig,
 } from './types';
 import { ACCOUNT_STATE_NAME } from './constants';
 import { deleteCookie, getCookie, setCookie } from './utils';
@@ -362,3 +367,117 @@ export const logoutAccount = createAsyncThunk<
         return rejectWithValue({ message: error as string });
     }
 });
+
+export const getAccountInformation = createAsyncThunk<
+    GetAccountInformationDTO,
+    void,
+    GetAccountInformationAsyncThunkConfig
+>(`${ACCOUNT_STATE_NAME}/get-information`, async (_, { rejectWithValue }) => {
+    try {
+        const customError: CustomError = {
+            status: undefined,
+            message: undefined,
+        };
+
+        const getAccountInformationResponse = await fetch(
+            `${API_URL}/${API_ENDPOINT.GET_OR_UPDATE_ACCOUNT}`,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json,charset=utf-8',
+                    Authorization: `Bearer ${getCookie('token')}`,
+                },
+            }
+        );
+
+        if (!getAccountInformationResponse.ok) {
+            customError.status = getAccountInformationResponse.status;
+        }
+        console.log(
+            'getAccountInformationResponse',
+            getAccountInformationResponse
+        );
+
+        const getAccountInformationData: GetAccountInformationDTO =
+            await getAccountInformationResponse.json();
+        console.log('getAccountInformationData', getAccountInformationData);
+
+        // Проверка успешности выполнения запроса
+        if (!getAccountInformationData.success) {
+            throw customError;
+        }
+
+        return getAccountInformationData;
+    } catch (error) {
+        console.error('Произошла ошибка выхода: ', error);
+        if ((error as CustomError).status || (error as CustomError).message) {
+            return rejectWithValue(error as CustomError);
+        }
+
+        return rejectWithValue({ message: error as string });
+    }
+});
+
+export const updateAccountInformation = createAsyncThunk<
+    UpdateAccountInformationDTO,
+    UpdateAccountInformationData,
+    UpdateAccountInformationAsyncThunkConfig
+>(
+    `${ACCOUNT_STATE_NAME}/get-information`,
+    async (accountData, { rejectWithValue }) => {
+        try {
+            const customError: CustomError = {
+                status: undefined,
+                message: undefined,
+            };
+
+            const updateAccountInformationResponse = await fetch(
+                `${API_URL}/${API_ENDPOINT.GET_OR_UPDATE_ACCOUNT}`,
+                {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json,charset=utf-8',
+                        Authorization: `Bearer ${getCookie('token')}`,
+                    },
+                    body: JSON.stringify({
+                        email: accountData.email,
+                        name: accountData.name,
+                        password: accountData.password,
+                    }),
+                }
+            );
+
+            if (!updateAccountInformationResponse.ok) {
+                customError.status = updateAccountInformationResponse.status;
+            }
+            console.log(
+                'updateAccountInformationResponse',
+                updateAccountInformationResponse
+            );
+
+            const updateAccountInformationData: GetAccountInformationDTO =
+                await updateAccountInformationResponse.json();
+            console.log(
+                'updateAccountInformationData',
+                updateAccountInformationData
+            );
+
+            // Проверка успешности выполнения запроса
+            if (!updateAccountInformationData.success) {
+                throw customError;
+            }
+
+            return updateAccountInformationData;
+        } catch (error) {
+            console.error('Произошла ошибка выхода: ', error);
+            if (
+                (error as CustomError).status ||
+                (error as CustomError).message
+            ) {
+                return rejectWithValue(error as CustomError);
+            }
+
+            return rejectWithValue({ message: error as string });
+        }
+    }
+);

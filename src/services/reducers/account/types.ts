@@ -28,6 +28,11 @@ export type AccountState = {
 
     logoutError: CustomError;
     isLogoutSuccessfull: boolean;
+
+    accountInformationError: CustomError;
+    isAccountInformationLoaded: boolean;
+    isAccountInformationLoading: boolean;
+    isAccountInformationSuccessfull: boolean;
 };
 
 export type CustomError = {
@@ -178,6 +183,51 @@ export type RefreshTokenAccountDTO = {
 };
 
 export type RefreshTokenAccountAsyncThunkConfig = {
+    state: AppState;
+    rejectValue: CustomError;
+};
+
+/**
+ * Данные для получения информации пользователя
+ */
+export type GetAccountInformationData = {
+    /**
+     * accessToken
+     */
+    token: string;
+};
+
+export type GetAccountInformationDTO = {
+    success: boolean;
+    user: {
+        email: string;
+        name: string;
+    };
+};
+
+export type GetAccountInformationAsyncThunkConfig = {
+    state: AppState;
+    rejectValue: CustomError;
+};
+
+/**
+ * Данные для обновления информации пользователя
+ */
+export type UpdateAccountInformationData = {
+    email: string;
+    name: string;
+    password: string;
+};
+
+export type UpdateAccountInformationDTO = {
+    success: boolean;
+    user: {
+        email: string;
+        name: string;
+    };
+};
+
+export type UpdateAccountInformationAsyncThunkConfig = {
     state: AppState;
     rejectValue: CustomError;
 };

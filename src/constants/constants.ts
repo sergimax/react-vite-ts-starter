@@ -21,6 +21,10 @@ export enum API_ENDPOINT {
      * эндпоинт обновления токена
      */
     REFRESH_TOKEN_ACCOUNT = 'auth/token',
+    /**
+     * эндпоинт получения данных о пользователе
+     */
+    GET_OR_UPDATE_ACCOUNT = 'auth/user',
 }
 
 /**
