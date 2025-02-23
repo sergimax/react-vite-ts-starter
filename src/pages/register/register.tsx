@@ -15,9 +15,11 @@ import {
     isRegisterAccountSuccessfullSelector,
     registerAccount,
 } from '../../services/reducers/account';
+import { useNavigate } from 'react-router-dom';
 
 export const Register = () => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     const isRegisterSuccessfull = useAppSelector(
         isRegisterAccountSuccessfullSelector
@@ -52,10 +54,11 @@ export const Register = () => {
 
     useEffect(() => {
         if (isRegisterSuccessfull) {
-            // TODO navigation to ???
-            console.log('Success!');
+            console.log('isRegisterSuccessfull');
+            console.log('ACC DATA:', name, email, password);
+            navigate(ROUTE_PATH.LOGIN);
         }
-    }, [isRegisterSuccessfull]);
+    }, [isRegisterSuccessfull, navigate]);
 
     return (
         <>
