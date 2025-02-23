@@ -423,7 +423,7 @@ export const updateAccountInformation = createAsyncThunk<
     UpdateAccountInformationData,
     UpdateAccountInformationAsyncThunkConfig
 >(
-    `${ACCOUNT_STATE_NAME}/get-information`,
+    `${ACCOUNT_STATE_NAME}/update-information`,
     async (accountData, { rejectWithValue }) => {
         try {
             const customError: CustomError = {
