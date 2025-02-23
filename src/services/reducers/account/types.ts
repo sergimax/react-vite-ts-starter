@@ -175,5 +175,5 @@ export type RefreshTokenAccountDTO = {
 
 export type RefreshTokenAccountAsyncThunkConfig = {
     state: AppState;
-    rejectValue: string;
+    rejectValue: CustomError;
 };

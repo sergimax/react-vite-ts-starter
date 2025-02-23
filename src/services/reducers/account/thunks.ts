@@ -14,6 +14,9 @@ import {
     LoginAccountDTO,
     LoginAccountData,
     LoginAccountAsyncThunkConfig,
+    RefreshTokenAccountData,
+    RefreshTokenAccountDTO,
+    RefreshTokenAccountAsyncThunkConfig,
 } from './types';
 import { ACCOUNT_STATE_NAME } from './constants';
 import { setCookie } from './utils';
@@ -222,6 +225,77 @@ export const loginAccount = createAsyncThunk<
         }
 
         return LoginAccountData;
+    } catch (error) {
+        console.error('Произошла ошибка входа: ', error);
+        if ((error as CustomError).status || (error as CustomError).message) {
+            return rejectWithValue(error as CustomError);
+        }
+
+        return rejectWithValue({ message: error as string });
+    }
+});
+
+export const refreshToken = createAsyncThunk<
+    RefreshTokenAccountDTO,
+    RefreshTokenAccountData,
+    RefreshTokenAccountAsyncThunkConfig
+>(`${ACCOUNT_STATE_NAME}/refresh-token`, async (_, { rejectWithValue }) => {
+    try {
+        const customError: CustomError = {
+            status: undefined,
+            message: undefined,
+        };
+
+        const refreshTokenAccountResponse = await fetch(
+            `${API_URL}/${API_ENDPOINT.REFRESH_TOKEN_ACCOUNT}`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    token: localStorage.getItem('refreshToken'),
+                }),
+            }
+        );
+
+        if (!refreshTokenAccountResponse.ok) {
+            customError.status = refreshTokenAccountResponse.status;
+        }
+        console.log('refreshTokenAccountResponse', refreshTokenAccountResponse);
+
+        const refreshTokenAccountData: RefreshTokenAccountDTO =
+            await refreshTokenAccountResponse.json();
+        console.log('refreshTokenAccountData', refreshTokenAccountData);
+
+        // Проверка успешности выполнения запроса
+        if (!refreshTokenAccountData.success) {
+            throw customError;
+        }
+
+        let authToken: string = '';
+
+        if (refreshTokenAccountData.accessToken) {
+            if (refreshTokenAccountData.accessToken.indexOf('Bearer') === 0) {
+                authToken =
+                    refreshTokenAccountData.accessToken.split('Bearer ')[1];
+            }
+        }
+
+        if (refreshTokenAccountData.refreshToken) {
+            localStorage.setItem(
+                'refreshToken',
+                refreshTokenAccountData.refreshToken
+            );
+        }
+
+        if (authToken.length) {
+            console.log('authToken', authToken);
+            // Сохраняем токен в куку token
+            setCookie('token', authToken);
+        }
+
+        return refreshTokenAccountData;
     } catch (error) {
         console.error('Произошла ошибка входа: ', error);
         if ((error as CustomError).status || (error as CustomError).message) {

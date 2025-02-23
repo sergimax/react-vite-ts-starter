@@ -24,5 +24,6 @@ export {
     executeResetPassword,
     registerAccount,
     loginAccount,
+    refreshToken,
 } from './thunks';
 export { accountReducer, resetAccountState } from './slice';
