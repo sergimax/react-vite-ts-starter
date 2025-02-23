@@ -224,6 +224,9 @@ export const loginAccount = createAsyncThunk<
             setCookie('token', authToken);
         }
 
+        // При успешном логине также запоминаем пароль
+        LoginAccountData.user.password = accountData.password;
+
         return LoginAccountData;
     } catch (error) {
         console.error('Произошла ошибка входа: ', error);

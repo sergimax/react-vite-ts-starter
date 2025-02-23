@@ -12,12 +12,20 @@ import {
     PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useNavigate } from 'react-router-dom';
+import {
+    emailSelector,
+    nameSelector,
+    passwordSelector,
+} from '../../services/reducers/account';
 
 export const Profile = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const activePage = useAppSelector(activePageSelector);
+    const userName = useAppSelector(nameSelector);
+    const userEmail = useAppSelector(emailSelector);
+    const userPassword = useAppSelector(passwordSelector);
 
     const navigationProfileClasses: string = `${styles['navigation-item']} ${
         activePage === ROUTE_PATH.PROFILE ? '' : 'text_color_inactive'
@@ -29,9 +37,9 @@ export const Profile = () => {
         styles['navigation-item']
     } ${'text_color_inactive'}`;
 
-    const [name, setName] = useState<string>('Марк');
-    const [email, setEmail] = useState<string>('mail@stellar.burgers');
-    const [password, setPassword] = useState<string>('123456');
+    const [name, setName] = useState<string>(userName);
+    const [email, setEmail] = useState<string>(userEmail);
+    const [password, setPassword] = useState<string>(userPassword);
 
     useEffect(() => {
         dispatch(setActivePage({ value: ROUTE_PATH.PROFILE }));

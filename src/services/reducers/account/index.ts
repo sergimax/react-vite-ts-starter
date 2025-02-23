@@ -17,6 +17,7 @@ export {
     loginErrorSelector,
     nameSelector,
     emailSelector,
+    passwordSelector,
     isAuthorizedSelector,
 } from './selectors';
 export {

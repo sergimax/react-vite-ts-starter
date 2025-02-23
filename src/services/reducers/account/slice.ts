@@ -102,6 +102,7 @@ const accountSlice = createSlice({
 
                 state.name = action.payload.user.name;
                 state.email = action.payload.user.email;
+                state.password = action.payload.user.password || "";
                 state.isAuthorized = true;
                 state.isLoginSuccessfull = action.payload.success;
             })

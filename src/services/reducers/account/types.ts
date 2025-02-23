@@ -117,6 +117,7 @@ export type LoginAccountDTO = {
     user: {
         email: string;
         name: string;
+        password?: string;
     };
     /**
      * Токен для получения и обновления данных пользователя через auth/user
