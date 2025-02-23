@@ -8,14 +8,17 @@ import {
 } from '../../services/reducers/pages';
 import { ROUTE_PATH } from '../../components/app/constants';
 import {
+    Button,
     Input,
     PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useNavigate } from 'react-router-dom';
 import {
     emailSelector,
+    getAccountInformation,
     nameSelector,
     passwordSelector,
+    updateAccountInformation,
 } from '../../services/reducers/account';
 
 export const Profile = () => {
@@ -40,9 +43,33 @@ export const Profile = () => {
     const [name, setName] = useState<string>(userName);
     const [email, setEmail] = useState<string>(userEmail);
     const [password, setPassword] = useState<string>(userPassword);
+    const [isFormDirty, setIsFormDirty] = useState<boolean>(false);
+
+    function resetForm() {
+        setName(userName);
+        setEmail(userEmail);
+        setPassword(userPassword);
+        setIsFormDirty(false);
+    }
+
+    function saveForm() {
+        dispatch(
+            updateAccountInformation({
+                name: name,
+                email: email,
+                password: password,
+            })
+        ).then(() => {
+            setIsFormDirty(false);
+            setName(userName);
+            setEmail(userEmail);
+            setPassword(userPassword);
+        });
+    }
 
     useEffect(() => {
         dispatch(setActivePage({ value: ROUTE_PATH.PROFILE }));
+        dispatch(getAccountInformation());
     }, [dispatch]);
 
     return (
@@ -82,25 +109,52 @@ export const Profile = () => {
                 </div>
                 <div className={styles['user-data']}>
                     <Input
-                        onChange={(e) => setName(e.target.value)}
+                        onChange={(e) => {
+                            setIsFormDirty(true);
+                            setName(e.target.value);
+                        }}
                         placeholder="Имя"
                         name="name"
                         value={name}
                         icon="EditIcon"
                     ></Input>
                     <Input
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => {
+                            setIsFormDirty(true);
+                            setEmail(e.target.value);
+                        }}
                         placeholder="Логин"
                         name="email"
                         value={email}
                         icon="EditIcon"
                     ></Input>
                     <PasswordInput
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={(e) => {
+                            setIsFormDirty(true);
+                            setPassword(e.target.value);
+                        }}
                         value={password}
                         name="password"
                         icon="EditIcon"
                     ></PasswordInput>
+                    {isFormDirty && (
+                        <div className={styles['update-actions']}>
+                            <Button
+                                type={'secondary'}
+                                htmlType="button"
+                                onClick={resetForm}
+                            >
+                                Отмена
+                            </Button>
+                            <Button
+                                type={'primary'}
+                                htmlType="button"
+                                onClick={saveForm}
+                            >
+                                Сохранить
+                            </Button>
+                        </div>
+                    )}
                 </div>
             </div>
         </>

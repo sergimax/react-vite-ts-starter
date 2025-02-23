@@ -31,3 +31,9 @@
     align-items: center;
     gap: 24px;
 }
+
+.update-actions {
+    margin: 0 0 0 auto;
+    display: flex;
+    flex-direction: row;
+}
