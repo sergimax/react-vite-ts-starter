@@ -56,6 +56,8 @@ const initialState: AccountState = {
     isAccountInformationLoaded: false,
     isAccountInformationLoading: false,
     isAccountInformationSuccessfull: false,
+
+    isAccountInformationUpdateSuccessfull: false,
 };
 
 const accountSlice = createSlice({
@@ -174,7 +176,7 @@ const accountSlice = createSlice({
                 state.name = action.payload.user.name;
                 state.email = action.payload.user.email;
 
-                state.isAccountInformationSuccessfull = action.payload.success;
+                state.isAccountInformationUpdateSuccessfull = action.payload.success;
             })
             .addCase(updateAccountInformation.rejected, (state, action) => {
                 const error = action.payload;

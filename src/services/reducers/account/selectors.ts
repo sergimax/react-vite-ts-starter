@@ -6,7 +6,12 @@ export const emailSelector = (state: AppState) => rootSelector(state).email;
 
 export const nameSelector = (state: AppState) => rootSelector(state).name;
 
-export const passwordSelector = (state: AppState) => rootSelector(state).password;
+export const passwordSelector = (state: AppState) =>
+    rootSelector(state).password;
+
+export const isAccountInformationUpdateSuccessfullSelector = (
+    state: AppState
+) => rootSelector(state).isAccountInformationUpdateSuccessfull;
 
 export const isAuthorizedSelector = (state: AppState) =>
     rootSelector(state).isAuthorized;

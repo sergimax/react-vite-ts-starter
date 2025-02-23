@@ -33,6 +33,8 @@ export type AccountState = {
     isAccountInformationLoaded: boolean;
     isAccountInformationLoading: boolean;
     isAccountInformationSuccessfull: boolean;
+
+    isAccountInformationUpdateSuccessfull: boolean;
 };
 
 export type CustomError = {

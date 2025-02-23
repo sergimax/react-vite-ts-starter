@@ -19,6 +19,7 @@ export {
     emailSelector,
     passwordSelector,
     isAuthorizedSelector,
+    isAccountInformationUpdateSuccessfullSelector,
 } from './selectors';
 export {
     askResetPassword,

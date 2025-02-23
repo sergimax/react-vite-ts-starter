@@ -384,7 +384,7 @@ export const getAccountInformation = createAsyncThunk<
             {
                 method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json,charset=utf-8',
+                    'Content-Type': 'application/json;charset=utf-8',
                     Authorization: `Bearer ${getCookie('token')}`,
                 },
             }
@@ -436,12 +436,12 @@ export const updateAccountInformation = createAsyncThunk<
                 {
                     method: 'PATCH',
                     headers: {
-                        'Content-Type': 'application/json,charset=utf-8',
+                        'Content-Type': 'application/json;charset=utf-8',
                         Authorization: `Bearer ${getCookie('token')}`,
                     },
                     body: JSON.stringify({
-                        email: accountData.email,
                         name: accountData.name,
+                        email: accountData.email,
                         password: accountData.password,
                     }),
                 }

@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import {
     emailSelector,
     getAccountInformation,
+    isAccountInformationUpdateSuccessfullSelector,
     nameSelector,
     passwordSelector,
     updateAccountInformation,
@@ -29,6 +30,9 @@ export const Profile = () => {
     const userName = useAppSelector(nameSelector);
     const userEmail = useAppSelector(emailSelector);
     const userPassword = useAppSelector(passwordSelector);
+    const isAccountInformationUpdateSuccessfull = useAppSelector(
+        isAccountInformationUpdateSuccessfullSelector
+    );
 
     const navigationProfileClasses: string = `${styles['navigation-item']} ${
         activePage === ROUTE_PATH.PROFILE ? '' : 'text_color_inactive'
@@ -48,7 +52,8 @@ export const Profile = () => {
     function resetForm() {
         setName(userName);
         setEmail(userEmail);
-        setPassword(userPassword);
+        // TODO password reset
+        // setPassword(userPassword);
         setIsFormDirty(false);
     }
 
@@ -59,18 +64,17 @@ export const Profile = () => {
                 email: email,
                 password: password,
             })
-        ).then(() => {
-            setIsFormDirty(false);
-            setName(userName);
-            setEmail(userEmail);
-            setPassword(userPassword);
-        });
+        );
     }
 
     useEffect(() => {
         dispatch(setActivePage({ value: ROUTE_PATH.PROFILE }));
         dispatch(getAccountInformation());
     }, [dispatch]);
+
+    useEffect(() => {
+        resetForm();
+    }, [isAccountInformationUpdateSuccessfull]);
 
     return (
         <>
