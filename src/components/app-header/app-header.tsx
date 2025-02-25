@@ -1,17 +1,15 @@
+import { Link, useNavigate } from 'react-router-dom';
 import {
     BurgerIcon,
     ListIcon,
     Logo,
     ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import styles from './style.module.css';
 import { ROUTE_PATH } from '../app/constants';
-import { Link, useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../services/hooks';
-import {
-    activePageSelector,
-} from '../../services/reducers/pages';
+import { activePageSelector } from '../../services/reducers/pages';
 import { ButtonParams } from './types';
+import styles from './styles.module.css';
 
 /**
  * Шапка приложения
@@ -33,10 +31,11 @@ export const AppHeader = () => {
 
     function getButtonParams(path: ROUTE_PATH): ButtonParams {
         return {
-            class: `text_type_main-default ${styles['menu-button']} ${path === activePage
-                ? 'text_color_active'
-                : 'text_color_inactive'
-                }`,
+            class: `text_type_main-default ${styles['menu-button']} ${
+                path === activePage
+                    ? 'text_color_active'
+                    : 'text_color_inactive'
+            }`,
             type: activePage === path ? 'primary' : 'secondary',
         };
     }
@@ -64,7 +63,9 @@ export const AppHeader = () => {
                         <span>Лента заказов</span>
                     </div>
                 </div>
-                <Link to={ROUTE_PATH.DEFAULT}><Logo className={styles.logo} /></Link>
+                <Link to={ROUTE_PATH.DEFAULT}>
+                    <Logo className={styles.logo} />
+                </Link>
                 <div className={styles['right-icons']}>
                     <div
                         className={profileButtonParams.class}

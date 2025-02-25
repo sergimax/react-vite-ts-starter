@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
-import { ROUTE_PATH } from '../../components/app/constants';
-import { useAppDispatch, useAppSelector } from '../../services/hooks';
-import { setActivePage } from '../../services/reducers/pages';
-import { AppHeader } from '../../components/app-header';
-import styles from './styles.module.css';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import {
     Button,
     EmailInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ROUTE_PATH } from '../../components/app/constants';
+import { useAppDispatch, useAppSelector } from '../../services/hooks';
+import { setActivePage } from '../../services/reducers/pages';
+import { AppHeader } from '../../components/app-header';
 import {
     isAskResetPasswordSuccessfullSelector,
     askResetPassword,
     isAuthorizedSelector,
 } from '../../services/reducers/account';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import styles from './styles.module.css';
 
 export const ForgotPassword = () => {
     const dispatch = useAppDispatch();

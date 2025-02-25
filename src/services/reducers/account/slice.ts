@@ -171,12 +171,16 @@ const accountSlice = createSlice({
             .addCase(updateAccountInformation.fulfilled, (state, action) => {
                 state.isAccountInformationLoading = false;
                 state.isAccountInformationLoaded = true;
-                console.log('updateAccountInformation.fulfilled', action.payload);
+                console.log(
+                    'updateAccountInformation.fulfilled',
+                    action.payload
+                );
 
                 state.name = action.payload.user.name;
                 state.email = action.payload.user.email;
 
-                state.isAccountInformationUpdateSuccessfull = action.payload.success;
+                state.isAccountInformationUpdateSuccessfull =
+                    action.payload.success;
             })
             .addCase(updateAccountInformation.rejected, (state, action) => {
                 const error = action.payload;

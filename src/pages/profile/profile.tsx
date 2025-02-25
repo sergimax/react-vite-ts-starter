@@ -1,5 +1,10 @@
-import styles from './styles.module.css';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import {
+    Button,
+    Input,
+    PasswordInput,
+} from '@ya.praktikum/react-developer-burger-ui-components';
 import { AppHeader } from '../../components/app-header';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import {
@@ -8,12 +13,6 @@ import {
 } from '../../services/reducers/pages';
 import { ROUTE_PATH } from '../../components/app/constants';
 import {
-    Button,
-    Input,
-    PasswordInput,
-} from '@ya.praktikum/react-developer-burger-ui-components';
-import { useNavigate } from 'react-router-dom';
-import {
     emailSelector,
     getAccountInformation,
     isAccountInformationUpdateSuccessfullSelector,
@@ -21,6 +20,7 @@ import {
     passwordSelector,
     updateAccountInformation,
 } from '../../services/reducers/account';
+import styles from './styles.module.css';
 
 export const Profile = () => {
     const dispatch = useAppDispatch();
@@ -81,7 +81,7 @@ export const Profile = () => {
             <AppHeader />
             <div className={styles.container}>
                 <div className={styles.navigation}>
-                    <div className="text_type_main-medium">
+                    <div className='text_type_main-medium'>
                         <div
                             className={navigationProfileClasses}
                             onClick={() => navigate(ROUTE_PATH.PROFILE)}
@@ -118,20 +118,20 @@ export const Profile = () => {
                             setIsFormDirty(true);
                             setName(e.target.value);
                         }}
-                        placeholder="Имя"
-                        name="name"
+                        placeholder='Имя'
+                        name='name'
                         value={name}
-                        icon="EditIcon"
+                        icon='EditIcon'
                     ></Input>
                     <Input
                         onChange={(e) => {
                             setIsFormDirty(true);
                             setEmail(e.target.value);
                         }}
-                        placeholder="Логин"
-                        name="email"
+                        placeholder='Логин'
+                        name='email'
                         value={email}
-                        icon="EditIcon"
+                        icon='EditIcon'
                     ></Input>
                     <PasswordInput
                         onChange={(e) => {
@@ -139,21 +139,21 @@ export const Profile = () => {
                             setPassword(e.target.value);
                         }}
                         value={password}
-                        name="password"
-                        icon="EditIcon"
+                        name='password'
+                        icon='EditIcon'
                     ></PasswordInput>
                     {isFormDirty && (
                         <div className={styles['update-actions']}>
                             <Button
                                 type={'secondary'}
-                                htmlType="button"
+                                htmlType='button'
                                 onClick={resetForm}
                             >
                                 Отмена
                             </Button>
                             <Button
                                 type={'primary'}
-                                htmlType="button"
+                                htmlType='button'
                                 onClick={saveForm}
                             >
                                 Сохранить

@@ -1,6 +1,6 @@
+import { useEffect, useState } from 'react';
 import { Outlet, Navigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
-import { useEffect, useState } from 'react';
 import {
     getAccountInformation,
     isAuthorizedSelector,

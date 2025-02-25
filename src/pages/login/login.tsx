@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
+import { Link, useNavigate, Navigate } from 'react-router-dom';
 import { AppHeader } from '../../components/app-header';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { setActivePage } from '../../services/reducers/pages';
 import { ROUTE_PATH } from '../../components/app/constants';
-import styles from './styles.module.css';
 import {
     Button,
     EmailInput,
@@ -14,7 +14,7 @@ import {
     isLoginSuccessfullSelector,
     loginAccount,
 } from '../../services/reducers/account';
-import { Link, useNavigate, Navigate } from 'react-router-dom';
+import styles from './styles.module.css';
 
 export const Login = () => {
     const dispatch = useAppDispatch();
@@ -28,7 +28,7 @@ export const Login = () => {
 
     function login(email: string, password: string): void {
         if (!email || !password) {
-            console.error('no login data set');
+            console.error('Error: no login data set');
             return;
         }
 

@@ -16,9 +16,9 @@ import { Modal } from '../../components/modal';
 import { BurgerIngredients } from '../../components/burger-ingredients';
 import { BurgerConstructor } from '../../components/burger-constructor';
 import { AppHeader } from '../../components/app-header';
-import styles from './styles.module.css';
 import { setActivePage } from '../../services/reducers/pages';
 import { ROUTE_PATH } from '../../components/app/constants';
+import styles from './styles.module.css';
 
 export const OrderConstructor = () => {
     const dispatch = useAppDispatch();
@@ -80,11 +80,11 @@ export const OrderConstructor = () => {
                 {/* Блок основного содержимого страницы */}
                 <main className={styles.main}>
                     {isIngredientsLoding ? (
-                        <h1 className="text_type_main-large pt-10 pb-5">
+                        <h1 className='text_type_main-large pt-10 pb-5'>
                             Загрузка списка продуктов
                         </h1>
                     ) : errorWithIngredientsFetch ? (
-                        <h1 className="text_type_main-large pt-10 pb-5">
+                        <h1 className='text_type_main-large pt-10 pb-5'>
                             {errorWithIngredientsFetch}
                         </h1>
                     ) : (

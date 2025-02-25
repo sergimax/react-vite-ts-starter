@@ -1,21 +1,21 @@
 import { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../services/hooks';
-import { AppHeader } from '../../components/app-header';
-import { setActivePage } from '../../services/reducers/pages';
-import { ROUTE_PATH } from '../../components/app/constants';
-import styles from './styles.module.css';
+import { Link, useNavigate, Navigate } from 'react-router-dom';
 import {
     Button,
     EmailInput,
     Input,
     PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useAppDispatch, useAppSelector } from '../../services/hooks';
+import { AppHeader } from '../../components/app-header';
+import { setActivePage } from '../../services/reducers/pages';
+import { ROUTE_PATH } from '../../components/app/constants';
 import {
     isAuthorizedSelector,
     isRegisterAccountSuccessfullSelector,
     registerAccount,
 } from '../../services/reducers/account';
-import { Link, useNavigate, Navigate } from 'react-router-dom';
+import styles from './styles.module.css';
 
 export const Register = () => {
     const dispatch = useAppDispatch();

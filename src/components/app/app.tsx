@@ -16,23 +16,14 @@ function App() {
             <BrowserRouter>
                 {/* TODO app header as separate component outside of Routes ?*/}
                 <Routes>
-                    <Route
-                        path={ROUTE_PATH.NOT_FOUND}
-                        element={<>404</>}
-                    />
-                    <Route path="*" />
+                    <Route path={ROUTE_PATH.NOT_FOUND} element={<>404</>} />
+                    <Route path='*' />
                     <Route
                         path={ROUTE_PATH.DEFAULT}
                         element={<OrderConstructor />}
                     />
-                    <Route
-                        path={ROUTE_PATH.LOGIN}
-                        element={<Login />}
-                    />
-                    <Route
-                        path={ROUTE_PATH.REGISTER}
-                        element={<Register />}
-                    />
+                    <Route path={ROUTE_PATH.LOGIN} element={<Login />} />
+                    <Route path={ROUTE_PATH.REGISTER} element={<Register />} />
                     <Route
                         path={ROUTE_PATH.FORGOT_PASSWORD}
                         element={<ForgotPassword />}
