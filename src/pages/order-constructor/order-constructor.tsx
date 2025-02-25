@@ -18,6 +18,7 @@ import { BurgerConstructor } from '../../components/burger-constructor';
 import { AppHeader } from '../../components/app-header';
 import { setActivePage } from '../../services/reducers/pages';
 import { ROUTE_PATH } from '../../components/app/constants';
+import { resetOrderValue } from '../../services/reducers/ingredients';
 import styles from './styles.module.css';
 
 export const OrderConstructor = () => {
@@ -35,6 +36,7 @@ export const OrderConstructor = () => {
     // Закрытие модального окна
     const closeModal = () => {
         window.history.replaceState(`${ROUTE_PATH.INGREDIENTS}`, ``, `/`);
+        dispatch(resetOrderValue());
         setModalData(null);
         setIsModalShown(false);
     };
@@ -68,6 +70,9 @@ export const OrderConstructor = () => {
     useEffect(() => {
         dispatch(setActivePage({ value: ROUTE_PATH.DEFAULT }));
         dispatch(fetchIngredients());
+        return () => {
+            closeModal();
+        }
     }, [dispatch]);
 
     return (

@@ -106,6 +106,9 @@ const ingredientsSlice = createSlice({
 
             state.order = value;
         },
+        resetOrderValue: (state) => {
+            state.order = undefined;
+        },
         moveIngredientsInConstructor: (state, action) => {
             const { movedIngredientIndex, targetIngredientIndex } =
                 action.payload;
@@ -188,6 +191,7 @@ export const {
     setConstructorBun,
     setIngredientInfo,
     setOrderValue,
+    resetOrderValue,
     deleteCoonstructorIngredient,
     moveIngredientsInConstructor,
 } = ingredientsSlice.actions;
