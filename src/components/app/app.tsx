@@ -3,6 +3,8 @@ import {
     ForgotPassword,
     Login,
     OrderConstructor,
+    OrderList,
+    PageNotFound,
     Profile,
     Register,
     ResetPassword,
@@ -16,8 +18,10 @@ function App() {
             <BrowserRouter>
                 {/* TODO app header as separate component outside of Routes ?*/}
                 <Routes>
-                    <Route path={ROUTE_PATH.NOT_FOUND} element={<>404</>} />
-                    <Route path='*' />
+                    <Route
+                        path={ROUTE_PATH.NOT_FOUND}
+                        element={<PageNotFound />}
+                    />
                     <Route
                         path={ROUTE_PATH.DEFAULT}
                         element={<OrderConstructor />}
@@ -42,7 +46,10 @@ function App() {
                         />
                     </Route>
                     <Route path={ROUTE_PATH.INGREDIENTS} />
-                    <Route path={ROUTE_PATH.ORDER_LIST} />
+                    <Route
+                        path={ROUTE_PATH.ORDER_LIST}
+                        element={<OrderList />}
+                    />
                     <Route path={ROUTE_PATH.HISTORY} />
                 </Routes>
             </BrowserRouter>
