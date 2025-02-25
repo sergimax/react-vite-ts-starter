@@ -1,29 +1,28 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { API_ENDPOINT, API_URL } from '../../../constants/constants';
 import {
-    AskResetPasswordData,
     AskResetPasswordAsyncThunkConfig,
+    AskResetPasswordData,
     AskResetPasswordDTO,
+    CustomError,
+    ExecuteResetPasswordAsyncThunkConfig,
     ExecuteResetPasswordData,
     ExecuteResetPasswordDTO,
-    ExecuteResetPasswordAsyncThunkConfig,
-    RegisterAccountDTO,
+    GetAccountInformationAsyncThunkConfig,
+    GetAccountInformationDTO,
+    LoginAccountAsyncThunkConfig,
+    LoginAccountData,
+    LoginAccountDTO,
+    LogoutAccountAsyncThunkConfig,
+    LogoutAccountDTO,
+    RefreshTokenAccountAsyncThunkConfig,
+    RefreshTokenAccountDTO,
     RegisterAccountAsyncThunkConfig,
     RegisterAccountData,
-    CustomError,
-    LoginAccountDTO,
-    LoginAccountData,
-    LoginAccountAsyncThunkConfig,
-    RefreshTokenAccountData,
-    RefreshTokenAccountDTO,
-    RefreshTokenAccountAsyncThunkConfig,
-    LogoutAccountDTO,
-    LogoutAccountAsyncThunkConfig,
-    GetAccountInformationDTO,
-    GetAccountInformationAsyncThunkConfig,
-    UpdateAccountInformationDTO,
-    UpdateAccountInformationData,
+    RegisterAccountDTO,
     UpdateAccountInformationAsyncThunkConfig,
+    UpdateAccountInformationData,
+    UpdateAccountInformationDTO,
 } from './types';
 import { ACCOUNT_STATE_NAME } from './constants';
 import { deleteCookie, getCookie, setCookie } from './utils';
@@ -247,7 +246,7 @@ export const loginAccount = createAsyncThunk<
 
 export const refreshToken = createAsyncThunk<
     RefreshTokenAccountDTO,
-    RefreshTokenAccountData,
+    void,
     RefreshTokenAccountAsyncThunkConfig
 >(`${ACCOUNT_STATE_NAME}/refresh-token`, async (_, { rejectWithValue }) => {
     try {
@@ -368,18 +367,57 @@ export const logoutAccount = createAsyncThunk<
     }
 });
 
+/**
+ * Исполнение запроса с проверкой актуальности токена авторизации
+ * @param path URL обращения
+ * @param options Параметры исполняемого fetch запроса
+ */
+async function executeWithTokenRefresh(path: string, options: RequestInit) {
+    console.log("executeWithTokenRefresh");
+    try {
+        const result = await fetch(path, options);
+
+        if (!result.ok) {
+            throw await result.json();
+        }
+
+        return await result.json();
+    } catch (error) {
+        // Если причина ошибки - просроченный токен
+        if ((error as Error).message === 'jwt expired') {
+            try {
+                await refreshToken();
+                const requestWithNewToken = await fetch(path, {
+                    ...options, headers: {
+                        'Content-Type': 'application/json;charset=utf-8', Authorization: `Bearer ${getCookie('token')}`,
+                    },
+                });
+
+                return requestWithNewToken.json();
+            } catch (e) {
+                console.log('Ошибка повторного запроса с обновлением токена:', e)
+            }
+
+        } else {
+            return Promise.reject(error);
+        }
+    }
+}
+
 export const getAccountInformation = createAsyncThunk<
     GetAccountInformationDTO,
     void,
     GetAccountInformationAsyncThunkConfig
 >(`${ACCOUNT_STATE_NAME}/get-information`, async (_, { rejectWithValue }) => {
+    console.log("getAccountInformation");
     try {
         const customError: CustomError = {
             status: undefined,
             message: undefined,
         };
 
-        const getAccountInformationResponse = await fetch(
+
+        const getAccountInformationData = await executeWithTokenRefresh(
             `${API_URL}/${API_ENDPOINT.GET_OR_UPDATE_ACCOUNT}`,
             {
                 method: 'GET',
@@ -389,17 +427,6 @@ export const getAccountInformation = createAsyncThunk<
                 },
             }
         );
-
-        if (!getAccountInformationResponse.ok) {
-            customError.status = getAccountInformationResponse.status;
-        }
-        console.log(
-            'getAccountInformationResponse',
-            getAccountInformationResponse
-        );
-
-        const getAccountInformationData: GetAccountInformationDTO =
-            await getAccountInformationResponse.json();
         console.log('getAccountInformationData', getAccountInformationData);
 
         // Проверка успешности выполнения запроса
@@ -431,7 +458,7 @@ export const updateAccountInformation = createAsyncThunk<
                 message: undefined,
             };
 
-            const updateAccountInformationResponse = await fetch(
+            const updateAccountInformationData = await executeWithTokenRefresh(
                 `${API_URL}/${API_ENDPOINT.GET_OR_UPDATE_ACCOUNT}`,
                 {
                     method: 'PATCH',
@@ -447,16 +474,6 @@ export const updateAccountInformation = createAsyncThunk<
                 }
             );
 
-            if (!updateAccountInformationResponse.ok) {
-                customError.status = updateAccountInformationResponse.status;
-            }
-            console.log(
-                'updateAccountInformationResponse',
-                updateAccountInformationResponse
-            );
-
-            const updateAccountInformationData: GetAccountInformationDTO =
-                await updateAccountInformationResponse.json();
             console.log(
                 'updateAccountInformationData',
                 updateAccountInformationData

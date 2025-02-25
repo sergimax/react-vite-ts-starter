@@ -11,15 +11,10 @@ export function setCookie(
     value: string,
     param: CookieParams = {}
 ): void {
-    console.log('setCookie');
-
-    let exp = param.expires;
-    console.log('exp', exp);
+    let exp = param.expires || 20 * 60;
 
     // Обработка срока действия куки (expires)
     if (typeof exp === 'number' && exp) {
-        console.log('N');
-
         const d = new Date();
         // TODO ? Срок жизни токена accessToken — 20 минут.
         d.setTime(d.getTime() + exp * 1000);
@@ -28,8 +23,6 @@ export function setCookie(
 
     // Преобразование даты в строку UTC, если expires является объектом Date
     if (exp && typeof exp.toUTCString === 'function') {
-        console.log('D');
-
         param.expires = exp.toUTCString();
     }
 
