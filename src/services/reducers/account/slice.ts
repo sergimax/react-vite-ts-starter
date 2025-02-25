@@ -135,8 +135,11 @@ const accountSlice = createSlice({
             .addCase(logoutAccount.fulfilled, (state, action) => {
                 console.log('logoutAccount.fulfilled', action.payload);
 
-                state.isAuthorized = false;
                 state.isLogoutSuccessful = action.payload.success;
+                state.isAuthorized = false;
+                state.name = '';
+                state.email = '';
+                state.password = '';
             })
             .addCase(logoutAccount.rejected, (state, action) => {
                 const error = action.payload;

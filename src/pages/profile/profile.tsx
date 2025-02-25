@@ -15,7 +15,7 @@ import { ROUTE_PATH } from '../../components/app/constants';
 import {
     emailSelector,
     getAccountInformation,
-    isAccountInformationUpdateSuccessfulSelector,
+    isAccountInformationUpdateSuccessfulSelector, logoutAccount,
     nameSelector,
     passwordSelector,
     updateAccountInformation,
@@ -97,8 +97,7 @@ export const Profile = () => {
                         <div
                             className={navigationExitClasses}
                             onClick={() => {
-                                // TODO exit?
-                                console.log('EXIT');
+                                dispatch(logoutAccount());
                             }}
                         >
                             Выход

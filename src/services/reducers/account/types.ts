@@ -149,15 +149,8 @@ export type LoginAccountAsyncThunkConfig = {
 };
 
 /**
- * Данные для выхода пользователя из системы
+ * Результат обращения к бэку по выходу пользователя из системы
  */
-export type LogoutAccountData = {
-    /**
-     * refreshToken
-     */
-    token: string;
-};
-
 export type LogoutAccountDTO = {
     success: boolean;
     message: string;

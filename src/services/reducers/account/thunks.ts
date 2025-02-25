@@ -17,7 +17,6 @@ import {
     RefreshTokenAccountData,
     RefreshTokenAccountDTO,
     RefreshTokenAccountAsyncThunkConfig,
-    LogoutAccountData,
     LogoutAccountDTO,
     LogoutAccountAsyncThunkConfig,
     GetAccountInformationDTO,
@@ -319,9 +318,9 @@ export const refreshToken = createAsyncThunk<
 
 export const logoutAccount = createAsyncThunk<
     LogoutAccountDTO,
-    LogoutAccountData,
+    void,
     LogoutAccountAsyncThunkConfig
->(`${ACCOUNT_STATE_NAME}/logout`, async (accountData, { rejectWithValue }) => {
+>(`${ACCOUNT_STATE_NAME}/logout`, async (_, { rejectWithValue }) => {
     try {
         const customError: CustomError = {
             status: undefined,
@@ -336,7 +335,7 @@ export const logoutAccount = createAsyncThunk<
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    token: getCookie('authToken'),
+                    token: localStorage.getItem('refreshToken'),
                 }),
             }
         );
@@ -355,7 +354,8 @@ export const logoutAccount = createAsyncThunk<
             throw customError;
         }
 
-        deleteCookie('accessToken');
+        deleteCookie('token');
+        localStorage.removeItem('refreshToken');
 
         return LogoutAccountData;
     } catch (error) {
