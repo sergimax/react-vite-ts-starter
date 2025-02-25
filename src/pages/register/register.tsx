@@ -35,7 +35,7 @@ export const Register = () => {
         password: string
     ): void {
         if (!name || !email || !password) {
-            console.log('no registration data set');
+            console.error('no registration data set');
             return;
         }
 
@@ -54,8 +54,7 @@ export const Register = () => {
 
     useEffect(() => {
         if (isRegisterSuccessfull) {
-            console.log('isRegisterSuccessfull');
-            console.log('ACC DATA:', name, email, password);
+            console.log('Successfull registration :', name, email, password);
             navigate(ROUTE_PATH.LOGIN);
         }
     }, [isRegisterSuccessfull, navigate]);

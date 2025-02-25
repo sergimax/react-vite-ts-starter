@@ -25,7 +25,7 @@ export const Login = () => {
 
     function login(email: string, password: string): void {
         if (!email || !password) {
-            console.log('no login data set');
+            console.error('no login data set');
             return;
         }
 
@@ -43,8 +43,7 @@ export const Login = () => {
 
     useEffect(() => {
         if (isLoginSuccessfull) {
-            console.log('isLoginSuccessfull');
-            console.log('ACC DATA:', email, password);
+            console.log("Successfull login:", email, password);
             navigate(ROUTE_PATH.DEFAULT);
         }
     }, [isLoginSuccessfull, navigate]);

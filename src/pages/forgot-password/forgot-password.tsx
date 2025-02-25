@@ -41,7 +41,7 @@ export const ForgotPassword = () => {
 
     useEffect(() => {
         if (isAskResetSuccessfull) {
-            console.log('isResetSuccessfull');
+            console.log("Successfull password reset ");
             setEmail('');
             navigate(ROUTE_PATH.RESET_PASSWORD);
         }

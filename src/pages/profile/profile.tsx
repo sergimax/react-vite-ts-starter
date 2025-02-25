@@ -97,6 +97,7 @@ export const Profile = () => {
                         <div
                             className={navigationExitClasses}
                             onClick={() => {
+                                // TODO exit?
                                 console.log('EXIT');
                             }}
                         >
