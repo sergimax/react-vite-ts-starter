@@ -11,6 +11,7 @@ import {
 } from '../../pages';
 import { ROUTE_PATH } from './constants';
 import { ProtectedRouteElement } from '../protected-route-element';
+import { IngredientInfo } from '../../pages/ingredient-info';
 
 function App() {
     return (
@@ -45,7 +46,12 @@ function App() {
                             element={<Profile />}
                         />
                     </Route>
-                    <Route path={ROUTE_PATH.INGREDIENTS} />
+                    <Route path={ROUTE_PATH.INGREDIENTS}>
+                        <Route
+                            path=':ingredientId'
+                            element={<IngredientInfo />}
+                        />
+                    </Route>
                     <Route
                         path={ROUTE_PATH.ORDER_LIST}
                         element={<OrderList />}
