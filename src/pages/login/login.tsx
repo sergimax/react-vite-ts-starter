@@ -10,7 +10,7 @@ import {
     PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { isLoginSuccessfullSelector, loginAccount } from '../../services/reducers/account';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const Login = () => {
     const dispatch = useAppDispatch();
@@ -84,12 +84,12 @@ export const Login = () => {
                         }
                     >
                         Вы - новый пользователь?{' '}
-                        <a
+                        <Link
                             className="text_color_accent"
-                            href={`${ROUTE_PATH.REGISTER}`}
+                            to={`${ROUTE_PATH.REGISTER}`}
                         >
                             Зарегистрироваться
-                        </a>
+                        </Link>
                     </div>
                     <div
                         className={
@@ -97,12 +97,12 @@ export const Login = () => {
                         }
                     >
                         Забыли пароль?{' '}
-                        <a
+                        <Link
                             className="text_color_accent"
-                            href={`${ROUTE_PATH.FORGOT_PASSWORD}`}
+                            to={`${ROUTE_PATH.FORGOT_PASSWORD}`}
                         >
                             Восстановить пароль
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>

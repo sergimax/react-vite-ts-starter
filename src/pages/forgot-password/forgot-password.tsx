@@ -12,7 +12,7 @@ import {
     isAskResetPasswordSuccessfullSelector,
     askResetPassword,
 } from '../../services/reducers/account';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const ForgotPassword = () => {
     const dispatch = useAppDispatch();
@@ -78,12 +78,12 @@ export const ForgotPassword = () => {
                         }
                     >
                         Вспомнили пароль?{' '}
-                        <a
+                        <Link
                             className="text_color_accent"
-                            href={`${ROUTE_PATH.LOGIN}`}
+                            to={`${ROUTE_PATH.LOGIN}`}
                         >
                             Войти
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>

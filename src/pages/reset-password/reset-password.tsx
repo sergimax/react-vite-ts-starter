@@ -9,6 +9,7 @@ import {
     EmailInput,
     Input,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Link } from 'react-router-dom';
 
 export const ResetPassword = () => {
     const dispatch = useAppDispatch();
@@ -57,12 +58,12 @@ export const ResetPassword = () => {
                         }
                     >
                         Вспомнили пароль?{' '}
-                        <a
+                        <Link
                             className="text_color_accent"
-                            href={`${ROUTE_PATH.LOGIN}`}
+                            to={`${ROUTE_PATH.LOGIN}`}
                         >
                             Войти
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>
