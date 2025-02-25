@@ -1,7 +1,7 @@
 export {
     setConstructorBun,
     setConstructorIngredients,
-    deleteCoonstructorIngredient,
+    deleteConstructorIngredient,
     resetOrderValue,
     moveIngredientsInConstructor,
 } from './slice';

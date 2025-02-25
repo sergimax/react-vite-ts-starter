@@ -52,7 +52,7 @@ const ingredientsSlice = createSlice({
                 return ingredient;
             });
         },
-        deleteCoonstructorIngredient: (state, action) => {
+        deleteConstructorIngredient: (state, action) => {
             const { value } = action.payload;
 
             state.constructorContent = {
@@ -192,7 +192,7 @@ export const {
     setIngredientInfo,
     setOrderValue,
     resetOrderValue,
-    deleteCoonstructorIngredient,
+    deleteConstructorIngredient,
     moveIngredientsInConstructor,
 } = ingredientsSlice.actions;
 

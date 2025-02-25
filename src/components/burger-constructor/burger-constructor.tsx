@@ -9,7 +9,7 @@ import styles from './style.module.css';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { useDrop } from 'react-dnd';
 import {
-    deleteCoonstructorIngredient,
+    deleteConstructorIngredient,
     setConstructorBun,
     setConstructorIngredients,
 } from '../../services/reducers/ingredients';
@@ -95,7 +95,7 @@ export const BurgerConstructor = ({
 
     function handleDeleteIngredient(ingredient: UniqueIngredientItem) {
         dispatch(
-            deleteCoonstructorIngredient({
+            deleteConstructorIngredient({
                 value: ingredient,
             })
         );
