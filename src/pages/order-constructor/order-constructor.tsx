@@ -34,6 +34,7 @@ export const OrderConstructor = () => {
 
     // Закрытие модального окна
     const closeModal = () => {
+        window.history.replaceState(`${ROUTE_PATH.INGREDIENTS}`, ``, `/`);
         setModalData(null);
         setIsModalShown(false);
     };
@@ -50,20 +51,16 @@ export const OrderConstructor = () => {
             setIsModalShown(true);
         }
 
-        if (
-            data.type === MODAL_TYPE.INGREDIENT_DETAILS &&
-            data.ingredientData
-        ) {
-            const ingredientData = ingredientsList.find(
-                (element) => element._id === data.ingredientData?.ingredientId
-            );
+        if (data.type === MODAL_TYPE.INGREDIENT_DETAILS && data.ingredientData) {
+            const ingredientData = ingredientsList.find((element) => element._id === data.ingredientData?.ingredientId);
 
-            ingredientData &&
+            if (ingredientData) {
+                window.history.pushState(`${ROUTE_PATH.INGREDIENTS}/${data.ingredientData.ingredientId}`, '', `${ROUTE_PATH.INGREDIENTS}/${data.ingredientData.ingredientId}`);
                 setModalData({
-                    title: data.ingredientData.title,
-                    content: <IngredientDetails data={ingredientData} />,
+                    title: data.ingredientData.title, content: <IngredientDetails data={ingredientData} />,
                 });
-            setIsModalShown(true);
+                setIsModalShown(true);
+            }
         }
     };
 
