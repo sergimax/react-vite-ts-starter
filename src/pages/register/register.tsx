@@ -12,7 +12,7 @@ import { setActivePage } from '../../services/reducers/pages';
 import { ROUTE_PATH } from '../../components/app/constants';
 import {
     isAuthorizedSelector,
-    isRegisterAccountSuccessfullSelector,
+    isRegisterAccountSuccessfulSelector,
     registerAccount,
 } from '../../services/reducers/account';
 import styles from './styles.module.css';
@@ -21,8 +21,8 @@ export const Register = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const isRegisterSuccessfull = useAppSelector(
-        isRegisterAccountSuccessfullSelector
+    const isRegisterSuccessful = useAppSelector(
+        isRegisterAccountSuccessfulSelector
     );
     const isAuthorized = useAppSelector(isAuthorizedSelector);
 
@@ -54,11 +54,11 @@ export const Register = () => {
     }, [dispatch]);
 
     useEffect(() => {
-        if (isRegisterSuccessfull) {
-            console.log('Successfull registration :', name, email, password);
+        if (isRegisterSuccessful) {
+            console.log('Successful registration :', name, email, password);
             navigate(ROUTE_PATH.LOGIN);
         }
-    }, [isRegisterSuccessfull, navigate]);
+    }, [isRegisterSuccessful, navigate]);
 
     if (isAuthorized) {
         return <Navigate to={ROUTE_PATH.DEFAULT} />;

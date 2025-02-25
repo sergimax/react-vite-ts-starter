@@ -15,7 +15,7 @@ import { ROUTE_PATH } from '../../components/app/constants';
 import {
     emailSelector,
     getAccountInformation,
-    isAccountInformationUpdateSuccessfullSelector,
+    isAccountInformationUpdateSuccessfulSelector,
     nameSelector,
     passwordSelector,
     updateAccountInformation,
@@ -30,8 +30,8 @@ export const Profile = () => {
     const userName = useAppSelector(nameSelector);
     const userEmail = useAppSelector(emailSelector);
     const userPassword = useAppSelector(passwordSelector);
-    const isAccountInformationUpdateSuccessfull = useAppSelector(
-        isAccountInformationUpdateSuccessfullSelector
+    const isAccountInformationUpdateSuccessful = useAppSelector(
+        isAccountInformationUpdateSuccessfulSelector
     );
 
     const navigationProfileClasses: string = `${styles['navigation-item']} ${
@@ -74,7 +74,7 @@ export const Profile = () => {
 
     useEffect(() => {
         resetForm();
-    }, [isAccountInformationUpdateSuccessfull]);
+    }, [isAccountInformationUpdateSuccessful]);
 
     return (
         <>

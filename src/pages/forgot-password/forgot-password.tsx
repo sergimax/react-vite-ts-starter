@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { setActivePage } from '../../services/reducers/pages';
 import { AppHeader } from '../../components/app-header';
 import {
-    isAskResetPasswordSuccessfullSelector,
+    isAskResetPasswordSuccessfulSelector,
     askResetPassword,
     isAuthorizedSelector,
 } from '../../services/reducers/account';
@@ -19,8 +19,8 @@ export const ForgotPassword = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const isAskResetSuccessfull = useAppSelector(
-        isAskResetPasswordSuccessfullSelector
+    const isAskResetSuccessful = useAppSelector(
+        isAskResetPasswordSuccessfulSelector
     );
     const isAuthorized = useAppSelector(isAuthorizedSelector);
 
@@ -42,12 +42,12 @@ export const ForgotPassword = () => {
     }
 
     useEffect(() => {
-        if (isAskResetSuccessfull) {
-            console.log('Successfull password reset');
+        if (isAskResetSuccessful) {
+            console.log('Successful password reset');
             setEmail('');
             navigate(ROUTE_PATH.RESET_PASSWORD);
         }
-    }, [isAskResetSuccessfull, navigate]);
+    }, [isAskResetSuccessful, navigate]);
 
     if (isAuthorized) {
         return <Navigate to={ROUTE_PATH.DEFAULT} />;

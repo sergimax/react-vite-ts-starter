@@ -9,9 +9,9 @@ export const nameSelector = (state: AppState) => rootSelector(state).name;
 export const passwordSelector = (state: AppState) =>
     rootSelector(state).password;
 
-export const isAccountInformationUpdateSuccessfullSelector = (
+export const isAccountInformationUpdateSuccessfulSelector = (
     state: AppState
-) => rootSelector(state).isAccountInformationUpdateSuccessfull;
+) => rootSelector(state).isAccountInformationUpdateSuccessful;
 
 export const isAuthorizedSelector = (state: AppState) =>
     rootSelector(state).isAuthorized;
@@ -22,8 +22,8 @@ export const isAskResetPasswordLoadingSelector = (state: AppState) =>
 export const isAskResetPasswordLoadedSelector = (state: AppState) =>
     rootSelector(state).isAskResetLoaded;
 
-export const isAskResetPasswordSuccessfullSelector = (state: AppState) =>
-    rootSelector(state).isAskResetSuccessfull;
+export const isAskResetPasswordSuccessfulSelector = (state: AppState) =>
+    rootSelector(state).isAskResetSuccessful;
 
 export const askResetPasswordErrorSelector = (state: AppState) =>
     rootSelector(state).askResetError;
@@ -34,8 +34,8 @@ export const isExecuteResetPasswordLoadingSelector = (state: AppState) =>
 export const isExecuteResetPasswordLoadedSelector = (state: AppState) =>
     rootSelector(state).isExecuteResetLoaded;
 
-export const isExecuteResetPasswordSuccessfullSelector = (state: AppState) =>
-    rootSelector(state).isExecuteResetSuccessfull;
+export const isExecuteResetPasswordSuccessfulSelector = (state: AppState) =>
+    rootSelector(state).isExecuteResetSuccessful;
 
 export const executeResetPasswordErrorSelector = (state: AppState) =>
     rootSelector(state).executeResetError;
@@ -46,8 +46,8 @@ export const isRegisterAccountLoadingSelector = (state: AppState) =>
 export const isRegisterAccountLoadedSelector = (state: AppState) =>
     rootSelector(state).isRegisterLoading;
 
-export const isRegisterAccountSuccessfullSelector = (state: AppState) =>
-    rootSelector(state).isRegisterSuccessfull;
+export const isRegisterAccountSuccessfulSelector = (state: AppState) =>
+    rootSelector(state).isRegisterSuccessful;
 
 export const registerAccountErrorSelector = (state: AppState) =>
     rootSelector(state).registerError;
@@ -58,8 +58,8 @@ export const isLoginLoadingSelector = (state: AppState) =>
 export const isLoginLoadedSelector = (state: AppState) =>
     rootSelector(state).isLoginLoading;
 
-export const isLoginSuccessfullSelector = (state: AppState) =>
-    rootSelector(state).isLoginSuccessfull;
+export const isLoginSuccessfulSelector = (state: AppState) =>
+    rootSelector(state).isLoginSuccessful;
 
 export const loginErrorSelector = (state: AppState) =>
     rootSelector(state).loginError;

@@ -11,7 +11,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import {
     isAuthorizedSelector,
-    isLoginSuccessfullSelector,
+    isLoginSuccessfulSelector,
     loginAccount,
 } from '../../services/reducers/account';
 import styles from './styles.module.css';
@@ -20,7 +20,7 @@ export const Login = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const isLoginSuccessfull = useAppSelector(isLoginSuccessfullSelector);
+    const isLoginSuccessful = useAppSelector(isLoginSuccessfulSelector);
     const isAuthorized = useAppSelector(isAuthorizedSelector);
 
     const [email, setEmail] = useState<string>('');
@@ -45,11 +45,11 @@ export const Login = () => {
     }, [dispatch]);
 
     useEffect(() => {
-        if (isLoginSuccessfull) {
-            console.log('Successfull login:', email, password);
+        if (isLoginSuccessful) {
+            console.log('Successful login:', email, password);
             navigate(ROUTE_PATH.DEFAULT);
         }
-    }, [isLoginSuccessfull, navigate]);
+    }, [isLoginSuccessful, navigate]);
 
     if (isAuthorized) {
         return <Navigate to={ROUTE_PATH.DEFAULT} />;

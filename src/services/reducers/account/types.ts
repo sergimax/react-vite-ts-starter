@@ -9,32 +9,32 @@ export type AccountState = {
     askResetError?: string;
     isAskResetLoaded: boolean;
     isAskResetLoading: boolean;
-    isAskResetSuccessfull: boolean;
+    isAskResetSuccessful: boolean;
 
     executeResetError?: string;
     isExecuteResetLoaded: boolean;
     isExecuteResetLoading: boolean;
-    isExecuteResetSuccessfull: boolean;
+    isExecuteResetSuccessful: boolean;
 
     registerError: CustomError;
     isRegisterLoaded: boolean;
     isRegisterLoading: boolean;
-    isRegisterSuccessfull: boolean;
+    isRegisterSuccessful: boolean;
 
     loginError: CustomError;
     isLoginLoaded: boolean;
     isLoginLoading: boolean;
-    isLoginSuccessfull: boolean;
+    isLoginSuccessful: boolean;
 
     logoutError: CustomError;
-    isLogoutSuccessfull: boolean;
+    isLogoutSuccessful: boolean;
 
     accountInformationError: CustomError;
     isAccountInformationLoaded: boolean;
     isAccountInformationLoading: boolean;
-    isAccountInformationSuccessfull: boolean;
+    isAccountInformationSuccessful: boolean;
 
-    isAccountInformationUpdateSuccessfull: boolean;
+    isAccountInformationUpdateSuccessful: boolean;
 };
 
 export type CustomError = {

@@ -20,12 +20,12 @@ const initialState: AccountState = {
     askResetError: undefined,
     isAskResetLoaded: false,
     isAskResetLoading: false,
-    isAskResetSuccessfull: false,
+    isAskResetSuccessful: false,
 
     executeResetError: undefined,
     isExecuteResetLoaded: false,
     isExecuteResetLoading: false,
-    isExecuteResetSuccessfull: false,
+    isExecuteResetSuccessful: false,
 
     registerError: {
         message: undefined,
@@ -33,7 +33,7 @@ const initialState: AccountState = {
     },
     isRegisterLoaded: false,
     isRegisterLoading: false,
-    isRegisterSuccessfull: false,
+    isRegisterSuccessful: false,
 
     loginError: {
         message: undefined,
@@ -41,13 +41,13 @@ const initialState: AccountState = {
     },
     isLoginLoaded: false,
     isLoginLoading: false,
-    isLoginSuccessfull: false,
+    isLoginSuccessful: false,
 
     logoutError: {
         message: undefined,
         status: undefined,
     },
-    isLogoutSuccessfull: false,
+    isLogoutSuccessful: false,
 
     accountInformationError: {
         message: undefined,
@@ -55,9 +55,9 @@ const initialState: AccountState = {
     },
     isAccountInformationLoaded: false,
     isAccountInformationLoading: false,
-    isAccountInformationSuccessfull: false,
+    isAccountInformationSuccessful: false,
 
-    isAccountInformationUpdateSuccessfull: false,
+    isAccountInformationUpdateSuccessful: false,
 };
 
 const accountSlice = createSlice({
@@ -75,7 +75,7 @@ const accountSlice = createSlice({
                 state.isAskResetLoading = false;
                 state.isAskResetLoaded = true;
 
-                state.isAskResetSuccessfull = action.payload.success;
+                state.isAskResetSuccessful = action.payload.success;
             })
             .addCase(askResetPassword.rejected, (state, action) => {
                 state.askResetError = action.payload as string;
@@ -88,7 +88,7 @@ const accountSlice = createSlice({
                 state.isExecuteResetLoading = false;
                 state.isExecuteResetLoaded = true;
 
-                state.isExecuteResetSuccessfull = action.payload.success;
+                state.isExecuteResetSuccessful = action.payload.success;
             })
             .addCase(executeResetPassword.rejected, (state, action) => {
                 state.executeResetError = action.payload as string;
@@ -102,7 +102,7 @@ const accountSlice = createSlice({
                 state.isRegisterLoaded = true;
                 console.log('registerAccount.fulfilled', action.payload);
 
-                state.isRegisterSuccessfull = action.payload.success;
+                state.isRegisterSuccessful = action.payload.success;
             })
             .addCase(registerAccount.rejected, (state, action) => {
                 const error = action.payload;
@@ -123,7 +123,7 @@ const accountSlice = createSlice({
                 state.email = action.payload.user.email;
                 state.password = action.payload.user.password || '';
                 state.isAuthorized = true;
-                state.isLoginSuccessfull = action.payload.success;
+                state.isLoginSuccessful = action.payload.success;
             })
             .addCase(loginAccount.rejected, (state, action) => {
                 const error = action.payload;
@@ -136,7 +136,7 @@ const accountSlice = createSlice({
                 console.log('logoutAccount.fulfilled', action.payload);
 
                 state.isAuthorized = false;
-                state.isLogoutSuccessfull = action.payload.success;
+                state.isLogoutSuccessful = action.payload.success;
             })
             .addCase(logoutAccount.rejected, (state, action) => {
                 const error = action.payload;
@@ -156,7 +156,7 @@ const accountSlice = createSlice({
                 state.name = action.payload.user.name;
                 state.email = action.payload.user.email;
 
-                state.isAccountInformationSuccessfull = action.payload.success;
+                state.isAccountInformationSuccessful = action.payload.success;
             })
             .addCase(getAccountInformation.rejected, (state, action) => {
                 const error = action.payload;
@@ -179,7 +179,7 @@ const accountSlice = createSlice({
                 state.name = action.payload.user.name;
                 state.email = action.payload.user.email;
 
-                state.isAccountInformationUpdateSuccessfull =
+                state.isAccountInformationUpdateSuccessful =
                     action.payload.success;
             })
             .addCase(updateAccountInformation.rejected, (state, action) => {
