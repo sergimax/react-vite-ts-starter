@@ -31,4 +31,4 @@ export {
     getAccountInformation,
     updateAccountInformation,
 } from './thunks';
-export { accountReducer, resetAccountState } from './slice';
+export { accountReducer, resetAccountState, setAccountEmail } from './slice';

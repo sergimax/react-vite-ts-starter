@@ -1,28 +1,38 @@
 import { useEffect, useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import {
     Button,
-    EmailInput,
     Input,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ROUTE_PATH } from '../../components/app/constants';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { setActivePage } from '../../services/reducers/pages';
 import { AppHeader } from '../../components/app-header';
-import { isAuthorizedSelector } from '../../services/reducers/account';
+import {
+    executeResetPassword,
+    isAuthorizedSelector, isExecuteResetPasswordSuccessfulSelector,
+} from '../../services/reducers/account';
 import styles from './styles.module.css';
 
 export const ResetPassword = () => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     const isAuthorized = useAppSelector(isAuthorizedSelector);
+    const isPasswordResetSuccessful = useAppSelector(isExecuteResetPasswordSuccessfulSelector);
 
-    const [email, setEmail] = useState<string>('');
+    const [newPassword, setNewPassword] = useState<string>('');
     const [code, setCode] = useState<string>('');
 
     useEffect(() => {
         dispatch(setActivePage({ value: ROUTE_PATH.RESET_PASSWORD }));
     }, [dispatch]);
+
+    useEffect(() => {
+        if (isPasswordResetSuccessful) {
+            navigate(ROUTE_PATH.LOGIN);
+        }
+    }, [isPasswordResetSuccessful]);
 
     if (isAuthorized) {
         return <Navigate to={ROUTE_PATH.DEFAULT} />;
@@ -36,13 +46,12 @@ export const ResetPassword = () => {
                     <div className='text_type_main-medium'>
                         Восстановление пароля
                     </div>
-                    <EmailInput
-                        onChange={(e) => setEmail(e.target.value)}
-                        name='email'
-                        placeholder='Укажите e-mail'
-                        isIcon={false}
-                        value={email}
-                    ></EmailInput>
+                    <Input
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        name='newPassword'
+                        placeholder='Введите новый пароль'
+                        value={newPassword}
+                    ></Input>
                     <Input
                         onChange={(e) => setCode(e.target.value)}
                         placeholder='Введите код из письма'
@@ -53,7 +62,12 @@ export const ResetPassword = () => {
                         htmlType='button'
                         type='primary'
                         size='medium'
-                        onClick={() => console.log('SAVE NEW PASSWORD')}
+                        onClick={async () => {
+                            dispatch(executeResetPassword({
+                                password: newPassword,
+                                token: code
+                            }))
+                        }}
                     >
                         Сохранить
                     </Button>

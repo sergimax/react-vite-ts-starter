@@ -1,17 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import {
-    Button,
-    EmailInput,
+    Button, EmailInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ROUTE_PATH } from '../../components/app/constants';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { setActivePage } from '../../services/reducers/pages';
 import { AppHeader } from '../../components/app-header';
 import {
-    isAskResetPasswordSuccessfulSelector,
-    askResetPassword,
-    isAuthorizedSelector,
+    isAskResetPasswordSuccessfulSelector, askResetPassword, isAuthorizedSelector, setAccountEmail,
 } from '../../services/reducers/account';
 import styles from './styles.module.css';
 
@@ -19,9 +16,7 @@ export const ForgotPassword = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const isAskResetSuccessful = useAppSelector(
-        isAskResetPasswordSuccessfulSelector
-    );
+    const isAskResetSuccessful = useAppSelector(isAskResetPasswordSuccessfulSelector);
     const isAuthorized = useAppSelector(isAuthorizedSelector);
 
     const [email, setEmail] = useState<string>('');
@@ -33,11 +28,12 @@ export const ForgotPassword = () => {
     function sendResetPasswordRequest() {
         // optional email validation
         if (email) {
-            dispatch(
-                askResetPassword({
-                    email: email,
-                })
-            );
+            dispatch(setAccountEmail({
+                email: email,
+            }));
+            dispatch(askResetPassword({
+                email: email,
+            }));
         }
     }
 
@@ -53,8 +49,7 @@ export const ForgotPassword = () => {
         return <Navigate to={ROUTE_PATH.DEFAULT} />;
     }
 
-    return (
-        <>
+    return (<>
             <AppHeader />
             <div className={styles.container}>
                 <div className={styles['login-form']}>
@@ -79,9 +74,7 @@ export const ForgotPassword = () => {
                 </div>
                 <div className={styles['additional-actions']}>
                     <div
-                        className={
-                            'text text_type_main-default text_color_inactive'
-                        }
+                        className={'text text_type_main-default text_color_inactive'}
                     >
                         Вспомнили пароль?{' '}
                         <Link
@@ -93,6 +86,5 @@ export const ForgotPassword = () => {
                     </div>
                 </div>
             </div>
-        </>
-    );
+        </>);
 };

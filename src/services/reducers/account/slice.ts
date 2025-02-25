@@ -65,6 +65,11 @@ const accountSlice = createSlice({
     initialState,
     reducers: {
         resetAccountState: () => initialState,
+        setAccountEmail: (state, action) => {
+            const { email } = action.payload;
+
+            state.email = email;
+        },
     },
     extraReducers(builder) {
         builder
@@ -194,6 +199,6 @@ const accountSlice = createSlice({
     },
 });
 
-export const { resetAccountState } = accountSlice.actions;
+export const { resetAccountState, setAccountEmail } = accountSlice.actions;
 
 export const accountReducer = accountSlice.reducer;
