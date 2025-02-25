@@ -9,16 +9,19 @@ import {
     EmailInput,
     PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { isLoginSuccessfullSelector, loginAccount } from '../../services/reducers/account';
-import { Link, useNavigate } from 'react-router-dom';
+import {
+    isAuthorizedSelector,
+    isLoginSuccessfullSelector,
+    loginAccount,
+} from '../../services/reducers/account';
+import { Link, useNavigate, Navigate } from 'react-router-dom';
 
 export const Login = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const isLoginSuccessfull = useAppSelector(
-        isLoginSuccessfullSelector
-    );
+    const isLoginSuccessfull = useAppSelector(isLoginSuccessfullSelector);
+    const isAuthorized = useAppSelector(isAuthorizedSelector);
 
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
@@ -43,34 +46,37 @@ export const Login = () => {
 
     useEffect(() => {
         if (isLoginSuccessfull) {
-            console.log("Successfull login:", email, password);
+            console.log('Successfull login:', email, password);
             navigate(ROUTE_PATH.DEFAULT);
         }
     }, [isLoginSuccessfull, navigate]);
 
+    if (isAuthorized) {
+        return <Navigate to={ROUTE_PATH.DEFAULT} />;
+    }
 
     return (
         <>
             <AppHeader />
             <div className={styles.container}>
                 <div className={styles['login-form']}>
-                    <div className="text_type_main-medium">Вход</div>
+                    <div className='text_type_main-medium'>Вход</div>
                     <EmailInput
                         onChange={(e) => setEmail(e.target.value)}
-                        name="email"
+                        name='email'
                         isIcon={false}
                         value={email}
                     ></EmailInput>
                     <PasswordInput
                         onChange={(e) => setPassword(e.target.value)}
                         value={password}
-                        name="password"
-                        icon="ShowIcon"
+                        name='password'
+                        icon='ShowIcon'
                     ></PasswordInput>
                     <Button
-                        htmlType="button"
-                        type="primary"
-                        size="medium"
+                        htmlType='button'
+                        type='primary'
+                        size='medium'
                         onClick={() => login(email, password)}
                     >
                         Войти
@@ -84,7 +90,7 @@ export const Login = () => {
                     >
                         Вы - новый пользователь?{' '}
                         <Link
-                            className="text_color_accent"
+                            className='text_color_accent'
                             to={`${ROUTE_PATH.REGISTER}`}
                         >
                             Зарегистрироваться
@@ -97,7 +103,7 @@ export const Login = () => {
                     >
                         Забыли пароль?{' '}
                         <Link
-                            className="text_color_accent"
+                            className='text_color_accent'
                             to={`${ROUTE_PATH.FORGOT_PASSWORD}`}
                         >
                             Восстановить пароль

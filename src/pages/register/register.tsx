@@ -3,7 +3,6 @@ import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { AppHeader } from '../../components/app-header';
 import { setActivePage } from '../../services/reducers/pages';
 import { ROUTE_PATH } from '../../components/app/constants';
-
 import styles from './styles.module.css';
 import {
     Button,
@@ -12,10 +11,11 @@ import {
     PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import {
+    isAuthorizedSelector,
     isRegisterAccountSuccessfullSelector,
     registerAccount,
 } from '../../services/reducers/account';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, Navigate } from 'react-router-dom';
 
 export const Register = () => {
     const dispatch = useAppDispatch();
@@ -24,6 +24,7 @@ export const Register = () => {
     const isRegisterSuccessfull = useAppSelector(
         isRegisterAccountSuccessfullSelector
     );
+    const isAuthorized = useAppSelector(isAuthorizedSelector);
 
     const [name, setName] = useState<string>('');
     const [email, setEmail] = useState<string>('');
@@ -59,34 +60,38 @@ export const Register = () => {
         }
     }, [isRegisterSuccessfull, navigate]);
 
+    if (isAuthorized) {
+        return <Navigate to={ROUTE_PATH.DEFAULT} />;
+    }
+
     return (
         <>
             <AppHeader />
             <div className={styles.container}>
                 <div className={styles['register-form']}>
-                    <div className="text_type_main-medium">Регистрация</div>
+                    <div className='text_type_main-medium'>Регистрация</div>
                     <Input
                         onChange={(e) => setName(e.target.value)}
-                        placeholder="Имя"
-                        name="name"
+                        placeholder='Имя'
+                        name='name'
                         value={name}
                     ></Input>
                     <EmailInput
                         onChange={(e) => setEmail(e.target.value)}
-                        name="email"
+                        name='email'
                         isIcon={false}
                         value={email}
                     ></EmailInput>
                     <PasswordInput
                         onChange={(e) => setPassword(e.target.value)}
                         value={password}
-                        name="password"
-                        icon="ShowIcon"
+                        name='password'
+                        icon='ShowIcon'
                     ></PasswordInput>
                     <Button
-                        htmlType="button"
-                        type="primary"
-                        size="medium"
+                        htmlType='button'
+                        type='primary'
+                        size='medium'
                         onClick={() =>
                             registerNewAccount(name, email, password)
                         }
@@ -102,7 +107,7 @@ export const Register = () => {
                     >
                         Уже зарегистрированы?{' '}
                         <Link
-                            className="text_color_accent"
+                            className='text_color_accent'
                             to={`${ROUTE_PATH.LOGIN}`}
                         >
                             Войти

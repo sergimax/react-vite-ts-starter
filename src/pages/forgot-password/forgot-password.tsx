@@ -11,8 +11,9 @@ import {
 import {
     isAskResetPasswordSuccessfullSelector,
     askResetPassword,
+    isAuthorizedSelector,
 } from '../../services/reducers/account';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 export const ForgotPassword = () => {
     const dispatch = useAppDispatch();
@@ -21,6 +22,7 @@ export const ForgotPassword = () => {
     const isAskResetSuccessfull = useAppSelector(
         isAskResetPasswordSuccessfullSelector
     );
+    const isAuthorized = useAppSelector(isAuthorizedSelector);
 
     const [email, setEmail] = useState<string>('');
 
@@ -41,31 +43,35 @@ export const ForgotPassword = () => {
 
     useEffect(() => {
         if (isAskResetSuccessfull) {
-            console.log("Successfull password reset ");
+            console.log('Successfull password reset');
             setEmail('');
             navigate(ROUTE_PATH.RESET_PASSWORD);
         }
     }, [isAskResetSuccessfull, navigate]);
+
+    if (isAuthorized) {
+        return <Navigate to={ROUTE_PATH.DEFAULT} />;
+    }
 
     return (
         <>
             <AppHeader />
             <div className={styles.container}>
                 <div className={styles['login-form']}>
-                    <div className="text_type_main-medium">
+                    <div className='text_type_main-medium'>
                         Восстановление пароля
                     </div>
                     <EmailInput
                         onChange={(e) => setEmail(e.target.value)}
-                        name="email"
-                        placeholder="Укажите e-mail"
+                        name='email'
+                        placeholder='Укажите e-mail'
                         isIcon={false}
                         value={email}
                     ></EmailInput>
                     <Button
-                        htmlType="button"
-                        type="primary"
-                        size="medium"
+                        htmlType='button'
+                        type='primary'
+                        size='medium'
                         onClick={sendResetPasswordRequest}
                     >
                         Восстановить
@@ -79,7 +85,7 @@ export const ForgotPassword = () => {
                     >
                         Вспомнили пароль?{' '}
                         <Link
-                            className="text_color_accent"
+                            className='text_color_accent'
                             to={`${ROUTE_PATH.LOGIN}`}
                         >
                             Войти
