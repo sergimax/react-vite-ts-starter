@@ -13,7 +13,7 @@ import {
     setConstructorBun,
     setConstructorIngredients,
 } from '../../services/reducers/ingredients';
-import { UniqueIngredientItem } from '../../types/types';
+import { Ingredient, UniqueIngredientItem } from '../../types/types';
 import { createOrder } from '../../services/reducers/ingredients/thunks';
 import {
     ingredientsConstructorContentSelector,
@@ -22,6 +22,9 @@ import {
 import { useEffect, useMemo } from 'react';
 import { BurgerConstructorIngredient } from '../burger-constructor-ingredient';
 import { v4 as uuidv4 } from 'uuid';
+import { isAuthorizedSelector } from '../../services/reducers/account';
+import { useNavigate } from 'react-router-dom';
+import { ROUTE_PATH } from '../app/constants.ts';
 
 /**
  * Текущий состав бургера
@@ -30,11 +33,13 @@ export const BurgerConstructor = ({
     onFormAnOrderClick,
 }: BurgerConstructorProps) => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     const orderNumber = useAppSelector(ingredientsOrderSelector);
     const chosenIngredients = useAppSelector(
         ingredientsConstructorContentSelector
     );
+    const isAuthorized = useAppSelector(isAuthorizedSelector);
 
     const containerClass: string = `pl-4 pt-25 ${styles.container}`;
     const calculationClass: string = `mt-10 mr-4 ${styles.calculation}`;
@@ -42,7 +47,7 @@ export const BurgerConstructor = ({
     const [, dropTarget] = useDrop({
         accept: 'ingredient',
         drop(item) {
-            if (item.type === 'bun') {
+            if ((item as Ingredient).type === 'bun') {
                 dispatch(
                     setConstructorBun({
                         value: item,
@@ -154,14 +159,18 @@ export const BurgerConstructor = ({
                     size="large"
                     extraClass="ml-10"
                     onClick={() => {
-                        const list = [
-                            chosenIngredients.bun?._id,
-                            ...chosenIngredients.ingredients.map(
-                                (ingredient) => ingredient._id
-                            ),
-                        ];
+                        if (isAuthorized) {
+                            const list = [
+                                chosenIngredients.bun?._id,
+                                ...chosenIngredients.ingredients.map(
+                                    (ingredient) => ingredient._id
+                                ),
+                            ];
 
-                        dispatch(createOrder(list));
+                            dispatch(createOrder(list));
+                        } else {
+                            navigate(`${ROUTE_PATH.LOGIN}`)
+                        }
                     }}
                 >
                     Оформить заказ
