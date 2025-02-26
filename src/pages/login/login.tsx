@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
 import { Link, useNavigate, Navigate } from 'react-router-dom';
 import { AppHeader } from '../../components/app-header';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
@@ -26,12 +26,13 @@ export const Login = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
 
-    function login(email: string, password: string): void {
+    function login(event: SyntheticEvent): void {
         if (!email || !password) {
             console.error('Error: no login data set');
             return;
         }
 
+        event.preventDefault();
         dispatch(
             loginAccount({
                 email: email,
@@ -59,7 +60,7 @@ export const Login = () => {
         <>
             <AppHeader />
             <div className={styles.container}>
-                <div className={styles['login-form']}>
+                <form onSubmit={(e) => login(e)} className={styles['login-form']}>
                     <div className='text_type_main-medium'>Вход</div>
                     <EmailInput
                         onChange={(e) => setEmail(e.target.value)}
@@ -74,14 +75,13 @@ export const Login = () => {
                         icon='ShowIcon'
                     ></PasswordInput>
                     <Button
-                        htmlType='button'
+                        htmlType='submit'
                         type='primary'
                         size='medium'
-                        onClick={() => login(email, password)}
                     >
                         Войти
                     </Button>
-                </div>
+                </form>
                 <div className={styles['additional-actions']}>
                     <div
                         className={

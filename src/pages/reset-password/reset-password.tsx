@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import {
     Button,
@@ -24,6 +24,15 @@ export const ResetPassword = () => {
     const [newPassword, setNewPassword] = useState<string>('');
     const [code, setCode] = useState<string>('');
 
+    function resetPassword(event: SyntheticEvent) {
+        if (newPassword && code) {
+            event.preventDefault();
+            dispatch(executeResetPassword({
+                password: newPassword, token: code,
+            }));
+        }
+    }
+
     useEffect(() => {
         dispatch(setActivePage({ value: ROUTE_PATH.RESET_PASSWORD }));
     }, [dispatch]);
@@ -42,7 +51,7 @@ export const ResetPassword = () => {
         <>
             <AppHeader />
             <div className={styles.container}>
-                <div className={styles['login-form']}>
+                <form onSubmit={resetPassword} className={styles['login-form']}>
                     <div className='text_type_main-medium'>
                         Восстановление пароля
                     </div>
@@ -51,27 +60,21 @@ export const ResetPassword = () => {
                         name='newPassword'
                         placeholder='Введите новый пароль'
                         value={newPassword}
-                    ></Input>
+                    />
                     <Input
                         onChange={(e) => setCode(e.target.value)}
                         placeholder='Введите код из письма'
                         name='code'
                         value={code}
-                    ></Input>
+                    />
                     <Button
                         htmlType='button'
                         type='primary'
                         size='medium'
-                        onClick={async () => {
-                            dispatch(executeResetPassword({
-                                password: newPassword,
-                                token: code
-                            }))
-                        }}
                     >
                         Сохранить
                     </Button>
-                </div>
+                </form>
                 <div className={styles['additional-actions']}>
                     <div
                         className={

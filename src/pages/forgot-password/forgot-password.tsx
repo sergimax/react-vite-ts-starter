@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import {
     Button, EmailInput,
@@ -25,9 +25,10 @@ export const ForgotPassword = () => {
         dispatch(setActivePage({ value: ROUTE_PATH.LOGIN }));
     }, [dispatch]);
 
-    function sendResetPasswordRequest() {
+    function sendResetPasswordRequest(event: SyntheticEvent) {
         // optional email validation
         if (email) {
+            event.preventDefault();
             dispatch(setAccountEmail({
                 email: email,
             }));
@@ -52,7 +53,7 @@ export const ForgotPassword = () => {
     return (<>
             <AppHeader />
             <div className={styles.container}>
-                <div className={styles['login-form']}>
+                <form onSubmit={sendResetPasswordRequest} className={styles['login-form']}>
                     <div className='text_type_main-medium'>
                         Восстановление пароля
                     </div>
@@ -64,14 +65,13 @@ export const ForgotPassword = () => {
                         value={email}
                     ></EmailInput>
                     <Button
-                        htmlType='button'
+                        htmlType='submit'
                         type='primary'
                         size='medium'
-                        onClick={sendResetPasswordRequest}
                     >
                         Восстановить
                     </Button>
-                </div>
+                </form>
                 <div className={styles['additional-actions']}>
                     <div
                         className={'text text_type_main-default text_color_inactive'}

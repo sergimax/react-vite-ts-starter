@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
     Button,
@@ -49,15 +49,16 @@ export const Profile = () => {
     const [password, setPassword] = useState<string>(userPassword);
     const [isFormDirty, setIsFormDirty] = useState<boolean>(false);
 
-    function resetForm() {
+    function resetForm(event?: SyntheticEvent) {
+        event && event.preventDefault();
         setName(userName);
         setEmail(userEmail);
-        // TODO password reset
-        // setPassword(userPassword);
+        setPassword(userPassword);
         setIsFormDirty(false);
     }
 
-    function saveForm() {
+    function saveForm(event: SyntheticEvent) {
+        event.preventDefault();
         dispatch(
             updateAccountInformation({
                 name: name,
@@ -73,7 +74,9 @@ export const Profile = () => {
     }, [dispatch]);
 
     useEffect(() => {
-        resetForm();
+        if (isAccountInformationUpdateSuccessful) {
+            resetForm();
+        }
     }, [isAccountInformationUpdateSuccessful]);
 
     return (
@@ -111,7 +114,7 @@ export const Profile = () => {
                         данные
                     </div>
                 </div>
-                <div className={styles['user-data']}>
+                <form onSubmit={saveForm} className={styles['user-data']} onReset={resetForm}>
                     <Input
                         onChange={(e) => {
                             setIsFormDirty(true);
@@ -121,7 +124,7 @@ export const Profile = () => {
                         name='name'
                         value={name}
                         icon='EditIcon'
-                    ></Input>
+                    />
                     <Input
                         onChange={(e) => {
                             setIsFormDirty(true);
@@ -131,7 +134,7 @@ export const Profile = () => {
                         name='email'
                         value={email}
                         icon='EditIcon'
-                    ></Input>
+                    />
                     <PasswordInput
                         onChange={(e) => {
                             setIsFormDirty(true);
@@ -140,26 +143,24 @@ export const Profile = () => {
                         value={password}
                         name='password'
                         icon='EditIcon'
-                    ></PasswordInput>
+                    />
                     {isFormDirty && (
                         <div className={styles['update-actions']}>
                             <Button
                                 type={'secondary'}
-                                htmlType='button'
-                                onClick={resetForm}
+                                htmlType='reset'
                             >
                                 Отмена
                             </Button>
                             <Button
                                 type={'primary'}
-                                htmlType='button'
-                                onClick={saveForm}
+                                htmlType='submit'
                             >
                                 Сохранить
                             </Button>
                         </div>
                     )}
-                </div>
+                </form>
             </div>
         </>
     );
