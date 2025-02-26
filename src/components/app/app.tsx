@@ -12,8 +12,17 @@ import {
 import { ROUTE_PATH } from './constants';
 import { ProtectedRouteElement } from '../protected-route-element';
 import { IngredientInfo } from '../../pages/ingredient-info';
+import { fetchIngredients } from '../../services/reducers/ingredients/thunks.ts';
+import { useAppDispatch } from '../../services/hooks.ts';
+import { useEffect } from 'react';
 
 function App() {
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(fetchIngredients());
+    }, [dispatch]);
+
     return (
         <>
             <BrowserRouter>

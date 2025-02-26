@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DataForModal, ModalContent } from '../../types/types';
-import { fetchIngredients } from '../../services/reducers/ingredients/thunks';
 import { IngredientDetails } from '../../components/ingredient-details';
 import {
     ingredientsErrorSelector,
@@ -69,7 +68,7 @@ export const OrderConstructor = () => {
     // Загрузка данных об ингредиентах
     useEffect(() => {
         dispatch(setActivePage({ value: ROUTE_PATH.DEFAULT }));
-        dispatch(fetchIngredients());
+
         return () => {
             closeModal();
         }
