@@ -14,7 +14,6 @@ import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { Modal } from '../../components/modal';
 import { BurgerIngredients } from '../../components/burger-ingredients';
 import { BurgerConstructor } from '../../components/burger-constructor';
-import { AppHeader } from '../../components/app-header';
 import { setActivePage } from '../../services/reducers/pages';
 import { ROUTE_PATH } from '../../components/app/constants';
 import { resetOrderValue } from '../../services/reducers/ingredients';
@@ -76,7 +75,6 @@ export const OrderConstructor = () => {
 
     return (
         <>
-            <AppHeader />
             <DndProvider backend={HTML5Backend}>
                 {/* Блок основного содержимого страницы */}
                 <main className={styles.main}>

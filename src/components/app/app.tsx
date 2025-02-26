@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import {
     ForgotPassword,
@@ -14,7 +15,7 @@ import { ProtectedRouteElement } from '../protected-route-element';
 import { IngredientInfo } from '../../pages/ingredient-info';
 import { fetchIngredients } from '../../services/reducers/ingredients/thunks.ts';
 import { useAppDispatch } from '../../services/hooks.ts';
-import { useEffect } from 'react';
+import { AppHeader } from '../app-header';
 
 function App() {
     const dispatch = useAppDispatch();
@@ -26,7 +27,7 @@ function App() {
     return (
         <>
             <BrowserRouter>
-                {/* TODO app header as separate component outside of Routes ?*/}
+                <AppHeader />
                 <Routes>
                     <Route
                         path={ROUTE_PATH.NOT_FOUND}

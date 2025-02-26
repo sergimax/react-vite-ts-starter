@@ -7,7 +7,6 @@ import {
 import { ROUTE_PATH } from '../../components/app/constants';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { setActivePage } from '../../services/reducers/pages';
-import { AppHeader } from '../../components/app-header';
 import {
     executeResetPassword,
     isAuthorizedSelector, isExecuteResetPasswordSuccessfulSelector,
@@ -49,7 +48,6 @@ export const ResetPassword = () => {
 
     return (
         <>
-            <AppHeader />
             <div className={styles.container}>
                 <form onSubmit={resetPassword} className={styles['login-form']}>
                     <div className='text_type_main-medium'>

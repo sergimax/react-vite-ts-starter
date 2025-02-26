@@ -5,7 +5,6 @@ import {
     Input,
     PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { AppHeader } from '../../components/app-header';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import {
     activePageSelector,
@@ -81,7 +80,6 @@ export const Profile = () => {
 
     return (
         <>
-            <AppHeader />
             <div className={styles.container}>
                 <div className={styles.navigation}>
                     <div className='text_type_main-medium'>

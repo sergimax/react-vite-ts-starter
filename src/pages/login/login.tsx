@@ -1,6 +1,5 @@
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { Link, useNavigate, Navigate } from 'react-router-dom';
-import { AppHeader } from '../../components/app-header';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { setActivePage } from '../../services/reducers/pages';
 import { ROUTE_PATH } from '../../components/app/constants';
@@ -58,7 +57,6 @@ export const Login = () => {
 
     return (
         <>
-            <AppHeader />
             <div className={styles.container}>
                 <form onSubmit={(e) => login(e)} className={styles['login-form']}>
                     <div className='text_type_main-medium'>Вход</div>

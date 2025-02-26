@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { AppHeader } from '../../components/app-header';
 import { IngredientDetails } from '../../components/ingredient-details';
 import { Ingredient } from '../../types/types';
 import { useAppSelector } from '../../services/hooks';
@@ -30,7 +29,6 @@ export const IngredientInfo = () => {
 
     return (
         <>
-            <AppHeader />
             <div className={styles.container}>
                 {ingredientData ? (
                     <>
