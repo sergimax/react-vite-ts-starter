@@ -25,9 +25,6 @@ export const isAskResetPasswordLoadedSelector = (state: AppState) =>
 export const isAskResetPasswordSuccessfulSelector = (state: AppState) =>
     rootSelector(state).isAskResetSuccessful;
 
-export const askResetPasswordErrorSelector = (state: AppState) =>
-    rootSelector(state).askResetError;
-
 export const isExecuteResetPasswordLoadingSelector = (state: AppState) =>
     rootSelector(state).isExecuteResetLoading;
 
@@ -36,9 +33,6 @@ export const isExecuteResetPasswordLoadedSelector = (state: AppState) =>
 
 export const isExecuteResetPasswordSuccessfulSelector = (state: AppState) =>
     rootSelector(state).isExecuteResetSuccessful;
-
-export const executeResetPasswordErrorSelector = (state: AppState) =>
-    rootSelector(state).executeResetError;
 
 export const isRegisterAccountLoadingSelector = (state: AppState) =>
     rootSelector(state).isRegisterLoaded;
@@ -49,9 +43,6 @@ export const isRegisterAccountLoadedSelector = (state: AppState) =>
 export const isRegisterAccountSuccessfulSelector = (state: AppState) =>
     rootSelector(state).isRegisterSuccessful;
 
-export const registerAccountErrorSelector = (state: AppState) =>
-    rootSelector(state).registerError;
-
 export const isLoginLoadingSelector = (state: AppState) =>
     rootSelector(state).isLoginLoaded;
 
@@ -60,6 +51,3 @@ export const isLoginLoadedSelector = (state: AppState) =>
 
 export const isLoginSuccessfulSelector = (state: AppState) =>
     rootSelector(state).isLoginSuccessful;
-
-export const loginErrorSelector = (state: AppState) =>
-    rootSelector(state).loginError;

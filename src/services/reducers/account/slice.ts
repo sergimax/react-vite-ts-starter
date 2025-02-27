@@ -27,32 +27,16 @@ const initialState: AccountState = {
     isExecuteResetLoading: false,
     isExecuteResetSuccessful: false,
 
-    registerError: {
-        message: undefined,
-        status: undefined,
-    },
     isRegisterLoaded: false,
     isRegisterLoading: false,
     isRegisterSuccessful: false,
 
-    loginError: {
-        message: undefined,
-        status: undefined,
-    },
     isLoginLoaded: false,
     isLoginLoading: false,
     isLoginSuccessful: false,
 
-    logoutError: {
-        message: undefined,
-        status: undefined,
-    },
     isLogoutSuccessful: false,
 
-    accountInformationError: {
-        message: undefined,
-        status: undefined,
-    },
     isAccountInformationLoaded: false,
     isAccountInformationLoading: false,
     isAccountInformationSuccessful: false,
@@ -105,18 +89,16 @@ const accountSlice = createSlice({
             .addCase(registerAccount.fulfilled, (state, action) => {
                 state.isRegisterLoading = false;
                 state.isRegisterLoaded = true;
-                console.log('registerAccount.fulfilled', action.payload);
 
                 state.isRegisterSuccessful = action.payload.success;
             })
-            .addCase(registerAccount.rejected, (state, action) => {
+            .addCase(registerAccount.rejected, (_state, action) => {
                 const error = action.payload;
 
-                state.registerError.status = error!.status;
-                state.registerError.message = error!.message;
+                console.error(error);
             });
         builder
-            .addCase(loginAccount.pending, (state) => {
+            .addCase(loginAccount.pending, state => {
                 state.isLoginLoading = true;
             })
             .addCase(loginAccount.fulfilled, (state, action) => {
@@ -130,71 +112,62 @@ const accountSlice = createSlice({
                 state.isAuthorized = true;
                 state.isLoginSuccessful = action.payload.success;
             })
-            .addCase(loginAccount.rejected, (state, action) => {
+            .addCase(loginAccount.rejected, (_state, action) => {
                 const error = action.payload;
 
-                state.loginError.status = error!.status;
-                state.loginError.message = error!.message;
+                console.error(error);
             });
         builder
             .addCase(logoutAccount.fulfilled, (state, action) => {
-                console.log('logoutAccount.fulfilled', action.payload);
-
                 state.isLogoutSuccessful = action.payload.success;
                 state.isAuthorized = false;
                 state.name = '';
                 state.email = '';
                 state.password = '';
             })
-            .addCase(logoutAccount.rejected, (state, action) => {
+            .addCase(logoutAccount.rejected, (_state, action) => {
                 const error = action.payload;
 
-                state.logoutError.status = error!.status;
-                state.logoutError.message = error!.message;
+                console.error(error);
             });
         builder
-            .addCase(getAccountInformation.pending, (state) => {
+            .addCase(getAccountInformation.pending, state => {
                 state.isAccountInformationLoading = true;
             })
             .addCase(getAccountInformation.fulfilled, (state, action) => {
                 state.isAccountInformationLoading = false;
                 state.isAccountInformationLoaded = true;
-                console.log('getAccountInformation.fulfilled', action.payload);
 
                 state.name = action.payload.user.name;
                 state.email = action.payload.user.email;
+                state.isAuthorized = true;
 
                 state.isAccountInformationSuccessful = action.payload.success;
             })
-            .addCase(getAccountInformation.rejected, (state, action) => {
+            .addCase(getAccountInformation.rejected, (_state, action) => {
                 const error = action.payload;
 
-                state.accountInformationError.status = error!.status;
-                state.accountInformationError.message = error!.message;
+                console.error(error);
             });
         builder
-            .addCase(updateAccountInformation.pending, (state) => {
+            .addCase(updateAccountInformation.pending, state => {
                 state.isAccountInformationLoading = true;
             })
             .addCase(updateAccountInformation.fulfilled, (state, action) => {
                 state.isAccountInformationLoading = false;
                 state.isAccountInformationLoaded = true;
-                console.log(
-                    'updateAccountInformation.fulfilled',
-                    action.payload
-                );
 
                 state.name = action.payload.user.name;
                 state.email = action.payload.user.email;
+                state.isAuthorized = true;
 
                 state.isAccountInformationUpdateSuccessful =
                     action.payload.success;
             })
-            .addCase(updateAccountInformation.rejected, (state, action) => {
+            .addCase(updateAccountInformation.rejected, (_state, action) => {
                 const error = action.payload;
 
-                state.accountInformationError.status = error!.status;
-                state.accountInformationError.message = error!.message;
+                console.error(error);
             });
     },
 });

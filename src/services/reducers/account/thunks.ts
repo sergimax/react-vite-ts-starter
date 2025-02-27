@@ -316,7 +316,6 @@ export const getAccountInformation = createAsyncThunk<
             message: undefined,
         };
 
-
         const getAccountInformationData = await executeWithTokenRefresh(
             `${API_URL}/${API_ENDPOINT.GET_OR_UPDATE_ACCOUNT}`,
             {
