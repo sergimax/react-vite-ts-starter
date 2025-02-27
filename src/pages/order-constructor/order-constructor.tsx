@@ -22,7 +22,7 @@ import styles from './styles.module.css';
 export const OrderConstructor = () => {
     const dispatch = useAppDispatch();
 
-    const isIngredientsLoding = useAppSelector(ingredientsIsLoadingSelector);
+    const isIngredientsLoading = useAppSelector(ingredientsIsLoadingSelector);
     const ingredientsList = useAppSelector(ingredientsListSelector);
     const errorWithIngredientsFetch = useAppSelector(ingredientsErrorSelector);
 
@@ -78,7 +78,7 @@ export const OrderConstructor = () => {
             <DndProvider backend={HTML5Backend}>
                 {/* Блок основного содержимого страницы */}
                 <main className={styles.main}>
-                    {isIngredientsLoding ? (
+                    {isIngredientsLoading ? (
                         <h1 className='text_type_main-large pt-10 pb-5'>
                             Загрузка списка продуктов
                         </h1>

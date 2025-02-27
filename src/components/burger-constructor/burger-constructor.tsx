@@ -1,13 +1,15 @@
+import { useEffect, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
     Button,
     ConstructorElement,
     CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { v4 as uuidv4 } from 'uuid';
+import { useDrop } from 'react-dnd';
 import { BurgerConstructorProps } from './types';
 import { MODAL_TYPE } from '../../constants/constants';
-import styles from './style.module.css';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
-import { useDrop } from 'react-dnd';
 import {
     deleteConstructorIngredient,
     setConstructorBun,
@@ -19,12 +21,11 @@ import {
     ingredientsConstructorContentSelector,
     ingredientsOrderSelector,
 } from '../../services/reducers/ingredients/selectors';
-import { useEffect, useMemo } from 'react';
 import { BurgerConstructorIngredient } from '../burger-constructor-ingredient';
-import { v4 as uuidv4 } from 'uuid';
 import { isAuthorizedSelector } from '../../services/reducers/account';
-import { useNavigate } from 'react-router-dom';
 import { ROUTE_PATH } from '../app/constants.ts';
+import { BUN_DEFAULT_IMAGE, BUN_DEFAULT_TITLE } from './constants.ts';
+import styles from './style.module.css';
 
 /**
  * Текущий состав бургера
@@ -37,7 +38,7 @@ export const BurgerConstructor = ({
 
     const orderNumber = useAppSelector(ingredientsOrderSelector);
     const chosenIngredients = useAppSelector(
-        ingredientsConstructorContentSelector
+        ingredientsConstructorContentSelector,
     );
     const isAuthorized = useAppSelector(isAuthorizedSelector);
 
@@ -52,14 +53,14 @@ export const BurgerConstructor = ({
                     setConstructorBun({
                         value: item,
                         uniqueId: uuidv4(),
-                    })
+                    }),
                 );
             } else {
                 dispatch(
                     setConstructorIngredients({
                         value: item,
                         uniqueId: uuidv4(),
-                    })
+                    }),
                 );
             }
         },
@@ -74,7 +75,7 @@ export const BurgerConstructor = ({
         if (chosenIngredients.ingredients.length) {
             sum += chosenIngredients.ingredients.reduce(
                 (accumulator, current) => accumulator + current.price,
-                0
+                0,
             );
         }
 
@@ -97,30 +98,27 @@ export const BurgerConstructor = ({
         dispatch(
             deleteConstructorIngredient({
                 value: ingredient,
-            })
+            }),
         );
     }
 
-    if (!chosenIngredients.bun) {
-        return <></>;
-    }
-
     return (
-        <section
-            className={containerClass}
-            ref={dropTarget}
-        >
+        <section className={containerClass} ref={dropTarget}>
             {/* Верхняя булка бургера */}
-            {chosenIngredients.bun && (
-                <ConstructorElement
-                    type="top"
-                    isLocked={true}
-                    text={chosenIngredients.bun.name + ' (верх)'}
-                    price={chosenIngredients.bun.price}
-                    thumbnail={chosenIngredients.bun.image_mobile}
-                    extraClass="ml-8 mb-4 mr-4"
-                />
-            )}
+            <ConstructorElement
+                type='top'
+                isLocked={true}
+                text={
+                    chosenIngredients.bun
+                        ? chosenIngredients.bun.name + ' (низ)'
+                        : BUN_DEFAULT_TITLE
+                }
+                price={chosenIngredients.bun?.price || 0}
+                thumbnail={
+                    chosenIngredients.bun?.image_mobile || BUN_DEFAULT_IMAGE
+                }
+                extraClass='ml-8 mb-4 mr-4'
+            />
 
             {/* Начинка бургера */}
             <div className={styles.ingredients}>
@@ -138,38 +136,42 @@ export const BurgerConstructor = ({
             </div>
 
             {/* Нижняя булка бургера */}
-            {chosenIngredients.bun && (
-                <ConstructorElement
-                    type="bottom"
-                    isLocked={true}
-                    text={chosenIngredients.bun.name + ' (низ)'}
-                    price={chosenIngredients.bun.price}
-                    thumbnail={chosenIngredients.bun.image_mobile}
-                    extraClass="ml-8 mt-4"
-                />
-            )}
+            <ConstructorElement
+                type='bottom'
+                isLocked={true}
+                text={
+                    chosenIngredients.bun
+                        ? chosenIngredients.bun.name + ' (низ)'
+                        : BUN_DEFAULT_TITLE
+                }
+                price={chosenIngredients.bun?.price || 0}
+                thumbnail={
+                    chosenIngredients.bun?.image_mobile || BUN_DEFAULT_IMAGE
+                }
+                extraClass='ml-8 mt-4'
+            />
 
             {/* Блок калькуляции и кнопки */}
             <div className={calculationClass}>
-                <span className="text_type_digits-medium pr-2">{totalSum}</span>
-                <CurrencyIcon type="primary" />
+                <span className='text_type_digits-medium pr-2'>{totalSum}</span>
+                <CurrencyIcon type='primary' />
                 <Button
-                    htmlType="button"
-                    type="primary"
-                    size="large"
-                    extraClass="ml-10"
+                    htmlType='button'
+                    type='primary'
+                    size='large'
+                    extraClass='ml-10'
                     onClick={() => {
                         if (isAuthorized) {
                             const list = [
                                 chosenIngredients.bun?._id,
                                 ...chosenIngredients.ingredients.map(
-                                    (ingredient) => ingredient._id
+                                    ingredient => ingredient._id,
                                 ),
                             ];
 
                             dispatch(createOrder(list));
                         } else {
-                            navigate(`${ROUTE_PATH.LOGIN}`)
+                            navigate(`${ROUTE_PATH.LOGIN}`);
                         }
                     }}
                 >
