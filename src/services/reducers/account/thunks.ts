@@ -111,11 +111,9 @@ export const loginAccount = createAsyncThunk<
         if (!LoginAccountResponse.ok) {
             customError.status = LoginAccountResponse.status;
         }
-        console.log('LoginAccountResponse', LoginAccountResponse);
 
         const LoginAccountData: LoginAccountDTO =
             await LoginAccountResponse.json();
-        console.log('LoginAccountData', LoginAccountData);
 
         // Проверка успешности выполнения запроса
         if (!LoginAccountData.success) {
@@ -135,7 +133,6 @@ export const loginAccount = createAsyncThunk<
         }
 
         if (authToken.length) {
-            console.log('authToken', authToken);
             // Сохраняем токен в куку token
             setCookie('token', authToken);
         }
@@ -181,11 +178,9 @@ export const refreshToken = createAsyncThunk<
         if (!refreshTokenAccountResponse.ok) {
             customError.status = refreshTokenAccountResponse.status;
         }
-        console.log('refreshTokenAccountResponse', refreshTokenAccountResponse);
 
         const refreshTokenAccountData: RefreshTokenAccountDTO =
             await refreshTokenAccountResponse.json();
-        console.log('refreshTokenAccountData', refreshTokenAccountData);
 
         // Проверка успешности выполнения запроса
         if (!refreshTokenAccountData.success) {
@@ -209,7 +204,6 @@ export const refreshToken = createAsyncThunk<
         }
 
         if (authToken.length) {
-            console.log('authToken', authToken);
             // Сохраняем токен в куку token
             setCookie('token', authToken);
         }
@@ -252,11 +246,9 @@ export const logoutAccount = createAsyncThunk<
         if (!LogoutAccountResponse.ok) {
             customError.status = LogoutAccountResponse.status;
         }
-        console.log('LogoutAccountResponse', LogoutAccountResponse);
 
         const LogoutAccountData: LogoutAccountDTO =
             await LogoutAccountResponse.json();
-        console.log('LogoutAccountData', LogoutAccountData);
 
         // Проверка успешности выполнения запроса
         if (!LogoutAccountData.success) {
@@ -283,7 +275,6 @@ export const logoutAccount = createAsyncThunk<
  * @param options Параметры исполняемого fetch запроса
  */
 async function executeWithTokenRefresh(path: string, options: RequestInit) {
-    console.log("executeWithTokenRefresh");
     try {
         const result = await fetch(path, options);
 
@@ -305,7 +296,7 @@ async function executeWithTokenRefresh(path: string, options: RequestInit) {
 
                 return requestWithNewToken.json();
             } catch (e) {
-                console.log('Ошибка повторного запроса с обновлением токена:', e)
+                console.error('Ошибка повторного запроса с обновлением токена:', e)
             }
 
         } else {
@@ -319,7 +310,6 @@ export const getAccountInformation = createAsyncThunk<
     void,
     GetAccountInformationAsyncThunkConfig
 >(`${ACCOUNT_STATE_NAME}/get-information`, async (_, { rejectWithValue }) => {
-    console.log("getAccountInformation");
     try {
         const customError: CustomError = {
             status: undefined,
@@ -337,7 +327,6 @@ export const getAccountInformation = createAsyncThunk<
                 },
             }
         );
-        console.log('getAccountInformationData', getAccountInformationData);
 
         // Проверка успешности выполнения запроса
         if (!getAccountInformationData.success) {
@@ -382,11 +371,6 @@ export const updateAccountInformation = createAsyncThunk<
                         password: accountData.password,
                     }),
                 }
-            );
-
-            console.log(
-                'updateAccountInformationData',
-                updateAccountInformationData
             );
 
             // Проверка успешности выполнения запроса
