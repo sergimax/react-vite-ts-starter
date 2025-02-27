@@ -16,20 +16,16 @@ export type AccountState = {
     isExecuteResetLoading: boolean;
     isExecuteResetSuccessful: boolean;
 
-    registerError: CustomError;
     isRegisterLoaded: boolean;
     isRegisterLoading: boolean;
     isRegisterSuccessful: boolean;
 
-    loginError: CustomError;
     isLoginLoaded: boolean;
     isLoginLoading: boolean;
     isLoginSuccessful: boolean;
 
-    logoutError: CustomError;
     isLogoutSuccessful: boolean;
 
-    accountInformationError: CustomError;
     isAccountInformationLoaded: boolean;
     isAccountInformationLoading: boolean;
     isAccountInformationSuccessful: boolean;
@@ -44,6 +40,8 @@ export type CustomError = {
 
 export type CookieParams = { [key: string]: string | number | Date | boolean };
 
+export type BasicResponse = { success: boolean };
+
 /**
  * Данные для запроса возможности сброса пароля
  */
@@ -56,8 +54,7 @@ export type AskResetPasswordAsyncThunkConfig = {
     rejectValue: string;
 };
 
-export type AskResetPasswordDTO = {
-    success: boolean;
+export type AskResetPasswordDTO = BasicResponse & {
     message: string;
 };
 
@@ -69,8 +66,7 @@ export type ExecuteResetPasswordData = {
     token: string;
 };
 
-export type ExecuteResetPasswordDTO = {
-    success: boolean;
+export type ExecuteResetPasswordDTO = BasicResponse & {
     message: string;
 };
 
@@ -88,8 +84,7 @@ export type RegisterAccountData = {
     name: string;
 };
 
-export type RegisterAccountDTO = {
-    success: boolean;
+export type RegisterAccountDTO = BasicResponse & {
     user: {
         email: string;
         name: string;
@@ -111,7 +106,6 @@ export type RegisterAccountDTO = {
 
 export type RegisterAccountAsyncThunkConfig = {
     state: AppState;
-    rejectValue: CustomError;
 };
 
 /**
@@ -122,8 +116,7 @@ export type LoginAccountData = {
     password: string;
 };
 
-export type LoginAccountDTO = {
-    success: boolean;
+export type LoginAccountDTO = BasicResponse & {
     user: {
         email: string;
         name: string;
@@ -145,20 +138,17 @@ export type LoginAccountDTO = {
 
 export type LoginAccountAsyncThunkConfig = {
     state: AppState;
-    rejectValue: CustomError;
 };
 
 /**
  * Результат обращения к бэку по выходу пользователя из системы
  */
-export type LogoutAccountDTO = {
-    success: boolean;
+export type LogoutAccountDTO = BasicResponse & {
     message: string;
 };
 
 export type LogoutAccountAsyncThunkConfig = {
     state: AppState;
-    rejectValue: CustomError;
 };
 
 /**
@@ -171,15 +161,13 @@ export type RefreshTokenAccountData = {
     token: string;
 };
 
-export type RefreshTokenAccountDTO = {
-    success: boolean;
+export type RefreshTokenAccountDTO = BasicResponse & {
     accessToken: string;
     refreshToken: string;
 };
 
 export type RefreshTokenAccountAsyncThunkConfig = {
     state: AppState;
-    rejectValue: CustomError;
 };
 
 /**
@@ -192,8 +180,7 @@ export type GetAccountInformationData = {
     token: string;
 };
 
-export type GetAccountInformationDTO = {
-    success: boolean;
+export type GetAccountInformationDTO = BasicResponse & {
     user: {
         email: string;
         name: string;
@@ -202,7 +189,6 @@ export type GetAccountInformationDTO = {
 
 export type GetAccountInformationAsyncThunkConfig = {
     state: AppState;
-    rejectValue: CustomError;
 };
 
 /**
@@ -214,8 +200,7 @@ export type UpdateAccountInformationData = {
     password: string;
 };
 
-export type UpdateAccountInformationDTO = {
-    success: boolean;
+export type UpdateAccountInformationDTO = BasicResponse & {
     user: {
         email: string;
         name: string;
@@ -224,5 +209,4 @@ export type UpdateAccountInformationDTO = {
 
 export type UpdateAccountInformationAsyncThunkConfig = {
     state: AppState;
-    rejectValue: CustomError;
 };

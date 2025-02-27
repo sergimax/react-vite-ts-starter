@@ -3,8 +3,7 @@ import { API_ENDPOINT, API_URL } from '../../../constants/constants';
 import {
     AskResetPasswordAsyncThunkConfig,
     AskResetPasswordData,
-    AskResetPasswordDTO,
-    CustomError,
+    AskResetPasswordDTO, CustomError,
     ExecuteResetPasswordAsyncThunkConfig,
     ExecuteResetPasswordData,
     ExecuteResetPasswordDTO,
@@ -25,153 +24,64 @@ import {
     UpdateAccountInformationDTO,
 } from './types';
 import { ACCOUNT_STATE_NAME } from './constants';
-import { deleteCookie, getCookie, setCookie } from './utils';
+import { deleteCookie, getCookie, request, setCookie } from './utils';
 
 export const askResetPassword = createAsyncThunk<
-    AskResetPasswordDTO,
-    AskResetPasswordData,
-    AskResetPasswordAsyncThunkConfig
+  AskResetPasswordDTO,
+  AskResetPasswordData,
+  AskResetPasswordAsyncThunkConfig
 >(
-    `${ACCOUNT_STATE_NAME}/password-reset`,
-    async (resetData, { rejectWithValue }) => {
-        try {
-            const askPasswordResetResponse = await fetch(
-                `${API_URL}/${API_ENDPOINT.PASSWORD_RESET_ASK}`,
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        email: resetData.email,
-                    }),
-                }
-            );
-
-            if (!askPasswordResetResponse.ok) {
-                throw new Error(
-                    `Статус ответа: ${askPasswordResetResponse.status}`
-                );
-            }
-
-            const askPasswordResetData: AskResetPasswordDTO =
-                await askPasswordResetResponse.json();
-
-            // Проверка успешности выполнения запроса
-            if (!askPasswordResetData.success) {
-                throw new Error(`Неуспешный статус сброса пароля`);
-            }
-
-            return askPasswordResetData;
-        } catch (error) {
-            console.error('Произошла ошибка: ', error);
-
-            return rejectWithValue(error as string);
-        }
-    }
+  `${ACCOUNT_STATE_NAME}/password-reset`,
+  async (resetData): Promise<AskResetPasswordDTO> => {
+    return request(API_ENDPOINT.PASSWORD_RESET_ASK, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: resetData.email,
+      }),
+    });
+  },
 );
 
 export const executeResetPassword = createAsyncThunk<
-    ExecuteResetPasswordDTO,
-    ExecuteResetPasswordData,
-    ExecuteResetPasswordAsyncThunkConfig
+  ExecuteResetPasswordDTO,
+  ExecuteResetPasswordData,
+  ExecuteResetPasswordAsyncThunkConfig
 >(
-    `${ACCOUNT_STATE_NAME}/password-reset/reset`,
-    async (resetData, { rejectWithValue }) => {
-        try {
-            const executePasswordResetResponse = await fetch(
-                `${API_URL}/${API_ENDPOINT.PASSWORD_RESET_EXECUTE}`,
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        password: resetData.password,
-                        token: resetData.token,
-                    }),
-                }
-            );
-
-            if (!executePasswordResetResponse.ok) {
-                throw new Error(
-                    `Статус ответа: ${executePasswordResetResponse.status}`
-                );
-            }
-
-            const executePasswordResetData: ExecuteResetPasswordDTO =
-                await executePasswordResetResponse.json();
-
-            // Проверка успешности выполнения запроса
-            if (!executePasswordResetData.success) {
-                throw new Error(`Неуспешный статус сброса пароля`);
-            }
-
-            return executePasswordResetData;
-        } catch (error) {
-            console.error('Произошла ошибка: ', error);
-
-            return rejectWithValue(error as string);
-        }
-    }
+  `${ACCOUNT_STATE_NAME}/password-reset/reset`,
+  async (resetData): Promise<ExecuteResetPasswordDTO> => {
+    return request(`${API_ENDPOINT.PASSWORD_RESET_EXECUTE}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        password: resetData.password,
+        token: resetData.token,
+      }),
+    });
+  },
 );
 
 export const registerAccount = createAsyncThunk<
-    RegisterAccountDTO,
-    RegisterAccountData,
-    RegisterAccountAsyncThunkConfig
->(
-    `${ACCOUNT_STATE_NAME}/register`,
-    async (accountData, { rejectWithValue }) => {
-        try {
-            const customError: CustomError = {
-                status: undefined,
-                message: undefined,
-            };
-
-            const RegisterAccountResponse = await fetch(
-                `${API_URL}/${API_ENDPOINT.REGISTER_ACCOUNT}`,
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        email: accountData.email,
-                        password: accountData.password,
-                        name: accountData.name,
-                    }),
-                }
-            );
-
-            if (!RegisterAccountResponse.ok) {
-                customError.status = RegisterAccountResponse.status;
-            }
-            console.log('RegisterAccountResponse', RegisterAccountResponse);
-
-            const RegisterAccountData: RegisterAccountDTO =
-                await RegisterAccountResponse.json();
-            console.log('RegisterAccountData', RegisterAccountData);
-
-            // Проверка успешности выполнения запроса
-            if (!RegisterAccountData.success) {
-                throw customError;
-            }
-
-            return RegisterAccountData;
-        } catch (error) {
-            console.error('Произошла ошибка регистрации: ', error);
-            if (
-                (error as CustomError).status ||
-                (error as CustomError).message
-            ) {
-                return rejectWithValue(error as CustomError);
-            }
-
-            return rejectWithValue({ message: error as string });
-        }
-    }
-);
+  RegisterAccountDTO,
+  RegisterAccountData,
+  RegisterAccountAsyncThunkConfig
+>(`${ACCOUNT_STATE_NAME}/register`, async (accountData) => {
+  return request<RegisterAccountDTO>(`${API_ENDPOINT.REGISTER_ACCOUNT}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: accountData.email,
+      password: accountData.password,
+      name: accountData.name,
+    }),
+  });
+});
 
 export const loginAccount = createAsyncThunk<
     LoginAccountDTO,

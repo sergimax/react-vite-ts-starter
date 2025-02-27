@@ -1,4 +1,5 @@
-import { CookieParams } from './types';
+import { BasicResponse, CookieParams } from './types';
+import { API_URL } from '../../../constants/constants.ts';
 
 /**
  * Сохранение данных в куки
@@ -57,4 +58,27 @@ export function deleteCookie(name: string) {
     setCookie(name, '', {
         'max-age': '',
     });
+}
+
+function checkResponse(response: Response) {
+  if (response.ok) return response.json();
+
+  return Promise.reject(`Ошибка ${response.status}`);
+}
+
+function checkResponseSuccess<T extends BasicResponse>(response: T) {
+  if (response && response.success) {
+    return response;
+  }
+
+  return Promise.reject(`Неуспешный ответ запроса: ${response}`);
+}
+
+export function request<T extends BasicResponse>(
+  endpoint: string,
+  options: RequestInit,
+) {
+  return fetch(`${API_URL}/${endpoint}`, options)
+    .then(checkResponse)
+    .then(checkResponseSuccess<T>);
 }
