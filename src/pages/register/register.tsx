@@ -1,4 +1,4 @@
-import { SyntheticEvent, useEffect, useState } from 'react';
+import { SyntheticEvent, useEffect } from 'react';
 import { Link, useNavigate, Navigate } from 'react-router-dom';
 import {
     Button,
@@ -6,7 +6,7 @@ import {
     Input,
     PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useAppDispatch, useAppSelector } from '../../services/hooks';
+import { useAppDispatch, useAppSelector, useForm } from '../../services/hooks';
 import { setActivePage } from '../../services/reducers/pages';
 import { ROUTE_PATH } from '../../components/app/constants';
 import {
@@ -25,24 +25,22 @@ export const Register = () => {
     );
     const isAuthorized = useAppSelector(isAuthorizedSelector);
 
-    const [name, setName] = useState<string>('');
-    const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
+    const { values, handleChange } = useForm({
+        inputValues: {
+            name: '', email: '', password: '',
+        },
+    });
 
     function registerNewAccount(event: SyntheticEvent): void {
-        if (!name || !email || !password) {
+        if (!values.name || !values.email || !values.password) {
             console.error('no registration data set');
             return;
         }
 
         event.preventDefault();
-        dispatch(
-            registerAccount({
-                name: name,
-                email: email,
-                password: password,
-            })
-        );
+        dispatch(registerAccount({
+            name: values.name, email: values.email, password: values.password,
+        }));
     }
 
     useEffect(() => {
@@ -51,7 +49,7 @@ export const Register = () => {
 
     useEffect(() => {
         if (isRegisterSuccessful) {
-            console.log('Successful registration :', name, email, password);
+            console.log('Successful registration :', values.name, values.email, values.password);
             navigate(ROUTE_PATH.LOGIN);
         }
     }, [isRegisterSuccessful, navigate]);
@@ -66,20 +64,20 @@ export const Register = () => {
                 <form onSubmit={registerNewAccount} className={styles['register-form']}>
                     <div className='text_type_main-medium'>Регистрация</div>
                     <Input
-                        onChange={(e) => setName(e.target.value)}
+                        onChange={handleChange}
                         placeholder='Имя'
                         name='name'
-                        value={name}
+                        value={values.name}
                     />
                     <EmailInput
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={handleChange}
                         name='email'
                         isIcon={false}
-                        value={email}
+                        value={values.email}
                     />
                     <PasswordInput
-                        onChange={(e) => setPassword(e.target.value)}
-                        value={password}
+                        onChange={handleChange}
+                        value={values.password}
                         name='password'
                         icon='ShowIcon'
                     />

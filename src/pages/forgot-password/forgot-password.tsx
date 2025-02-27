@@ -1,10 +1,10 @@
-import { SyntheticEvent, useEffect, useState } from 'react';
+import { SyntheticEvent, useEffect } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import {
     Button, EmailInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ROUTE_PATH } from '../../components/app/constants';
-import { useAppDispatch, useAppSelector } from '../../services/hooks';
+import { useAppDispatch, useAppSelector, useForm } from '../../services/hooks';
 import { setActivePage } from '../../services/reducers/pages';
 import {
     isAskResetPasswordSuccessfulSelector, askResetPassword, isAuthorizedSelector, setAccountEmail,
@@ -18,7 +18,11 @@ export const ForgotPassword = () => {
     const isAskResetSuccessful = useAppSelector(isAskResetPasswordSuccessfulSelector);
     const isAuthorized = useAppSelector(isAuthorizedSelector);
 
-    const [email, setEmail] = useState<string>('');
+    const { values, handleChange, setValues } = useForm({
+        inputValues: {
+            email: '',
+        },
+    });
 
     useEffect(() => {
         dispatch(setActivePage({ value: ROUTE_PATH.LOGIN }));
@@ -26,13 +30,13 @@ export const ForgotPassword = () => {
 
     function sendResetPasswordRequest(event: SyntheticEvent) {
         // optional email validation
-        if (email) {
+        if (values.email) {
             event.preventDefault();
             dispatch(setAccountEmail({
-                email: email,
+                email: values.email,
             }));
             dispatch(askResetPassword({
-                email: email,
+                email: values.email,
             }));
         }
     }
@@ -40,7 +44,7 @@ export const ForgotPassword = () => {
     useEffect(() => {
         if (isAskResetSuccessful) {
             console.log('Successful password reset');
-            setEmail('');
+            setValues({email: ''});
             navigate(ROUTE_PATH.RESET_PASSWORD);
         }
     }, [isAskResetSuccessful, navigate]);
@@ -56,11 +60,11 @@ export const ForgotPassword = () => {
                         Восстановление пароля
                     </div>
                     <EmailInput
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={handleChange}
                         name='email'
                         placeholder='Укажите e-mail'
                         isIcon={false}
-                        value={email}
+                        value={values.email}
                     ></EmailInput>
                     <Button
                         htmlType='submit'

@@ -1,6 +1,6 @@
-import { SyntheticEvent, useEffect, useState } from 'react';
+import { SyntheticEvent, useEffect } from 'react';
 import { Link, useNavigate, Navigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../services/hooks';
+import { useAppDispatch, useAppSelector, useForm } from '../../services/hooks';
 import { setActivePage } from '../../services/reducers/pages';
 import { ROUTE_PATH } from '../../components/app/constants';
 import {
@@ -22,11 +22,14 @@ export const Login = () => {
     const isLoginSuccessful = useAppSelector(isLoginSuccessfulSelector);
     const isAuthorized = useAppSelector(isAuthorizedSelector);
 
-    const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
+    const { values, handleChange } = useForm({
+        inputValues: {
+            email: '', password: '',
+        },
+    });
 
     function login(event: SyntheticEvent): void {
-        if (!email || !password) {
+        if (!values.email || !values.password) {
             console.error('Error: no login data set');
             return;
         }
@@ -34,8 +37,8 @@ export const Login = () => {
         event.preventDefault();
         dispatch(
             loginAccount({
-                email: email,
-                password: password,
+                email: values.email,
+                password: values.password,
             })
         );
     }
@@ -46,7 +49,7 @@ export const Login = () => {
 
     useEffect(() => {
         if (isLoginSuccessful) {
-            console.log('Successful login:', email, password);
+            console.log('Successful login:', values.email, values.password);
             navigate(ROUTE_PATH.DEFAULT);
         }
     }, [isLoginSuccessful, navigate]);
@@ -61,14 +64,14 @@ export const Login = () => {
                 <form onSubmit={(e) => login(e)} className={styles['login-form']}>
                     <div className='text_type_main-medium'>Вход</div>
                     <EmailInput
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={handleChange}
                         name='email'
                         isIcon={false}
-                        value={email}
+                        value={values.email}
                     ></EmailInput>
                     <PasswordInput
-                        onChange={(e) => setPassword(e.target.value)}
-                        value={password}
+                        onChange={handleChange}
+                        value={values.password}
                         name='password'
                         icon='ShowIcon'
                     ></PasswordInput>

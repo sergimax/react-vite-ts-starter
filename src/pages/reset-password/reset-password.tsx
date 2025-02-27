@@ -1,11 +1,11 @@
-import { SyntheticEvent, useEffect, useState } from 'react';
+import { SyntheticEvent, useEffect } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import {
     Button,
     Input,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ROUTE_PATH } from '../../components/app/constants';
-import { useAppDispatch, useAppSelector } from '../../services/hooks';
+import { useAppDispatch, useAppSelector, useForm } from '../../services/hooks';
 import { setActivePage } from '../../services/reducers/pages';
 import {
     executeResetPassword,
@@ -20,14 +20,17 @@ export const ResetPassword = () => {
     const isAuthorized = useAppSelector(isAuthorizedSelector);
     const isPasswordResetSuccessful = useAppSelector(isExecuteResetPasswordSuccessfulSelector);
 
-    const [newPassword, setNewPassword] = useState<string>('');
-    const [code, setCode] = useState<string>('');
+    const { values, handleChange } = useForm({
+        inputValues: {
+            newPassword: '', code: '',
+        },
+    });
 
     function resetPassword(event: SyntheticEvent) {
-        if (newPassword && code) {
+        if (values.newPassword && values.code) {
             event.preventDefault();
             dispatch(executeResetPassword({
-                password: newPassword, token: code,
+                password: values.newPassword, token: values.code,
             }));
         }
     }
@@ -54,16 +57,16 @@ export const ResetPassword = () => {
                         Восстановление пароля
                     </div>
                     <Input
-                        onChange={(e) => setNewPassword(e.target.value)}
+                        onChange={handleChange}
                         name='newPassword'
                         placeholder='Введите новый пароль'
-                        value={newPassword}
+                        value={values.newPassword}
                     />
                     <Input
-                        onChange={(e) => setCode(e.target.value)}
+                        onChange={handleChange}
                         placeholder='Введите код из письма'
                         name='code'
-                        value={code}
+                        value={values.code}
                     />
                     <Button
                         htmlType='button'

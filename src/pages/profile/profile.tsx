@@ -5,7 +5,7 @@ import {
     Input,
     PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useAppDispatch, useAppSelector } from '../../services/hooks';
+import { useAppDispatch, useAppSelector, useForm } from '../../services/hooks';
 import {
     activePageSelector,
     setActivePage,
@@ -43,26 +43,27 @@ export const Profile = () => {
         styles['navigation-item']
     } ${'text_color_inactive'}`;
 
-    const [name, setName] = useState<string>(userName);
-    const [email, setEmail] = useState<string>(userEmail);
-    const [password, setPassword] = useState<string>(userPassword);
-    const [isFormDirty, setIsFormDirty] = useState<boolean>(false);
+    const { values, handleChange, setValues } = useForm({
+        inputValues: {
+            name: userName, email: userEmail, password: userPassword,
+        },
+    });
+    const [isFormChanged, setIsFormChanged] = useState<boolean>(false);
 
     function resetForm(event?: SyntheticEvent) {
         event && event.preventDefault();
-        setName(userName);
-        setEmail(userEmail);
-        setPassword(userPassword);
-        setIsFormDirty(false);
+        setValues({
+            name: userName, email: userEmail, password: userPassword,
+        });
     }
 
     function saveForm(event: SyntheticEvent) {
         event.preventDefault();
         dispatch(
             updateAccountInformation({
-                name: name,
-                email: email,
-                password: password,
+                name: values.name,
+                email: values.email,
+                password: values.password,
             })
         );
     }
@@ -77,6 +78,10 @@ export const Profile = () => {
             resetForm();
         }
     }, [isAccountInformationUpdateSuccessful]);
+
+    useEffect(() => {
+        setIsFormChanged(userPassword !== values.password || userEmail !== values.email || userName !== values.name);
+    }, [values, userEmail, userName, userPassword]);
 
     return (
         <>
@@ -114,35 +119,26 @@ export const Profile = () => {
                 </div>
                 <form onSubmit={saveForm} className={styles['user-data']} onReset={resetForm}>
                     <Input
-                        onChange={(e) => {
-                            setIsFormDirty(true);
-                            setName(e.target.value);
-                        }}
+                        onChange={handleChange}
                         placeholder='Имя'
                         name='name'
-                        value={name}
+                        value={values.name}
                         icon='EditIcon'
                     />
                     <Input
-                        onChange={(e) => {
-                            setIsFormDirty(true);
-                            setEmail(e.target.value);
-                        }}
+                        onChange={handleChange}
                         placeholder='Логин'
                         name='email'
-                        value={email}
+                        value={values.email}
                         icon='EditIcon'
                     />
                     <PasswordInput
-                        onChange={(e) => {
-                            setIsFormDirty(true);
-                            setPassword(e.target.value);
-                        }}
-                        value={password}
+                        onChange={handleChange}
+                        value={values.password}
                         name='password'
                         icon='EditIcon'
                     />
-                    {isFormDirty && (
+                    {isFormChanged && (
                         <div className={styles['update-actions']}>
                             <Button
                                 type={'secondary'}
