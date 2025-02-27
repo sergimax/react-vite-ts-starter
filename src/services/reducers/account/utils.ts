@@ -23,7 +23,7 @@ export function setCookie(
     }
 
     // Преобразование даты в строку UTC, если expires является объектом Date
-    if (exp && typeof exp.toUTCString === 'function') {
+    if (exp && exp instanceof Date && typeof exp.toUTCString === 'function') {
         param.expires = exp.toUTCString();
     }
 
