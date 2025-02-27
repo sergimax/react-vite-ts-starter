@@ -1,5 +1,5 @@
 import { SyntheticEvent, useEffect } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import {
     Button, EmailInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -14,6 +14,7 @@ import styles from './styles.module.css';
 export const ForgotPassword = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
 
     const isAskResetSuccessful = useAppSelector(isAskResetPasswordSuccessfulSelector);
     const isAuthorized = useAppSelector(isAuthorizedSelector);
@@ -44,8 +45,8 @@ export const ForgotPassword = () => {
     useEffect(() => {
         if (isAskResetSuccessful) {
             console.log('Successful password reset');
-            setValues({email: ''});
-            navigate(ROUTE_PATH.RESET_PASSWORD);
+            setValues({ email: '' });
+            navigate(ROUTE_PATH.RESET_PASSWORD, { state: location });
         }
     }, [isAskResetSuccessful, navigate]);
 

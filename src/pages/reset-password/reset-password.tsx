@@ -1,5 +1,5 @@
 import { SyntheticEvent, useEffect } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import {
     Button,
     Input,
@@ -16,6 +16,7 @@ import styles from './styles.module.css';
 export const ResetPassword = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
 
     const isAuthorized = useAppSelector(isAuthorizedSelector);
     const isPasswordResetSuccessful = useAppSelector(isExecuteResetPasswordSuccessfulSelector);
@@ -47,6 +48,10 @@ export const ResetPassword = () => {
 
     if (isAuthorized) {
         return <Navigate to={ROUTE_PATH.DEFAULT} />;
+    }
+
+    if (!location.state || location.state?.pathname !== ROUTE_PATH.FORGOT_PASSWORD) {
+        return <Navigate to={ROUTE_PATH.FORGOT_PASSWORD} />
     }
 
     return (
