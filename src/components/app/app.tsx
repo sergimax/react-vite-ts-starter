@@ -70,11 +70,6 @@ function App() {
             );
 
             if (ingredientData) {
-                setModalData({
-                    title: data.ingredientData.title,
-                    content: <IngredientDetails data={ingredientData} />,
-                });
-
                 navigate(
                     `${ROUTE_PATH.INGREDIENTS}/${data.ingredientData.ingredientId}`,
                     {
@@ -83,7 +78,6 @@ function App() {
                         },
                     },
                 );
-                setIsModalShown(true);
             }
         }
     };
@@ -95,6 +89,22 @@ function App() {
     return (
         <>
             <AppHeader />
+            <Routes>
+                {background && (
+                    <Route path={ROUTE_PATH.INGREDIENTS}>
+                        <Route
+                            path=':ingredientId'
+                            element={
+                                <Modal
+                                    title={'Детали ингредиента'}
+                                    children={<IngredientDetails />}
+                                    onClose={closeModal}
+                                ></Modal>
+                            }
+                        />
+                    </Route>
+                )}
+            </Routes>
             <Routes location={background || location}>
                 <Route path={ROUTE_PATH.NOT_FOUND} element={<PageNotFound />} />
                 <Route

@@ -7,7 +7,6 @@ import { ingredientsListSelector } from '../../services/reducers/ingredients/sel
 import styles from './styles.module.css';
 
 export const IngredientInfo = () => {
-
     const ingredients = useAppSelector(ingredientsListSelector);
 
     const { ingredientId } = useParams();
@@ -22,7 +21,7 @@ export const IngredientInfo = () => {
     useEffect(() => {
         if (ingredientId && ingredients.length) {
             setIngredientData(
-                ingredients.find((element) => element._id === ingredientId)
+                ingredients.find(element => element._id === ingredientId),
             );
         }
     }, [ingredientId, ingredients]);
@@ -35,7 +34,7 @@ export const IngredientInfo = () => {
                         <h2 className='text_type_main-large'>
                             Детали ингредиента
                         </h2>
-                        <IngredientDetails data={ingredientData} />
+                        <IngredientDetails />
                     </>
                 ) : (
                     <>
