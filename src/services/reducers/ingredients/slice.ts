@@ -3,8 +3,6 @@ import { INGREDIENTS_STATE_NAME } from './constants';
 import { createOrder, fetchIngredients } from './thunks';
 import { IngredientsState } from './types';
 import {
-    IngredientTypeName,
-    IngredientWithCounter,
     UniqueIngredientItem,
 } from '../../../types/types';
 
@@ -52,7 +50,7 @@ const ingredientsSlice = createSlice({
                 return ingredient;
             });
         },
-        deleteCoonstructorIngredient: (state, action) => {
+        deleteConstructorIngredient: (state, action) => {
             const { value } = action.payload;
 
             state.constructorContent = {
@@ -106,6 +104,9 @@ const ingredientsSlice = createSlice({
 
             state.order = value;
         },
+        resetOrderValue: (state) => {
+            state.order = undefined;
+        },
         moveIngredientsInConstructor: (state, action) => {
             const { movedIngredientIndex, targetIngredientIndex } =
                 action.payload;
@@ -134,38 +135,6 @@ const ingredientsSlice = createSlice({
                 state.isLoading = false;
                 state.isLoaded = true;
                 state.ingredients = action.payload.data;
-
-                /**
-                 * Проверка наличия и выбор булки для отображения в конструкторе бургера
-                 *
-                 * Поскольку в макетах и по заданию спринта 1:
-                 * 1. по умолчанию присутсвует булка
-                 * 2. не было обозначено возможности отсуствия булки в бургере, отсутсвует макет
-                 * 3. все расчеты (лента заказов, единичный заказ) ведутся с учетом наличия булки
-                 */
-
-                // Булка для подстановки в конструктор по умолчанию
-                const defaultBun: IngredientWithCounter | undefined =
-                    action.payload.data.find(
-                        (ingredient) =>
-                            ingredient.type === IngredientTypeName.BUN
-                    );
-
-                if (!defaultBun) {
-                    state.error =
-                        'Ошибка получения списка ингредиентов. Отсутствуют булки среди ингредиентов';
-
-                    console.error(
-                        'Ошибка получения списка ингредиентов. Отсутствуют булки среди ингредиентов'
-                    );
-                } else {
-                    defaultBun.quantity = 1;
-
-                    state.constructorContent = {
-                        ...state.constructorContent,
-                        bun: { ...defaultBun, uniqueId: Date.now() },
-                    };
-                }
             })
             .addCase(fetchIngredients.rejected, (state, action) => {
                 state.isLoading = false;
@@ -188,7 +157,8 @@ export const {
     setConstructorBun,
     setIngredientInfo,
     setOrderValue,
-    deleteCoonstructorIngredient,
+    resetOrderValue,
+    deleteConstructorIngredient,
     moveIngredientsInConstructor,
 } = ingredientsSlice.actions;
 

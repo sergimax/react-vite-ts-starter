@@ -1,7 +1,8 @@
 export {
     setConstructorBun,
     setConstructorIngredients,
-    deleteCoonstructorIngredient,
+    deleteConstructorIngredient,
+    resetOrderValue,
     moveIngredientsInConstructor,
 } from './slice';
 export { ingredientsReducer, resetIngredientsState } from './slice';

@@ -1,6 +1,5 @@
 import {
     DataForModal,
-    Ingredient,
     IngredientTypeName,
 } from '../../types/types';
 

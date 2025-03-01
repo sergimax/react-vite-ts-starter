@@ -1,39 +1,50 @@
 import { useEffect, useState } from 'react';
-import { AppHeader } from '../app-header';
-import { BurgerConstructor } from '../burger-constructor';
-import { BurgerIngredients } from '../burger-ingredients';
-import { IngredientDetails } from '../ingredient-details';
-import { Modal } from '../modal';
-import { OrderDetails } from '../order-details';
-import { DataForModal, ModalContent, Page } from '../../types/types';
-import { MODAL_TYPE } from '../../constants/constants';
-import styles from './app.module.css';
-import { fetchIngredients } from '../../services/reducers/ingredients/thunks';
-import { useAppDispatch, useAppSelector } from '../../services/hooks';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import {
-    ingredientsErrorSelector,
-    ingredientsIsLoadingSelector,
-    ingredientsListSelector,
-} from '../../services/reducers/ingredients/selectors';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+    ForgotPassword,
+    Login,
+    OrderConstructor,
+    OrderList,
+    PageNotFound,
+    Profile,
+    Register,
+    ResetPassword,
+} from '../../pages';
+import { ROUTE_PATH } from './constants';
+import { ProtectedRouteElement } from '../protected-route-element';
+import { IngredientInfo } from '../../pages/ingredient-info';
+import { fetchIngredients } from '../../services/reducers/ingredients/thunks.ts';
+import { useAppDispatch, useAppSelector } from '../../services/hooks.ts';
+import { AppHeader } from '../app-header';
+import { Modal } from '../modal';
+import { DataForModal, ModalContent } from '../../types/types.ts';
+import { MODAL_TYPE } from '../../constants/constants.ts';
+import { OrderDetails } from '../order-details';
+import { IngredientDetails } from '../ingredient-details';
+import { resetOrderValue } from '../../services/reducers/ingredients';
+import { ingredientsListSelector } from '../../services/reducers/ingredients/selectors.ts';
 
 function App() {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const location = useLocation();
 
-    const isIngredientsLoding = useAppSelector(ingredientsIsLoadingSelector);
     const ingredientsList = useAppSelector(ingredientsListSelector);
-    const errorWithIngredientsFetch = useAppSelector(ingredientsErrorSelector);
 
-    const [activePage, setActivePage] = useState<Page>(Page.CONSTRUCTOR);
+    const background = location.state?.background;
 
     // Управление модальным окном
-    // TODO Вынести в кастомный хук
     const [isModalShown, setIsModalShown] = useState(false);
     const [modalData, setModalData] = useState<ModalContent | null>(null);
 
     // Закрытие модального окна
     const closeModal = () => {
+        navigate(`${ROUTE_PATH.DEFAULT}`, {
+            state: {
+                background: undefined,
+            },
+        });
+        dispatch(resetOrderValue());
         setModalData(null);
         setIsModalShown(false);
     };
@@ -55,66 +66,85 @@ function App() {
             data.ingredientData
         ) {
             const ingredientData = ingredientsList.find(
-                (element) => element._id === data.ingredientData?.ingredientId
+                element => element._id === data.ingredientData?.ingredientId,
             );
 
-            ingredientData &&
-                setModalData({
-                    title: data.ingredientData.title,
-                    content: <IngredientDetails data={ingredientData} />,
-                });
-            setIsModalShown(true);
+            if (ingredientData) {
+                navigate(
+                    `${ROUTE_PATH.INGREDIENTS}/${data.ingredientData.ingredientId}`,
+                    {
+                        state: {
+                            background: location,
+                        },
+                    },
+                );
+            }
         }
     };
 
-    // Загрузка данных об ингредиентах
     useEffect(() => {
         dispatch(fetchIngredients());
     }, [dispatch]);
 
-    useEffect(() => {
-        setActivePage(Page.CONSTRUCTOR);
-    }, []);
-
     return (
         <>
-            {/* Блок заголовка страницы */}
-            <AppHeader activePage={activePage} />
-
-            <DndProvider backend={HTML5Backend}>
-                {/* Блок основного содержимого страницы */}
-                <main className={styles.main}>
-                    {isIngredientsLoding ? (
-                        <h1 className="text_type_main-large pt-10 pb-5">
-                            Загрузка списка продуктов
-                        </h1>
-                    ) : errorWithIngredientsFetch ? (
-                        <h1 className="text_type_main-large pt-10 pb-5">
-                            {errorWithIngredientsFetch}
-                        </h1>
-                    ) : (
-                        ingredientsList.length > 0 && (
-                            <>
-                                <BurgerIngredients
-                                    onIngredientClick={openModal}
-                                />
-                                <BurgerConstructor
-                                    onFormAnOrderClick={openModal}
-                                />
-                            </>
-                        )
-                    )}
-                </main>
-            </DndProvider>
-
-            {/* Блок модального окна */}
-            {isModalShown && modalData && (
-                <Modal
-                    title={modalData.title}
-                    children={modalData.content}
-                    onClose={closeModal}
-                ></Modal>
-            )}
+            <AppHeader />
+            <Routes>
+                {background && (
+                    <Route path={ROUTE_PATH.INGREDIENTS}>
+                        <Route
+                            path=':ingredientId'
+                            element={
+                                <Modal
+                                    title={'Детали ингредиента'}
+                                    children={<IngredientDetails />}
+                                    onClose={closeModal}
+                                ></Modal>
+                            }
+                        />
+                    </Route>
+                )}
+            </Routes>
+            <Routes location={background || location}>
+                <Route path={ROUTE_PATH.NOT_FOUND} element={<PageNotFound />} />
+                <Route
+                    path={ROUTE_PATH.DEFAULT}
+                    element={
+                        <>
+                            <OrderConstructor openModal={openModal} />
+                            {/* Блок модального окна */}
+                            {isModalShown && modalData && (
+                                <Modal
+                                    title={modalData.title}
+                                    children={modalData.content}
+                                    onClose={closeModal}
+                                ></Modal>
+                            )}
+                        </>
+                    }
+                />
+                <Route path={ROUTE_PATH.LOGIN} element={<Login />} />
+                <Route path={ROUTE_PATH.REGISTER} element={<Register />} />
+                <Route
+                    path={ROUTE_PATH.FORGOT_PASSWORD}
+                    element={<ForgotPassword />}
+                />
+                <Route
+                    path={ROUTE_PATH.RESET_PASSWORD}
+                    element={<ResetPassword />}
+                />
+                <Route
+                    path={ROUTE_PATH.PROFILE}
+                    element={<ProtectedRouteElement />}
+                >
+                    <Route path={ROUTE_PATH.PROFILE} element={<Profile />} />
+                </Route>
+                <Route path={ROUTE_PATH.INGREDIENTS}>
+                    <Route path=':ingredientId' element={<IngredientInfo />} />
+                </Route>
+                <Route path={ROUTE_PATH.ORDER_LIST} element={<OrderList />} />
+                <Route path={ROUTE_PATH.HISTORY} />
+            </Routes>
         </>
     );
 }

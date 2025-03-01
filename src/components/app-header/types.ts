@@ -1,5 +1,4 @@
-import { Page } from '../../types/types';
-
-export type AppHeaderProps = {
-    activePage: Page;
+export type ButtonParams = {
+    class: string;
+    type: 'primary' | 'secondary';
 };

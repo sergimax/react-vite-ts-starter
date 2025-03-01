@@ -3,9 +3,10 @@ import { INGREDIENTS_STATE_NAME } from './constants';
 import { API_ENDPOINT, API_URL } from '../../../constants/constants';
 import {
     FetchIngredientsAsyncThunkConfig,
+    GetIngredientsDTO,
     PostOrderAsyncThunkConfig,
+    PostOrderDTO,
 } from './types';
-import { GetIngredientsDTO, PostOrderDTO } from '../../../components/app/types';
 
 export const fetchIngredients = createAsyncThunk<
     GetIngredientsDTO,

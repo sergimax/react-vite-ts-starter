@@ -1,9 +1,3 @@
-html,
-body {
-    height: 100vh;
-    overflow: hidden;
-}
-
 .main {
     display: flex;
     justify-content: center;

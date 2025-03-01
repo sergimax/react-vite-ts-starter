@@ -1,0 +1,39 @@
+.container {
+    transform: translate(0, 50%);
+    display: grid;
+    margin: auto;
+    grid-template-columns: 1fr auto 1fr;
+    max-width: 1240px;
+    gap: 60px;
+}
+
+.navigation {
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+}
+
+.navigation-item {
+    display: flex;
+    align-items: center;
+    width: 320px;
+    height: 64px;
+}
+
+.navigation-item:hover {
+    cursor: pointer;
+    color: #4c4cff;
+}
+
+.user-data {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.update-actions {
+    margin: 0 0 0 auto;
+    display: flex;
+    flex-direction: row;
+}
