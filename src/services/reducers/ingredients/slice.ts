@@ -2,9 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { INGREDIENTS_STATE_NAME } from './constants';
 import { createOrder, fetchIngredients } from './thunks';
 import { IngredientsState } from './types';
-import {
-    UniqueIngredientItem,
-} from '../../../types/types';
+import { UniqueIngredientItem } from '../../../types/types';
 
 const initialState: IngredientsState = {
     ingredients: [],
@@ -38,7 +36,7 @@ const ingredientsSlice = createSlice({
             };
 
             // Обновление счетчика ингредиента
-            state.ingredients = [...state.ingredients].map((ingredient) => {
+            state.ingredients = [...state.ingredients].map(ingredient => {
                 if (ingredient._id !== newIngredient._id) {
                     return ingredient;
                 }
@@ -56,12 +54,12 @@ const ingredientsSlice = createSlice({
             state.constructorContent = {
                 ...state.constructorContent,
                 ingredients: state.constructorContent.ingredients.filter(
-                    (ingredient) => ingredient.uniqueId != value.uniqueId
+                    ingredient => ingredient.uniqueId != value.uniqueId,
                 ),
             };
 
             // Обновление счетчика ингредиента при удалении
-            state.ingredients = [...state.ingredients].map((ingredient) => {
+            state.ingredients = [...state.ingredients].map(ingredient => {
                 if (ingredient._id !== value._id) {
                     return ingredient;
                 }
@@ -84,7 +82,7 @@ const ingredientsSlice = createSlice({
             };
 
             // Обновление счетчика булки
-            state.ingredients = [...state.ingredients].map((ingredient) => {
+            state.ingredients = [...state.ingredients].map(ingredient => {
                 if (ingredient._id !== newBun._id) {
                     ingredient.quantity = 0;
                     return ingredient;
@@ -104,7 +102,7 @@ const ingredientsSlice = createSlice({
 
             state.order = value;
         },
-        resetOrderValue: (state) => {
+        resetOrderValue: state => {
             state.order = undefined;
         },
         moveIngredientsInConstructor: (state, action) => {
@@ -128,7 +126,7 @@ const ingredientsSlice = createSlice({
     },
     extraReducers(builder) {
         builder
-            .addCase(fetchIngredients.pending, (state) => {
+            .addCase(fetchIngredients.pending, state => {
                 state.isLoading = true;
             })
             .addCase(fetchIngredients.fulfilled, (state, action) => {
@@ -154,11 +152,11 @@ const ingredientsSlice = createSlice({
 export const {
     resetIngredientsState,
     setConstructorIngredients,
+    deleteConstructorIngredient,
     setConstructorBun,
     setIngredientInfo,
     setOrderValue,
     resetOrderValue,
-    deleteConstructorIngredient,
     moveIngredientsInConstructor,
 } = ingredientsSlice.actions;
 

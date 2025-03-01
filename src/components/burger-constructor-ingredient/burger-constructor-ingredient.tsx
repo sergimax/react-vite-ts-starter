@@ -1,9 +1,9 @@
+import { useRef } from 'react';
+import { useDrag, useDrop, XYCoord } from 'react-dnd';
 import {
     ConstructorElement,
     DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useRef } from 'react';
-import { useDrag, useDrop, XYCoord } from 'react-dnd';
 import { moveIngredientsInConstructor } from '../../services/reducers/ingredients';
 import { useAppDispatch } from '../../services/hooks';
 import { BurgerConstructorIngredientProps } from './types';
@@ -57,7 +57,7 @@ export const BurgerConstructorIngredient = ({
                 moveIngredientsInConstructor({
                     movedIngredientIndex: dragIndex,
                     targetIngredientIndex: hoverIndex,
-                })
+                }),
             );
 
             item.index = hoverIndex;
@@ -78,13 +78,13 @@ export const BurgerConstructorIngredient = ({
 
     return (
         <div ref={ref}>
-            <DragIcon type="primary" />
+            <DragIcon type='primary' />
             <ConstructorElement
                 text={ingredient.name}
                 price={ingredient.price}
                 thumbnail={ingredient.image_mobile}
                 handleClose={handleClose}
-                extraClass="ml-2 mb-4"
+                extraClass='ml-2 mb-4'
             />
         </div>
     );

@@ -57,7 +57,7 @@ const accountSlice = createSlice({
     },
     extraReducers(builder) {
         builder
-            .addCase(askResetPassword.pending, (state) => {
+            .addCase(askResetPassword.pending, state => {
                 state.isAskResetLoading = true;
             })
             .addCase(askResetPassword.fulfilled, (state, action) => {
@@ -70,7 +70,7 @@ const accountSlice = createSlice({
                 state.askResetError = action.payload as string;
             });
         builder
-            .addCase(executeResetPassword.pending, (state) => {
+            .addCase(executeResetPassword.pending, state => {
                 state.isExecuteResetLoading = true;
             })
             .addCase(executeResetPassword.fulfilled, (state, action) => {
@@ -83,7 +83,7 @@ const accountSlice = createSlice({
                 state.executeResetError = action.payload as string;
             });
         builder
-            .addCase(registerAccount.pending, (state) => {
+            .addCase(registerAccount.pending, state => {
                 state.isRegisterLoading = true;
             })
             .addCase(registerAccount.fulfilled, (state, action) => {

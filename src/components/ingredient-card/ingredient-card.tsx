@@ -35,22 +35,19 @@ export const IngredientCard = ({
             }
             ref={dragRef}
         >
-            {(!!data.quantity && data.quantity > 0) && (
+            {!!data.quantity && data.quantity > 0 && (
                 <Counter
                     count={data.quantity}
-                    size="default"
-                    extraClass="m-1"
+                    size='default'
+                    extraClass='m-1'
                 />
             )}
-            <img
-                src={data.image}
-                className={imageClass}
-            ></img>
+            <img src={data.image} className={imageClass}></img>
             <div className={priceClass}>
-                <span className="text_type_digits-default pr-2">
+                <span className='text_type_digits-default pr-2'>
                     {data.price}
                 </span>
-                <CurrencyIcon type="primary" />
+                <CurrencyIcon type='primary' />
             </div>
             <div className={nameClass}>{data.name}</div>
         </div>

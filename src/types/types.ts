@@ -61,8 +61,8 @@ export type ChosenIngredients = {
 };
 
 export type UniqueIngredientItem = Ingredient & {
-    uniqueId: number,
-}
+    uniqueId: number;
+};
 
 /**
  * Содержимое модального окна
@@ -78,7 +78,7 @@ export type ModalContent = {
 export type ModalType = keyof typeof MODAL_TYPE;
 
 /**
- * Данные для модального окна Деталей о ингредиенте
+ * Данные для модального окна Деталей об ингредиенте
  */
 export type IngredientDeatilsData = {
     title: string;
@@ -100,4 +100,11 @@ export type DataForModal = {
     type: ModalType;
     orderData?: OrderData;
     ingredientData?: IngredientDeatilsData;
+};
+
+/**
+ * Содержимое полей ввода
+ */
+export type InputValues = {
+    [key: string]: string;
 };

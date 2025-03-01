@@ -12,10 +12,7 @@ export const BurgerIngredientsCategory = ({
 
     return (
         <>
-            <h2
-                className={categoryTitleClass}
-                ref={innerRef}
-            >
+            <h2 className={categoryTitleClass} ref={innerRef}>
                 {title}
             </h2>
             <div>

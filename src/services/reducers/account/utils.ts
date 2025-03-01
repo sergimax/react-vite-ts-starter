@@ -10,7 +10,7 @@ import { API_URL } from '../../../constants/constants.ts';
 export function setCookie(
     name: string,
     value: string,
-    param: CookieParams = {}
+    param: CookieParams = {},
 ): void {
     let exp = param.expires || 20 * 60;
 
@@ -61,24 +61,24 @@ export function deleteCookie(name: string) {
 }
 
 function checkResponse(response: Response) {
-  if (response.ok) return response.json();
+    if (response.ok) return response.json();
 
-  return Promise.reject(`Ошибка ${response.status}`);
+    return Promise.reject(`Ошибка ${response.status}`);
 }
 
 function checkResponseSuccess<T extends BasicResponse>(response: T) {
-  if (response && response.success) {
-    return response;
-  }
+    if (response && response.success) {
+        return response;
+    }
 
-  return Promise.reject(`Неуспешный ответ запроса: ${response}`);
+    return Promise.reject(`Неуспешный ответ запроса: ${response}`);
 }
 
 export function request<T extends BasicResponse>(
-  endpoint: string,
-  options: RequestInit,
+    endpoint: string,
+    options: RequestInit,
 ) {
-  return fetch(`${API_URL}/${endpoint}`, options)
-    .then(checkResponse)
-    .then(checkResponseSuccess<T>);
+    return fetch(`${API_URL}/${endpoint}`, options)
+        .then(checkResponse)
+        .then(checkResponseSuccess<T>);
 }
