@@ -21,13 +21,15 @@ export const Register = () => {
     const navigate = useNavigate();
 
     const isRegisterSuccessful = useAppSelector(
-        isRegisterAccountSuccessfulSelector
+        isRegisterAccountSuccessfulSelector,
     );
     const isAuthorized = useAppSelector(isAuthorizedSelector);
 
     const { values, handleChange } = useForm({
         inputValues: {
-            name: '', email: '', password: '',
+            name: '',
+            email: '',
+            password: '',
         },
     });
 
@@ -38,9 +40,13 @@ export const Register = () => {
         }
 
         event.preventDefault();
-        dispatch(registerAccount({
-            name: values.name, email: values.email, password: values.password,
-        }));
+        dispatch(
+            registerAccount({
+                name: values.name,
+                email: values.email,
+                password: values.password,
+            }),
+        );
     }
 
     useEffect(() => {
@@ -49,7 +55,12 @@ export const Register = () => {
 
     useEffect(() => {
         if (isRegisterSuccessful) {
-            console.log('Successful registration :', values.name, values.email, values.password);
+            console.log(
+                'Successful registration :',
+                values.name,
+                values.email,
+                values.password,
+            );
             navigate(ROUTE_PATH.LOGIN);
         }
     }, [isRegisterSuccessful, navigate]);
@@ -61,7 +72,10 @@ export const Register = () => {
     return (
         <>
             <div className={styles.container}>
-                <form onSubmit={registerNewAccount} className={styles['register-form']}>
+                <form
+                    onSubmit={registerNewAccount}
+                    className={styles['register-form']}
+                >
                     <div className='text_type_main-medium'>Регистрация</div>
                     <Input
                         onChange={handleChange}
@@ -81,11 +95,7 @@ export const Register = () => {
                         name='password'
                         icon='ShowIcon'
                     />
-                    <Button
-                        htmlType='submit'
-                        type='primary'
-                        size='medium'
-                    >
+                    <Button htmlType='submit' type='primary' size='medium'>
                         Зарегистрироваться
                     </Button>
                 </form>

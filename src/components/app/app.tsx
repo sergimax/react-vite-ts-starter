@@ -21,8 +21,10 @@ import { DataForModal, ModalContent } from '../../types/types.ts';
 import { MODAL_TYPE } from '../../constants/constants.ts';
 import { OrderDetails } from '../order-details';
 import { IngredientDetails } from '../ingredient-details';
-import { resetOrderValue } from '../../services/reducers/ingredients';
-import { ingredientsListSelector } from '../../services/reducers/ingredients/selectors.ts';
+import {
+    resetOrderValue,
+    ingredientsListSelector,
+} from '../../services/reducers/ingredients';
 
 function App() {
     const dispatch = useAppDispatch();

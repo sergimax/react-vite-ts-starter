@@ -1,13 +1,17 @@
 import { SyntheticEvent, useEffect } from 'react';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import {
-    Button, EmailInput,
+    Button,
+    EmailInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ROUTE_PATH } from '../../components/app/constants';
 import { useAppDispatch, useAppSelector, useForm } from '../../services/hooks';
 import { setActivePage } from '../../services/reducers/pages';
 import {
-    isAskResetPasswordSuccessfulSelector, askResetPassword, isAuthorizedSelector, setAccountEmail,
+    isAskResetPasswordSuccessfulSelector,
+    askResetPassword,
+    isAuthorizedSelector,
+    setAccountEmail,
 } from '../../services/reducers/account';
 import styles from './styles.module.css';
 
@@ -16,7 +20,9 @@ export const ForgotPassword = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const isAskResetSuccessful = useAppSelector(isAskResetPasswordSuccessfulSelector);
+    const isAskResetSuccessful = useAppSelector(
+        isAskResetPasswordSuccessfulSelector,
+    );
     const isAuthorized = useAppSelector(isAuthorizedSelector);
 
     const { values, handleChange, setValues } = useForm({
@@ -33,12 +39,16 @@ export const ForgotPassword = () => {
         // optional email validation
         if (values.email) {
             event.preventDefault();
-            dispatch(setAccountEmail({
-                email: values.email,
-            }));
-            dispatch(askResetPassword({
-                email: values.email,
-            }));
+            dispatch(
+                setAccountEmail({
+                    email: values.email,
+                }),
+            );
+            dispatch(
+                askResetPassword({
+                    email: values.email,
+                }),
+            );
         }
     }
 
@@ -54,9 +64,13 @@ export const ForgotPassword = () => {
         return <Navigate to={ROUTE_PATH.DEFAULT} />;
     }
 
-    return (<>
+    return (
+        <>
             <div className={styles.container}>
-                <form onSubmit={sendResetPasswordRequest} className={styles['login-form']}>
+                <form
+                    onSubmit={sendResetPasswordRequest}
+                    className={styles['login-form']}
+                >
                     <div className='text_type_main-medium'>
                         Восстановление пароля
                     </div>
@@ -67,17 +81,15 @@ export const ForgotPassword = () => {
                         isIcon={false}
                         value={values.email}
                     ></EmailInput>
-                    <Button
-                        htmlType='submit'
-                        type='primary'
-                        size='medium'
-                    >
+                    <Button htmlType='submit' type='primary' size='medium'>
                         Восстановить
                     </Button>
                 </form>
                 <div className={styles['additional-actions']}>
                     <div
-                        className={'text text_type_main-default text_color_inactive'}
+                        className={
+                            'text text_type_main-default text_color_inactive'
+                        }
                     >
                         Вспомнили пароль?{' '}
                         <Link
@@ -89,5 +101,6 @@ export const ForgotPassword = () => {
                     </div>
                 </div>
             </div>
-        </>);
+        </>
+    );
 };

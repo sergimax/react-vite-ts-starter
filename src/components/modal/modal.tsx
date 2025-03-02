@@ -25,7 +25,7 @@ export const Modal = ({ title = '', children, onClose }: ModalProps) => {
             document.removeEventListener(
                 'keydown',
                 handleEscapeKeyPress,
-                false
+                false,
             );
         };
     }, []);
@@ -36,7 +36,7 @@ export const Modal = ({ title = '', children, onClose }: ModalProps) => {
                 <div className={modalHeadingClasses}>
                     <h2 className={titleClasses}>{title}</h2>
                     <CloseIcon
-                        type="primary"
+                        type='primary'
                         onClick={onClose}
                         className={styles['close-icon']}
                     />
@@ -45,6 +45,6 @@ export const Modal = ({ title = '', children, onClose }: ModalProps) => {
             </div>
             <ModalOverlay onClose={onClose} />
         </>,
-        document.body
+        document.body,
     );
 };

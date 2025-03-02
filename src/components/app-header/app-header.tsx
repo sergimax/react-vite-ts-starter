@@ -20,22 +20,18 @@ export const AppHeader = () => {
     const activePage = useAppSelector(activePageSelector);
 
     const constructorButtonParams: ButtonParams = getButtonParams(
-        ROUTE_PATH.DEFAULT
+        ROUTE_PATH.DEFAULT,
     );
     const orderListButtonParams: ButtonParams = getButtonParams(
-        ROUTE_PATH.ORDER_LIST
+        ROUTE_PATH.ORDER_LIST,
     );
     const profileButtonParams: ButtonParams = getButtonParams(
-        ROUTE_PATH.PROFILE
+        ROUTE_PATH.PROFILE,
     );
 
     function getButtonParams(path: ROUTE_PATH): ButtonParams {
         return {
-            class: `text_type_main-default ${styles['menu-button']} ${
-                path === activePage
-                    ? 'text_color_active'
-                    : 'text_color_inactive'
-            }`,
+            class: `text_type_main-default ${styles['menu-button']} ${path === activePage ? 'text_color_active' : 'text_color_inactive'}`,
             type: activePage === path ? 'primary' : 'secondary',
         };
     }

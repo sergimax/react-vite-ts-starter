@@ -24,7 +24,8 @@ export const Login = () => {
 
     const { values, handleChange } = useForm({
         inputValues: {
-            email: '', password: '',
+            email: '',
+            password: '',
         },
     });
 
@@ -39,7 +40,7 @@ export const Login = () => {
             loginAccount({
                 email: values.email,
                 password: values.password,
-            })
+            }),
         );
     }
 
@@ -61,7 +62,7 @@ export const Login = () => {
     return (
         <>
             <div className={styles.container}>
-                <form onSubmit={(e) => login(e)} className={styles['login-form']}>
+                <form onSubmit={e => login(e)} className={styles['login-form']}>
                     <div className='text_type_main-medium'>Вход</div>
                     <EmailInput
                         onChange={handleChange}
@@ -75,11 +76,7 @@ export const Login = () => {
                         name='password'
                         icon='ShowIcon'
                     ></PasswordInput>
-                    <Button
-                        htmlType='submit'
-                        type='primary'
-                        size='medium'
-                    >
+                    <Button htmlType='submit' type='primary' size='medium'>
                         Войти
                     </Button>
                 </form>
