@@ -16,3 +16,7 @@ export enum FeedListItemStatus {
     PROCESSING = 'Готовится',
     COMPLETED = 'Выполнен',
 }
+
+export type FeedListProps = {
+    data: Array<FeedListItemContent>;
+};
