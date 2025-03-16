@@ -6,7 +6,7 @@ export enum ROUTE_PATH {
     PROFILE = '/profile',
     INGREDIENTS = '/ingredients',
     FEED = '/feed',
-    ORDERS = '/orders',
+    ORDERS = '/profile/orders',
     NOT_FOUND = '*',
     DEFAULT = '/',
 }
