@@ -8,13 +8,18 @@ import {
 import { useAppDispatch } from '../../services/hooks';
 import { setActivePage } from '../../services/reducers/pages';
 import { ROUTE_PATH } from '../../components/app/constants';
+import { DataForModal } from '../../types/types';
 import styles from './styles.module.css';
 
 /**
  * Cтраница ленты заказов
  * @returns
  */
-export const Feed = () => {
+export const Feed = ({
+    openModal,
+}: {
+    openModal: (data: DataForModal) => void;
+}) => {
     const dispatch = useAppDispatch();
 
     const MOCK_COMPLETED_ORDERS_LIST = [

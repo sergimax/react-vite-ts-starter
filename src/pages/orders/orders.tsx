@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE_PATH } from '../../components/app/constants';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
@@ -6,19 +7,23 @@ import {
     activePageSelector,
     setActivePage,
 } from '../../services/reducers/pages';
-import { useEffect } from 'react';
-import styles from './styles.module.css';
 import { FeedList } from '../../components';
 import {
     FeedListItemContent,
     FeedListItemStatus,
 } from '../../components/feed-list/types';
+import { DataForModal } from '../../types/types';
+import styles from './styles.module.css';
 
 /**
  * страница истории заказов пользователя
  * @returns
  */
-export const Orders = () => {
+export const Orders = ({
+    openModal,
+}: {
+    openModal: (data: DataForModal) => void;
+}) => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 

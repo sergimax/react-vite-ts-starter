@@ -105,6 +105,32 @@ function App() {
                         />
                     </Route>
                 )}
+                {background && (
+                    <Route path={ROUTE_PATH.ORDERS}>
+                        <Route
+                            path=':id'
+                            element={
+                                <Modal
+                                    children={<>о заказе</>}
+                                    onClose={closeModal}
+                                ></Modal>
+                            }
+                        />
+                    </Route>
+                )}
+                {background && (
+                    <Route path={ROUTE_PATH.FEED}>
+                        <Route
+                            path=':id'
+                            element={
+                                <Modal
+                                    children={<>о заказе</>}
+                                    onClose={closeModal}
+                                ></Modal>
+                            }
+                        />
+                    </Route>
+                )}
             </Routes>
             <Routes location={background || location}>
                 <Route path={ROUTE_PATH.NOT_FOUND} element={<PageNotFound />} />
@@ -143,11 +169,45 @@ function App() {
                 <Route path={ROUTE_PATH.INGREDIENTS}>
                     <Route path=':ingredientId' element={<IngredientInfo />} />
                 </Route>
-                <Route path={ROUTE_PATH.ORDERS} element={<Orders />}>
-                    {/* <Route path=':number' element={<Orders />} /> */}
+                <Route
+                    path={ROUTE_PATH.ORDERS}
+                    element={<Orders openModal={openModal} />}
+                >
+                    <Route
+                        path=':id'
+                        element={
+                            <>
+                                <Orders openModal={openModal} />
+                                {/* Блок модального окна */}
+                                {isModalShown && modalData && (
+                                    <Modal
+                                        children={modalData.content}
+                                        onClose={closeModal}
+                                    ></Modal>
+                                )}
+                            </>
+                        }
+                    ></Route>
                 </Route>
-                <Route path={ROUTE_PATH.FEED} element={<Feed />}>
-                    {/* <Route path=':number' element={<Feed />} /> */}
+                <Route
+                    path={ROUTE_PATH.FEED}
+                    element={<Feed openModal={openModal} />}
+                >
+                    <Route
+                        path=':id'
+                        element={
+                            <>
+                                <Feed openModal={openModal} />
+                                {/* Блок модального окна */}
+                                {isModalShown && modalData && (
+                                    <Modal
+                                        children={modalData.content}
+                                        onClose={closeModal}
+                                    ></Modal>
+                                )}
+                            </>
+                        }
+                    ></Route>
                 </Route>
             </Routes>
         </>
