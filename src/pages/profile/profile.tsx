@@ -37,7 +37,7 @@ export const Profile = () => {
         activePage === ROUTE_PATH.PROFILE ? '' : 'text_color_inactive'
     }`;
     const navigationOrderListClasses: string = `${styles['navigation-item']} ${
-        activePage === ROUTE_PATH.ORDER_LIST ? '' : 'text_color_inactive'
+        activePage === ROUTE_PATH.ORDERS ? '' : 'text_color_inactive'
     }`;
     const navigationExitClasses: string = `${
         styles['navigation-item']
