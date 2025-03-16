@@ -1,9 +1,13 @@
+import { useEffect } from 'react';
 import { FeedStats } from '../../components';
 import { FeedList } from '../../components/feed-list';
 import {
     FeedListItemContent,
     FeedListItemStatus,
 } from '../../components/feed-list/types';
+import { useAppDispatch } from '../../services/hooks';
+import { setActivePage } from '../../services/reducers/pages';
+import { ROUTE_PATH } from '../../components/app/constants';
 import styles from './styles.module.css';
 
 /**
@@ -11,6 +15,8 @@ import styles from './styles.module.css';
  * @returns
  */
 export const Feed = () => {
+    const dispatch = useAppDispatch();
+
     const MOCK_COMPLETED_ORDERS_LIST = [
         '034533',
         '034532',
@@ -113,9 +119,13 @@ export const Feed = () => {
         },
     ];
 
+    useEffect(() => {
+        dispatch(setActivePage({ value: ROUTE_PATH.FEED }));
+    }, [dispatch]);
+
     return (
         <main className={styles.main}>
-            <FeedList data={MOCK_FEED_LIST_DATA} title='Лента заказов'/>
+            <FeedList data={MOCK_FEED_LIST_DATA} title='Лента заказов' />
             <FeedStats
                 completedOrdersList={MOCK_COMPLETED_ORDERS_LIST}
                 processingOrdersList={MOCK_PROCESSING_ORDERS_LIST}

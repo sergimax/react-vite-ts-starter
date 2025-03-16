@@ -49,7 +49,7 @@ export const FeedListItem = ({ item }: FeedListItemProps) => {
         if (ids.length > 6) {
             const remainderClass = `${styles['remainded-ingredients-number']} text_type_main-default`;
             previewImages[5] = (
-                <div className={styles['ingredient-item-with-number']}>
+                <div className={styles['ingredient-item-with-number']} key={5}>
                     {previewImages[5]}
                     <div className={remainderClass} style={getImageStyle(5)}>
                         +{ids.length - 5}
