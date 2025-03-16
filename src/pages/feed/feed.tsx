@@ -1,11 +1,16 @@
+import { FeedStats } from '../../components';
+import { FeedList } from '../../components/feed-list';
+import styles from './styles.module.css';
+
 /**
  * Cтраница ленты заказов
- * @returns 
+ * @returns
  */
 export const Feed = () => {
     return (
-        <>
-            <h1>Feed</h1>
-        </>
+        <main className={styles.main}>
+            <FeedList />
+            <FeedStats />
+        </main>
     );
 };
