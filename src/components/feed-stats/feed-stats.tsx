@@ -7,28 +7,49 @@ export const FeedStats = ({
     totalCounterValue,
     dailyCounterValue,
 }: FeedStatsProps) => {
-    const containerClass: string = `pl-4 pt-25 ${styles.container}`;
-    const headerClass: string = `text text_type_main-medium`;
+    const containerClass: string = `pt-25 ${styles.container}`;
+    const ordersListItemClass: string = `text text_type_digits-default pb-2`;
+    const counterClass: string = `text_type_digits-large ${styles['counter']}`;
 
     return (
         <section className={containerClass}>
-            <div>
-                <div>
-                    <div className={headerClass}>Готовы:</div>
-                    <div>{completedOrdersList}</div>
+            <div className={styles.orders}>
+                <div className={styles['orders-list']}>
+                    <div className={'text text_type_main-medium pb-6'}>
+                        Готовы:
+                    </div>
+                    <div style={{ color: '#00CCCC' }}>
+                        {completedOrdersList.map((order, index) => (
+                            <div key={index} className={ordersListItemClass}>
+                                {order}
+                            </div>
+                        ))}
+                    </div>
                 </div>
-                <div>
-                    <div className={headerClass}>В работе:</div>
-                    <div>{processingOrdersList}</div>
+                <div className={styles['orders-list']}>
+                    <div className={'text text_type_main-medium pb-6'}>
+                        В работе:
+                    </div>
+                    <div>
+                        {processingOrdersList.map((order, index) => (
+                            <div key={index} className={ordersListItemClass}>
+                                {order}
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
             <div>
-                <div className={headerClass}>Выполнено за все время:</div>
-                <div>{totalCounterValue}</div>
+                <div className={'text text_type_main-medium'}>
+                    Выполнено за все время:
+                </div>
+                <div className={counterClass}>{totalCounterValue}</div>
             </div>
             <div>
-                <div className={headerClass}>Выполнено за сегодня:</div>
-                <div>{dailyCounterValue}</div>
+                <div className={'text text_type_main-medium'}>
+                    Выполнено за сегодня:
+                </div>
+                <div className={counterClass}>{dailyCounterValue}</div>
             </div>
         </section>
     );
