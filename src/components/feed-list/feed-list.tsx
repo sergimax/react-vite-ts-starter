@@ -1,12 +1,12 @@
 import { FeedListItem } from '../feed-list-item';
-import styles from './styles.module.css';
 import { FeedListProps } from './types';
+import styles from './styles.module.css';
 
 export const FeedList = ({ data, title }: FeedListProps) => {
     const titleClasses = `text_type_main-large pt-10 pb-5 ${styles.title}`;
 
     return (
-        <section className={styles['app-content-block']}>
+        <section className={styles['container']}>
             {title && <h1 className={titleClasses}>{title}</h1>}
             <div className={styles['feed-items']}>
                 {data.length > 0 &&

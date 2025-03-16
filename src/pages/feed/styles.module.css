@@ -1,6 +1,11 @@
 .main {
-  display: flex;
-  justify-content: center;
-  height: calc(100vh - 88px);
-  gap: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    gap: 40px;
+
+    height: calc(100vh - 88px);
+    max-width: 1240px;
+
+    margin: auto;
 }
