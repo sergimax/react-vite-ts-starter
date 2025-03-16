@@ -19,4 +19,5 @@ export enum FeedListItemStatus {
 
 export type FeedListProps = {
     data: Array<FeedListItemContent>;
+    title?: string;
 };

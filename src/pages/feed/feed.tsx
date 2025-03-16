@@ -115,7 +115,7 @@ export const Feed = () => {
 
     return (
         <main className={styles.main}>
-            <FeedList data={MOCK_FEED_LIST_DATA} />
+            <FeedList data={MOCK_FEED_LIST_DATA} title='Лента заказов'/>
             <FeedStats
                 completedOrdersList={MOCK_COMPLETED_ORDERS_LIST}
                 processingOrdersList={MOCK_PROCESSING_ORDERS_LIST}
