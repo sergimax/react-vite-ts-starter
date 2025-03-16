@@ -51,6 +51,45 @@ export const FeedList = () => {
             },
             price: 510,
         },
+        {
+            name: 'Death Star Starship Main бургер',
+            time: '13:50',
+            number: '034533',
+            ingredients: {
+                bunId: '643d69a5c3f7b9001cfa093d',
+                ingredientsIds: [
+                    '643d69a5c3f7b9001cfa0943',
+                    '643d69a5c3f7b9001cfa0943',
+                ],
+            },
+            price: 510,
+        },
+        {
+            name: 'Death Star Starship Main бургер',
+            time: '13:50',
+            number: '034533',
+            ingredients: {
+                bunId: '643d69a5c3f7b9001cfa093d',
+                ingredientsIds: [
+                    '643d69a5c3f7b9001cfa0943',
+                    '643d69a5c3f7b9001cfa0943',
+                ],
+            },
+            price: 510,
+        },
+        {
+            name: 'Death Star Starship Main бургер',
+            time: '13:50',
+            number: '034533',
+            ingredients: {
+                bunId: '643d69a5c3f7b9001cfa093d',
+                ingredientsIds: [
+                    '643d69a5c3f7b9001cfa0943',
+                    '643d69a5c3f7b9001cfa0943',
+                ],
+            },
+            price: 510,
+        },
     ];
 
     return (
