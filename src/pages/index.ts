@@ -1,7 +1,8 @@
+export { Feed } from './feed';
 export { ForgotPassword } from './forgot-password';
 export { Login } from './login';
 export { OrderConstructor } from './order-constructor';
-export { OrderList } from './order-list';
+export { Orders } from './orders';
 export { PageNotFound } from './page-not-found';
 export { Profile } from './profile';
 export { Register } from './register';

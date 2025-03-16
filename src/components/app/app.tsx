@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import {
+    Feed,
     ForgotPassword,
     Login,
     OrderConstructor,
-    OrderList,
+    Orders,
     PageNotFound,
     Profile,
     Register,
@@ -142,8 +143,8 @@ function App() {
                 <Route path={ROUTE_PATH.INGREDIENTS}>
                     <Route path=':ingredientId' element={<IngredientInfo />} />
                 </Route>
-                <Route path={ROUTE_PATH.ORDER_LIST} element={<OrderList />} />
-                <Route path={ROUTE_PATH.HISTORY} />
+                <Route path={ROUTE_PATH.ORDERS} element={<Orders />} />
+                <Route path={ROUTE_PATH.FEED} element={<Feed />} />
             </Routes>
         </>
     );
