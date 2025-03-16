@@ -12,3 +12,22 @@
     display: flex;
     justify-content: space-between;
 }
+
+.item-status {
+    padding-top: 8px;
+}
+
+.item-status-completed {
+    padding-top: 8px;
+    color: #00cccc;
+}
+
+.item-content-and-price {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.item-content {
+    max-width: 304px;
+}

@@ -1,23 +1,12 @@
 import { FeedListItem } from '../feed-list-item';
 import styles from './styles.module.css';
-
-// TODO заменить на описание ответа от сервера
-export type FeedListItem = {
-    name: string;
-    time: string;
-    number: string;
-    ingredients: {
-        bunId: string;
-        ingredientsIds: Array<string>;
-    };
-    price: number;
-};
+import { FeedListItemContent, FeedListItemStatus } from './types';
 
 export const FeedList = () => {
     const titleClasses = `text_type_main-large pt-10 pb-5 ${styles.title}`;
 
     // TODO обработка данных от сервера
-    const MOCK_FEED_LIST_DATA: Array<FeedListItem> = [
+    const MOCK_FEED_LIST_DATA: Array<FeedListItemContent> = [
         {
             name: 'Death Star Starship Main бургер',
             time: '16:20',
@@ -26,6 +15,7 @@ export const FeedList = () => {
                 bunId: '643d69a5c3f7b9001cfa093d',
                 ingredientsIds: ['643d69a5c3f7b9001cfa0943'],
             },
+            status: FeedListItemStatus.COMPLETED,
             price: 480,
         },
         {
