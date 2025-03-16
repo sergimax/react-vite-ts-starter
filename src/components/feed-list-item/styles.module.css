@@ -1,11 +1,11 @@
 .item-container {
     display: flex;
     flex-direction: column;
-    border: 1px yellow dotted;
     border-radius: 40px;
     padding: 24px;
     gap: 24px;
     background-color: #1c1c21;
+    margin-right: 8px;
 }
 
 .item-title {
