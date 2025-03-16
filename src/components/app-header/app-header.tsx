@@ -23,7 +23,7 @@ export const AppHeader = () => {
         ROUTE_PATH.DEFAULT
     );
     const orderListButtonParams: ButtonParams = getButtonParams(
-        ROUTE_PATH.ORDER_LIST
+        ROUTE_PATH.FEED
     );
     const profileButtonParams: ButtonParams = getButtonParams(
         ROUTE_PATH.PROFILE
@@ -57,7 +57,7 @@ export const AppHeader = () => {
                     </div>
                     <div
                         className={orderListButtonParams.class}
-                        onClick={() => handleClick(ROUTE_PATH.ORDER_LIST)}
+                        onClick={() => handleClick(ROUTE_PATH.FEED)}
                     >
                         <ListIcon type={orderListButtonParams.type} />
                         <span>Лента заказов</span>

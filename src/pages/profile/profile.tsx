@@ -96,7 +96,7 @@ export const Profile = () => {
                         </div>
                         <div
                             className={navigationOrderListClasses}
-                            onClick={() => navigate(ROUTE_PATH.ORDER_LIST)}
+                            onClick={() => navigate(ROUTE_PATH.ORDERS)}
                         >
                             История заказов
                         </div>

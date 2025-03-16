@@ -1,3 +1,7 @@
+/**
+ * Cтраница ленты заказов
+ * @returns 
+ */
 export const Feed = () => {
     return (
         <>

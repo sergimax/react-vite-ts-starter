@@ -1,3 +1,7 @@
+/**
+ * страница истории заказов пользователя
+ * @returns
+ */
 export const Orders = () => {
     return (
         <>

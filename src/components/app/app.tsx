@@ -143,8 +143,12 @@ function App() {
                 <Route path={ROUTE_PATH.INGREDIENTS}>
                     <Route path=':ingredientId' element={<IngredientInfo />} />
                 </Route>
-                <Route path={ROUTE_PATH.ORDERS} element={<Orders />} />
-                <Route path={ROUTE_PATH.FEED} element={<Feed />} />
+                <Route path={ROUTE_PATH.ORDERS} element={<Orders />}>
+                    {/* <Route path=':number' element={<Orders />} /> */}
+                </Route>
+                <Route path={ROUTE_PATH.FEED} element={<Feed />}>
+                    {/* <Route path=':number' element={<Feed />} /> */}
+                </Route>
             </Routes>
         </>
     );
