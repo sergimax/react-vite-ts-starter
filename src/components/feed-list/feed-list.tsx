@@ -13,7 +13,13 @@ export const FeedList = () => {
             number: '034535',
             ingredients: {
                 bunId: '643d69a5c3f7b9001cfa093d',
-                ingredientsIds: ['643d69a5c3f7b9001cfa0943'],
+                ingredientsIds: [
+                    '643d69a5c3f7b9001cfa0943',
+                    '643d69a5c3f7b9001cfa0945',
+                    '643d69a5c3f7b9001cfa0946',
+                    '643d69a5c3f7b9001cfa0947',
+                    '643d69a5c3f7b9001cfa0949',
+                ],
             },
             status: FeedListItemStatus.COMPLETED,
             price: 480,
@@ -24,7 +30,15 @@ export const FeedList = () => {
             number: '034534',
             ingredients: {
                 bunId: '643d69a5c3f7b9001cfa093d',
-                ingredientsIds: ['643d69a5c3f7b9001cfa0943'],
+                ingredientsIds: [
+                    '643d69a5c3f7b9001cfa0943',
+                    '643d69a5c3f7b9001cfa0945',
+                    '643d69a5c3f7b9001cfa0946',
+                    '643d69a5c3f7b9001cfa0947',
+                    '643d69a5c3f7b9001cfa0949',
+                    '643d69a5c3f7b9001cfa0943',
+                    '643d69a5c3f7b9001cfa0943',
+                ],
             },
             price: 560,
         },
