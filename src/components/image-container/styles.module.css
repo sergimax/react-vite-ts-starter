@@ -1,0 +1,14 @@
+.item-image-container {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #131316;
+  /* TODO можно сделать линейный градиент с переходом от #801AB2 к #4C4CFF */
+  border: 2px solid #801ab2;
+  border-radius: 64px;
+}
