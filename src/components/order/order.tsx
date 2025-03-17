@@ -3,9 +3,13 @@ import { MOCK_FEED_LIST_DATA } from '../../utils/data';
 import styles from './styles.module.css';
 import { FeedListItemStatus } from '../feed-list/types';
 import { Price } from '../price';
+import { ImageContainer } from '../image-container';
+import { useAppSelector } from '../../services/hooks';
+import { ingredientsListSelector } from '../../services/reducers/ingredients/selectors';
 
 export const Order = () => {
     const params = useParams();
+    const ingredients = useAppSelector(ingredientsListSelector);
 
     // TODO заменить на результат запроса к серверу
     //    const allOrders = useAppSelector(allOrdersSelector);
@@ -16,6 +20,27 @@ export const Order = () => {
     if (!chosenOrder) {
         return <>Информация для указанного заказа не найдена</>;
     }
+
+    const ingredientsIds: Array<string> = [
+        chosenOrder.ingredients.bunId,
+        chosenOrder.ingredients.bunId,
+        ...chosenOrder.ingredients.ingredientsIds,
+    ];
+
+    const ingredientsList = ingredientsIds.map(id => {
+        return ingredients.find(item => item._id === id);
+    });
+
+    const orderContent = ingredientsList.map((ingredient, index) => {
+        return (
+            <div key={index}>
+                <ImageContainer
+                    src={ingredient?.image_mobile || ''}
+                    index={0}
+                />
+            </div>
+        );
+    });
 
     const statusClass: string = getStatusClass(chosenOrder.status);
 
@@ -39,6 +64,7 @@ export const Order = () => {
             )}
             <div className='text text_type_main-medium pb-6'>Состав:</div>
             <div className='pb-10'>
+                {orderContent}
                 {/* {chosenOrder.ingredients.bunId} */}
                 {/* {chosenOrder.ingredients.ingredientsIds} */}
             </div>

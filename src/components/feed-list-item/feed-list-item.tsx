@@ -7,6 +7,7 @@ import { useAppSelector } from '../../services/hooks';
 import { ingredientsListSelector } from '../../services/reducers/ingredients/selectors';
 import { MODAL_TYPE } from '../../constants/constants';
 import { ROUTE_PATH } from '../app/constants';
+import { ImageContainer } from '../image-container';
 import styles from './styles.module.css';
 
 export const FeedListItem = ({ item, onItemClick }: FeedListItemProps) => {
@@ -43,11 +44,10 @@ export const FeedListItem = ({ item, onItemClick }: FeedListItemProps) => {
         }
 
         const previewImages = previews.map((item, index) => (
-            <img
-                src={item?.image_mobile}
-                className={styles['item-image-container']}
+            <ImageContainer
+                src={item?.image_mobile || ''}
                 key={index}
-                style={getImageStyle(index)}
+                index={index}
             />
         ));
 
@@ -76,7 +76,7 @@ export const FeedListItem = ({ item, onItemClick }: FeedListItemProps) => {
 
     /**
      * Получить тип модального окна на основании текущего расположения
-     * @returns 
+     * @returns
      */
     function getModalType(): MODAL_TYPE {
         if (location.pathname === ROUTE_PATH.FEED) {
