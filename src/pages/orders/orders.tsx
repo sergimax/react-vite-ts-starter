@@ -78,7 +78,7 @@ export const Orders = ({
                     </div>
                 </div>
                 <div className={styles['feed-list']}>
-                    <FeedList data={MOCK_FEED_LIST_DATA} />
+                    <FeedList data={MOCK_FEED_LIST_DATA} onItemClick={openModal}/>
                 </div>
             </div>
         </>
