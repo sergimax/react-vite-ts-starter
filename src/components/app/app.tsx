@@ -24,6 +24,7 @@ import { OrderDetails } from '../order-details';
 import { IngredientDetails } from '../ingredient-details';
 import { resetOrderValue } from '../../services/reducers/ingredients';
 import { ingredientsListSelector } from '../../services/reducers/ingredients/selectors.ts';
+import { Order } from '../order/order.tsx';
 
 function App() {
     const dispatch = useAppDispatch();
@@ -83,7 +84,6 @@ function App() {
         }
 
         if (data.type === MODAL_TYPE.FEED && data.feedItemData) {
-            console.log('openModal');
             navigate(`${ROUTE_PATH.FEED}/${data.feedItemData.number}`, {
                 state: {
                     background: location,
@@ -92,7 +92,6 @@ function App() {
         }
 
         if (data.type === MODAL_TYPE.ORDERS_FEED && data.feedItemData) {
-            console.log('openModal');
             navigate(`${ROUTE_PATH.ORDERS}/${data.feedItemData.number}`, {
                 state: {
                     background: location,
@@ -129,7 +128,7 @@ function App() {
                             path=':id'
                             element={
                                 <Modal
-                                    children={<>о заказе</>}
+                                    children={<Order />}
                                     onClose={closeModal}
                                 ></Modal>
                             }
@@ -142,7 +141,7 @@ function App() {
                             path=':id'
                             element={
                                 <Modal
-                                    children={<>о заказе</>}
+                                    children={<Order />}
                                     onClose={closeModal}
                                 ></Modal>
                             }

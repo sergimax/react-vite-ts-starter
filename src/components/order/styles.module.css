@@ -1,0 +1,24 @@
+.item-container {
+    display: flex;
+    flex-direction: column;
+    /* width: 100%; */
+    /* Смещение заголовка ввиду использования неунифицированного модального окна по макетам */
+    transform: translateY(-44px);
+    margin: 0 40px;
+}
+
+.item-status {
+    padding-top: 12px;
+}
+
+.item-status-completed {
+    padding-top: 12px;
+    color: #00cccc;
+}
+
+.item-time-and-price {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
