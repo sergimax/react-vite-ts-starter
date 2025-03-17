@@ -6,6 +6,8 @@
     gap: 24px;
     background-color: #1c1c21;
     margin-right: 8px;
+
+    cursor: pointer;
 }
 
 .item-title {

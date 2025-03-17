@@ -4,9 +4,10 @@ import { Price } from '../price';
 import { FeedListItemProps } from './types';
 import { useAppSelector } from '../../services/hooks';
 import { ingredientsListSelector } from '../../services/reducers/ingredients/selectors';
+import { MODAL_TYPE } from '../../constants/constants';
 import styles from './styles.module.css';
 
-export const FeedListItem = ({ item }: FeedListItemProps) => {
+export const FeedListItem = ({ item, onItemClick }: FeedListItemProps) => {
     const ingredients = useAppSelector(ingredientsListSelector);
     const statusClass: string = getStatusClass(item.status);
     const ingredientsIds: Array<string> = [
@@ -70,7 +71,15 @@ export const FeedListItem = ({ item }: FeedListItemProps) => {
     }
 
     return (
-        <div className={styles['item-container']}>
+        <div
+            className={styles['item-container']}
+            onClick={() =>
+                onItemClick({
+                    type: MODAL_TYPE.FEED,
+                    feedItemData: item,
+                })
+            }
+        >
             <div className={styles['item-title']}>
                 <div className='text text_type_digits-default'>
                     #{item.number}

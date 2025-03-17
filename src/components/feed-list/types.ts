@@ -1,3 +1,5 @@
+import { DataForModal } from "../../types/types";
+
 // TODO заменить на описание ответа от сервера
 export type FeedListItemContent = {
     name: string;
@@ -19,5 +21,6 @@ export enum FeedListItemStatus {
 
 export type FeedListProps = {
     data: Array<FeedListItemContent>;
+    onItemClick: (data: DataForModal) => void;
     title?: string;
 };

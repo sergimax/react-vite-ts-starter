@@ -2,7 +2,7 @@ import { FeedListItem } from '../feed-list-item';
 import { FeedListProps } from './types';
 import styles from './styles.module.css';
 
-export const FeedList = ({ data, title }: FeedListProps) => {
+export const FeedList = ({ data, title, onItemClick }: FeedListProps) => {
     const titleClasses = `text_type_main-large pt-10 pb-5 ${styles.title}`;
 
     return (
@@ -11,7 +11,13 @@ export const FeedList = ({ data, title }: FeedListProps) => {
             <div className={styles['feed-items']}>
                 {data.length > 0 &&
                     data.map((item, index) => {
-                        return <FeedListItem key={index} item={item} />;
+                        return (
+                            <FeedListItem
+                                key={index}
+                                item={item}
+                                onItemClick={onItemClick}
+                            />
+                        );
                     })}
             </div>
         </section>
