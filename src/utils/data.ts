@@ -1,3 +1,110 @@
+import {
+    FeedListItemContent,
+    FeedListItemStatus,
+} from '../components/feed-list/types';
+
+export const MOCK_COMPLETED_ORDERS_LIST = [
+    '034533',
+    '034532',
+    '034530',
+    '034527',
+    '034525',
+];
+export const MOCK_PROCESSING_ORDERS_LIST = ['034538', '034541', '034542'];
+export const MOCK_TOTAL_COUNTER_VALUE = 28_752;
+export const MOCK_DAILY_COUNTER_VALUE = 138;
+
+
+export const MOCK_FEED_LIST_DATA: Array<FeedListItemContent> = [
+    {
+        name: 'Death Star Starship Main бургер',
+        time: '16:20',
+        number: '034535',
+        ingredients: {
+            bunId: '643d69a5c3f7b9001cfa093d',
+            ingredientsIds: [
+                '643d69a5c3f7b9001cfa0943',
+                '643d69a5c3f7b9001cfa0945',
+                '643d69a5c3f7b9001cfa0946',
+                '643d69a5c3f7b9001cfa0947',
+                '643d69a5c3f7b9001cfa0949',
+            ],
+        },
+        status: FeedListItemStatus.COMPLETED,
+        price: 480,
+    },
+    {
+        name: 'Interstellar бургер',
+        time: '13:20',
+        number: '034534',
+        ingredients: {
+            bunId: '643d69a5c3f7b9001cfa093d',
+            ingredientsIds: [
+                '643d69a5c3f7b9001cfa0943',
+                '643d69a5c3f7b9001cfa0945',
+                '643d69a5c3f7b9001cfa0946',
+                '643d69a5c3f7b9001cfa0947',
+                '643d69a5c3f7b9001cfa0949',
+                '643d69a5c3f7b9001cfa0943',
+                '643d69a5c3f7b9001cfa0943',
+            ],
+        },
+        price: 560,
+    },
+    {
+        name: 'Death Star Starship Main бургер',
+        time: '13:50',
+        number: '034533',
+        ingredients: {
+            bunId: '643d69a5c3f7b9001cfa093d',
+            ingredientsIds: [
+                '643d69a5c3f7b9001cfa0943',
+                '643d69a5c3f7b9001cfa0943',
+            ],
+        },
+        price: 510,
+    },
+    {
+        name: 'Death Star Starship Main бургер',
+        time: '13:50',
+        number: '034533',
+        ingredients: {
+            bunId: '643d69a5c3f7b9001cfa093d',
+            ingredientsIds: [
+                '643d69a5c3f7b9001cfa0943',
+                '643d69a5c3f7b9001cfa0943',
+            ],
+        },
+        price: 510,
+    },
+    {
+        name: 'Death Star Starship Main бургер',
+        time: '13:50',
+        number: '034533',
+        ingredients: {
+            bunId: '643d69a5c3f7b9001cfa093d',
+            ingredientsIds: [
+                '643d69a5c3f7b9001cfa0943',
+                '643d69a5c3f7b9001cfa0943',
+            ],
+        },
+        price: 510,
+    },
+    {
+        name: 'Death Star Starship Main бургер',
+        time: '13:50',
+        number: '034533',
+        ingredients: {
+            bunId: '643d69a5c3f7b9001cfa093d',
+            ingredientsIds: [
+                '643d69a5c3f7b9001cfa0943',
+                '643d69a5c3f7b9001cfa0943',
+            ],
+        },
+        price: 510,
+    },
+];
+
 export const data = [
     {
         _id: '60666c42cc7b410027a1a9b1',
