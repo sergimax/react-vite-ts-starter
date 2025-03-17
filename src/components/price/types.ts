@@ -1,3 +1,3 @@
 export type PriceProps = {
-    value: number;
+    value: number | string;
 };
