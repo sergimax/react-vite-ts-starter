@@ -2,7 +2,7 @@ import { CSSProperties } from 'react';
 import { ImageContainerProps } from './types';
 import styles from './styles.module.css';
 
-export const ImageContainer = ({ src, index }: ImageContainerProps) => {
+export const ImageContainer = ({ src, index = 0 }: ImageContainerProps) => {
     function getImageStyle(imageIndex: number): CSSProperties | undefined {
         return {
             transform: `translate(-${16 * imageIndex}px)`,

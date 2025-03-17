@@ -1,4 +1,9 @@
 export type ImageContainerProps = {
     src: string;
-    index: number;
+    /**
+     * Индекс изображения в массиве изображений.
+     *
+     * Используется для рассчета сдвига и позиции по оси Z
+     */
+    index?: number;
 };

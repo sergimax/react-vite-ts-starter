@@ -69,7 +69,6 @@ export const Order = () => {
                     <div className={styles['ingredient-item-title']}>
                         <ImageContainer
                             src={ingredient.image_mobile || ''}
-                            index={0}
                         />
                         <div className='text_type_main-default'>
                             {ingredient.name}
