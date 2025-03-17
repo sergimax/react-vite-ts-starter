@@ -40,7 +40,7 @@ function App() {
 
     // Закрытие модального окна
     const closeModal = () => {
-        navigate(`${ROUTE_PATH.DEFAULT}`, {
+        navigate(`${location.state.background.pathname}`, {
             state: {
                 background: undefined,
             },
@@ -80,6 +80,15 @@ function App() {
                     },
                 );
             }
+        }
+
+        if (data.type === MODAL_TYPE.FEED && data.feedItemData) {
+            console.log('openModal');
+            navigate(`${ROUTE_PATH.FEED}/${data.feedItemData.number}`, {
+                state: {
+                    background: location,
+                },
+            });
         }
     };
 
