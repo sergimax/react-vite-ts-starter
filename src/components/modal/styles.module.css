@@ -31,4 +31,5 @@
 
 .close-icon {
     cursor: pointer;
+    z-index: 100;
 }
