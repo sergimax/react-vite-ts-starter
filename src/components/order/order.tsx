@@ -6,6 +6,7 @@ import { Price } from '../price';
 import { ImageContainer } from '../image-container';
 import { useAppSelector } from '../../services/hooks';
 import { ingredientsListSelector } from '../../services/reducers/ingredients/selectors';
+import { IngredientWithCounter } from '../../types/types';
 
 export const Order = () => {
     const params = useParams();
@@ -31,16 +32,51 @@ export const Order = () => {
         return ingredients.find(item => item._id === id);
     });
 
-    const orderContent = ingredientsList.map((ingredient, index) => {
-        return (
-            <div key={index}>
-                <ImageContainer
-                    src={ingredient?.image_mobile || ''}
-                    index={0}
-                />
-            </div>
-        );
+    if (!ingredientsList) {
+        return <>Список ингредиентов в заказе пуст</>;
+    }
+
+    const uniqueIngredientsMap = new Map<string, IngredientWithCounter>();
+
+    // Подсчет количества каждого ингредиента
+    ingredientsList.forEach(ingredient => {
+        if (ingredient && uniqueIngredientsMap.has(ingredient._id)) {
+            const existingIngredient = uniqueIngredientsMap.get(
+                ingredient._id,
+            )!;
+
+            existingIngredient.quantity =
+                (existingIngredient.quantity || 1) + 1;
+        } else {
+            ingredient &&
+                uniqueIngredientsMap.set(ingredient._id, {
+                    ...ingredient,
+                    quantity: 1,
+                });
+        }
     });
+
+    // Преобразуем Map обратно в массив
+    const uniqueIngredientsWithCounter: IngredientWithCounter[] = Array.from(
+        uniqueIngredientsMap.values(),
+    );
+    console.log('uniqueIngredientsWithCounter', uniqueIngredientsWithCounter);
+
+    const orderContent = uniqueIngredientsWithCounter.map(
+        (ingredient, index) => {
+            return (
+                <div key={index}>
+                    <ImageContainer
+                        src={ingredient?.image_mobile || ''}
+                        index={0}
+                    />
+                    {ingredient?.name}
+                    {ingredient?.price}
+                    {ingredient?.quantity}
+                </div>
+            );
+        },
+    );
 
     const statusClass: string = getStatusClass(chosenOrder.status);
 
