@@ -90,6 +90,15 @@ function App() {
                 },
             });
         }
+
+        if (data.type === MODAL_TYPE.ORDERS_FEED && data.feedItemData) {
+            console.log('openModal');
+            navigate(`${ROUTE_PATH.ORDERS}/${data.feedItemData.number}`, {
+                state: {
+                    background: location,
+                },
+            });
+        }
     };
 
     useEffect(() => {

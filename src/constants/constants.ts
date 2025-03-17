@@ -36,11 +36,15 @@ export enum MODAL_TYPE {
      */
     INGREDIENT_DETAILS = 'INGREDIENT_DETAILS',
     /**
-     * Информация по оформиленному заказу 
+     * Информация по оформленному заказу
      */
     ORDER = 'ORDER',
     /**
      * Информация по заказу из Ленты заказов
      */
     FEED = 'FEED',
+    /**
+     * Информация по заказу из Истории заказов
+     */
+    ORDERS_FEED = 'ORDERS_FEED',
 }
