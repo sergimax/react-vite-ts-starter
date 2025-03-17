@@ -1,5 +1,5 @@
 import { ModalOverlayProps } from './types';
-import styles from './modal-overlay.module.css';
+import styles from './styles.module.css';
 
 export const ModalOverlay = ({ onClose }: ModalOverlayProps) => {
     return (
