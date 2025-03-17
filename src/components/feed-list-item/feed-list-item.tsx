@@ -8,6 +8,7 @@ import { ingredientsListSelector } from '../../services/reducers/ingredients/sel
 import { MODAL_TYPE } from '../../constants/constants';
 import { ROUTE_PATH } from '../app/constants';
 import { ImageContainer } from '../image-container';
+import { getTextDay } from '../../utils';
 import styles from './styles.module.css';
 
 export const FeedListItem = ({ item, onItemClick }: FeedListItemProps) => {
@@ -101,7 +102,7 @@ export const FeedListItem = ({ item, onItemClick }: FeedListItemProps) => {
                     #{item.number}
                 </div>
                 <div className='text text_type_main-default text_color_inactive'>
-                    {item.time}
+                    {getTextDay(item.time)}
                 </div>
             </div>
             <div className='text text_type_main-medium'>

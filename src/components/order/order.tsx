@@ -1,12 +1,13 @@
 import { useParams } from 'react-router-dom';
 import { MOCK_FEED_LIST_DATA } from '../../utils/data';
-import styles from './styles.module.css';
 import { FeedListItemStatus } from '../feed-list/types';
 import { Price } from '../price';
 import { ImageContainer } from '../image-container';
 import { useAppSelector } from '../../services/hooks';
 import { ingredientsListSelector } from '../../services/reducers/ingredients/selectors';
 import { IngredientWithCounter } from '../../types/types';
+import { getTextDay } from '../../utils';
+import styles from './styles.module.css';
 
 export const Order = () => {
     const params = useParams();
@@ -60,16 +61,13 @@ export const Order = () => {
     const uniqueIngredientsWithCounter: IngredientWithCounter[] = Array.from(
         uniqueIngredientsMap.values(),
     );
-    console.log('uniqueIngredientsWithCounter', uniqueIngredientsWithCounter);
 
     const orderIngredientsList = uniqueIngredientsWithCounter.map(
         (ingredient, index) => {
             return (
                 <div key={index} className={styles['ingredient-item']}>
                     <div className={styles['ingredient-item-title']}>
-                        <ImageContainer
-                            src={ingredient.image_mobile || ''}
-                        />
+                        <ImageContainer src={ingredient.image_mobile || ''} />
                         <div className='text_type_main-default'>
                             {ingredient.name}
                         </div>
@@ -110,7 +108,7 @@ export const Order = () => {
             </div>
             <div className={`ml-10 mr-10 ${styles['item-time-and-price']}`}>
                 <div className='text text_type_main-default text_color_inactive'>
-                    {chosenOrder.time}
+                    {getTextDay(chosenOrder.time)}
                 </div>
                 <Price value={chosenOrder.price} />
             </div>

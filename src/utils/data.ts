@@ -18,7 +18,7 @@ export const MOCK_DAILY_COUNTER_VALUE = 138;
 export const MOCK_FEED_LIST_DATA: Array<FeedListItemContent> = [
     {
         name: 'Death Star Starship Main бургер',
-        time: '16:20',
+        time: '2025-03-17T22:17:20.007Z',
         number: '034535',
         ingredients: {
             bunId: '643d69a5c3f7b9001cfa093d',
@@ -35,7 +35,7 @@ export const MOCK_FEED_LIST_DATA: Array<FeedListItemContent> = [
     },
     {
         name: 'Interstellar бургер',
-        time: '13:20',
+        time: '2025-03-17T22:17:20.007Z',
         number: '034534',
         ingredients: {
             bunId: '643d69a5c3f7b9001cfa093d',
@@ -53,7 +53,7 @@ export const MOCK_FEED_LIST_DATA: Array<FeedListItemContent> = [
     },
     {
         name: 'Death Star Starship Main бургер',
-        time: '13:50',
+        time: '2025-03-17T22:17:20.007Z',
         number: '034533',
         ingredients: {
             bunId: '643d69a5c3f7b9001cfa093d',
@@ -66,7 +66,7 @@ export const MOCK_FEED_LIST_DATA: Array<FeedListItemContent> = [
     },
     {
         name: 'Death Star Starship Main бургер',
-        time: '13:50',
+        time: '2025-03-17T22:17:20.007Z',
         number: '034533',
         ingredients: {
             bunId: '643d69a5c3f7b9001cfa093d',
@@ -79,7 +79,7 @@ export const MOCK_FEED_LIST_DATA: Array<FeedListItemContent> = [
     },
     {
         name: 'Death Star Starship Main бургер',
-        time: '13:50',
+        time: '2025-03-17T22:17:20.007Z',
         number: '034533',
         ingredients: {
             bunId: '643d69a5c3f7b9001cfa093d',
@@ -92,7 +92,7 @@ export const MOCK_FEED_LIST_DATA: Array<FeedListItemContent> = [
     },
     {
         name: 'Death Star Starship Main бургер',
-        time: '13:50',
+        time: '2025-03-17T22:17:20.007Z',
         number: '034533',
         ingredients: {
             bunId: '643d69a5c3f7b9001cfa093d',

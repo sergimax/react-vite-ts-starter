@@ -4,6 +4,9 @@ import { DataForModal } from "../../types/types";
 export type FeedListItemContent = {
     name: string;
     status?: FeedListItemStatus;
+    /**
+     * ISO
+     */
     time: string;
     number: string;
     ingredients: {
