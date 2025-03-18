@@ -62,8 +62,8 @@ export type ChosenIngredients = {
 };
 
 export type UniqueIngredientItem = Ingredient & {
-    uniqueId: number,
-}
+    uniqueId: number;
+};
 
 /**
  * Содержимое модального окна
@@ -102,4 +102,12 @@ export type DataForModal = {
     orderData?: OrderData;
     ingredientData?: IngredientDeatilsData;
     feedItemData?: FeedListItemContent;
+};
+
+export type Background = {
+    hash: string;
+    key: string;
+    pathname: string;
+    search: string;
+    state: unknown;
 };

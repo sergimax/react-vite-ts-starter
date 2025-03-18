@@ -18,7 +18,7 @@ import { fetchIngredients } from '../../services/reducers/ingredients/thunks.ts'
 import { useAppDispatch, useAppSelector } from '../../services/hooks.ts';
 import { AppHeader } from '../app-header';
 import { Modal } from '../modal';
-import { DataForModal, ModalContent } from '../../types/types.ts';
+import { Background, DataForModal, ModalContent } from '../../types/types.ts';
 import { MODAL_TYPE } from '../../constants/constants.ts';
 import { OrderDetails } from '../order-details';
 import { IngredientDetails } from '../ingredient-details';
@@ -33,7 +33,7 @@ function App() {
 
     const ingredientsList = useAppSelector(ingredientsListSelector);
 
-    const background = location.state?.background;
+    const background: Background = location.state?.background;
 
     // Управление модальным окном
     const [isModalShown, setIsModalShown] = useState(false);
@@ -183,49 +183,41 @@ function App() {
                 >
                     <Route path={ROUTE_PATH.PROFILE} element={<Profile />} />
                 </Route>
+
+                {/* Представление ингредиента для открытия в отдельном окне со страницы Конструктора*/}
                 <Route path={ROUTE_PATH.INGREDIENTS}>
                     <Route path=':ingredientId' element={<IngredientInfo />} />
                 </Route>
+
+                {/*
+                 * История заказов
+                 */}
+                {/* Основной экран Истории заказов */}
                 <Route
                     path={ROUTE_PATH.ORDERS}
                     element={<Orders openModal={openModal} />}
-                >
-                    <Route
-                        path=':id'
-                        element={
-                            <>
-                                <Orders openModal={openModal} />
-                                {/* Блок модального окна */}
-                                {isModalShown && modalData && (
-                                    <Modal
-                                        children={modalData.content}
-                                        onClose={closeModal}
-                                    ></Modal>
-                                )}
-                            </>
-                        }
-                    ></Route>
-                </Route>
+                ></Route>
+
+                {/* Представление заказа для открытия в отдельном окне со страницы История заказов */}
+                <Route
+                    path={`${ROUTE_PATH.ORDERS}/:id`}
+                    element={<Order />}
+                ></Route>
+
+                {/*
+                 * Лента заказов
+                 */}
+                {/* Основной экран Ленты заказов */}
                 <Route
                     path={ROUTE_PATH.FEED}
                     element={<Feed openModal={openModal} />}
-                >
-                    <Route
-                        path=':id'
-                        element={
-                            <>
-                                <Feed openModal={openModal} />
-                                {/* Блок модального окна */}
-                                {isModalShown && modalData && (
-                                    <Modal
-                                        children={modalData.content}
-                                        onClose={closeModal}
-                                    ></Modal>
-                                )}
-                            </>
-                        }
-                    ></Route>
-                </Route>
+                ></Route>
+
+                {/* Представление заказа для открытия в отдельном окне со страницы Ленты заказов */}
+                <Route
+                    path={`${ROUTE_PATH.FEED}/:id`}
+                    element={<Order />}
+                ></Route>
             </Routes>
         </>
     );
