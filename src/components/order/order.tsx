@@ -1,17 +1,23 @@
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { MOCK_FEED_LIST_DATA } from '../../utils/data';
 import { FeedListItemStatus } from '../feed-list/types';
 import { Price } from '../price';
 import { ImageContainer } from '../image-container';
 import { useAppSelector } from '../../services/hooks';
 import { ingredientsListSelector } from '../../services/reducers/ingredients/selectors';
-import { IngredientWithCounter } from '../../types/types';
+import { Background, IngredientWithCounter } from '../../types/types';
 import { getTextDay } from '../../utils';
 import styles from './styles.module.css';
 
 export const Order = () => {
     const params = useParams();
     const ingredients = useAppSelector(ingredientsListSelector);
+    const location = useLocation();
+    const background: Background = location.state?.background;
+
+    const containerClass: string = background
+        ? `${styles['item-container-modal']}`
+        : `${styles['item-container-page']}`;
 
     // TODO заменить на результат запроса к серверу
     //    const allOrders = useAppSelector(allOrdersSelector);
@@ -84,33 +90,38 @@ export const Order = () => {
 
     function getStatusClass(status?: FeedListItemStatus): string {
         if (status === FeedListItemStatus.COMPLETED) {
-            return `text_type_main-default pb-15 ml-10 ${styles['item-status-completed']}`;
+            return `text_type_main-default pb-15 ${styles['item-status-completed']}`;
         }
 
-        return `text_type_main-default pb-15 ml-10 ${styles['item-status']}`;
+        return `text_type_main-default pb-15 ${styles['item-status']}`;
     }
 
     return (
-        <div className={styles['item-container']}>
-            <div className='text_type_digits-default pb-10 ml-10'>
-                #{chosenOrder.number}
-            </div>
-            <div className='text_type_main-medium ml-10'>
-                {chosenOrder.name}
-            </div>
-
-            {chosenOrder.status && (
-                <div className={statusClass}>{chosenOrder.status}</div>
-            )}
-            <div className='text text_type_main-medium pb-6 ml-10'>Состав:</div>
-            <div className={`mb-10 ml-10 mr-10 ${styles['ingredients-list']}`}>
-                {orderIngredientsList}
-            </div>
-            <div className={`ml-10 mr-10 ${styles['item-time-and-price']}`}>
-                <div className='text text_type_main-default text_color_inactive'>
-                    {getTextDay(chosenOrder.time)}
+        <div className={containerClass}>
+            <div className={background ? styles.wrapper : ''}>
+                <div className='text_type_digits-default pb-10 '>
+                    #{chosenOrder.number}
                 </div>
-                <Price value={chosenOrder.price} />
+
+                <div className='text_type_main-medium'>{chosenOrder.name}</div>
+
+                {chosenOrder.status && (
+                    <div className={statusClass}>{chosenOrder.status}</div>
+                )}
+
+                <div className='text text_type_main-medium pb-6'>Состав:</div>
+
+                <div className={`mb-10 ${styles['ingredients-list']}`}>
+                    {orderIngredientsList}
+                </div>
+
+                <div className={`${styles['item-time-and-price']}`}>
+                    <div className='text text_type_main-default text_color_inactive'>
+                        {getTextDay(chosenOrder.time)}
+                    </div>
+
+                    <Price value={chosenOrder.price} />
+                </div>
             </div>
         </div>
     );
