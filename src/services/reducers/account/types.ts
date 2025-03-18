@@ -89,12 +89,14 @@ export type RegisterAccountDTO = BasicResponse & {
         email: string;
         name: string;
     };
+
     /**
      * Токен для получения и обновления данных пользователя через auth/user
      *
      * Передается в заголовке authorization
      */
     accessToken: string;
+
     /**
      * Токен для выхода из системы и для получения нового accessToken , если последний перестал подходить и просрочился
      *
@@ -122,12 +124,14 @@ export type LoginAccountDTO = BasicResponse & {
         name: string;
         password?: string;
     };
+
     /**
      * Токен для получения и обновления данных пользователя через auth/user
      *
      * Передается в заголовке authorization
      */
     accessToken: string;
+
     /**
      * Токен для выхода из системы и для получения нового accessToken , если последний перестал подходить и просрочился.
      *

@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../../services/hooks.ts';
-import { ingredientsListSelector } from '../../services/reducers/ingredients/selectors.ts';
+import { ingredientsListSelector } from '../../services/reducers/ingredients';
 import styles from './style.module.css';
 
 export const IngredientDetails = () => {

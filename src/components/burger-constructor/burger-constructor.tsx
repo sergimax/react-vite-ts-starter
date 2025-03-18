@@ -14,13 +14,11 @@ import {
     deleteConstructorIngredient,
     setConstructorBun,
     setConstructorIngredients,
+    ingredientsConstructorContentSelector,
+    ingredientsOrderSelector,
 } from '../../services/reducers/ingredients';
 import { Ingredient, UniqueIngredientItem } from '../../types/types';
 import { createOrder } from '../../services/reducers/ingredients/thunks';
-import {
-    ingredientsConstructorContentSelector,
-    ingredientsOrderSelector,
-} from '../../services/reducers/ingredients/selectors';
 import { BurgerConstructorIngredient } from '../burger-constructor-ingredient';
 import { isAuthorizedSelector } from '../../services/reducers/account';
 import { ROUTE_PATH } from '../app/constants.ts';

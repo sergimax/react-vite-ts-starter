@@ -79,7 +79,7 @@ export type ModalContent = {
 export type ModalType = keyof typeof MODAL_TYPE;
 
 /**
- * Данные для модального окна Деталей о ингредиенте
+ * Данные для модального окна Деталей об ингредиенте
  */
 export type IngredientDeatilsData = {
     title: string;
@@ -110,4 +110,11 @@ export type Background = {
     pathname: string;
     search: string;
     state: unknown;
+};
+
+/**
+ * Содержимое полей ввода
+ */
+export type InputValues = {
+    [key: string]: string;
 };

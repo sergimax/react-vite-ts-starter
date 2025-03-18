@@ -9,7 +9,8 @@ import { useAppDispatch, useAppSelector, useForm } from '../../services/hooks';
 import { setActivePage } from '../../services/reducers/pages';
 import {
     executeResetPassword,
-    isAuthorizedSelector, isExecuteResetPasswordSuccessfulSelector,
+    isAuthorizedSelector,
+    isExecuteResetPasswordSuccessfulSelector,
 } from '../../services/reducers/account';
 import styles from './styles.module.css';
 
@@ -19,20 +20,26 @@ export const ResetPassword = () => {
     const location = useLocation();
 
     const isAuthorized = useAppSelector(isAuthorizedSelector);
-    const isPasswordResetSuccessful = useAppSelector(isExecuteResetPasswordSuccessfulSelector);
+    const isPasswordResetSuccessful = useAppSelector(
+        isExecuteResetPasswordSuccessfulSelector,
+    );
 
     const { values, handleChange } = useForm({
         inputValues: {
-            newPassword: '', code: '',
+            newPassword: '',
+            code: '',
         },
     });
 
     function resetPassword(event: SyntheticEvent) {
         if (values.newPassword && values.code) {
             event.preventDefault();
-            dispatch(executeResetPassword({
-                password: values.newPassword, token: values.code,
-            }));
+            dispatch(
+                executeResetPassword({
+                    password: values.newPassword,
+                    token: values.code,
+                }),
+            );
         }
     }
 
@@ -50,8 +57,11 @@ export const ResetPassword = () => {
         return <Navigate to={ROUTE_PATH.DEFAULT} />;
     }
 
-    if (!location.state || location.state?.pathname !== ROUTE_PATH.FORGOT_PASSWORD) {
-        return <Navigate to={ROUTE_PATH.FORGOT_PASSWORD} />
+    if (
+        !location.state ||
+        location.state?.pathname !== ROUTE_PATH.FORGOT_PASSWORD
+    ) {
+        return <Navigate to={ROUTE_PATH.FORGOT_PASSWORD} />;
     }
 
     return (
@@ -73,11 +83,7 @@ export const ResetPassword = () => {
                         name='code'
                         value={values.code}
                     />
-                    <Button
-                        htmlType='button'
-                        type='primary'
-                        size='medium'
-                    >
+                    <Button htmlType='button' type='primary' size='medium'>
                         Сохранить
                     </Button>
                 </form>

@@ -8,12 +8,12 @@ import {
     IngredientTypeName,
 } from '../../types/types';
 import { ingredientCategories } from './constants';
-import styles from './style.module.css';
 import { useAppSelector } from '../../services/hooks';
-import { ingredientsListSelector } from '../../services/reducers/ingredients/selectors';
+import { ingredientsListSelector } from '../../services/reducers/ingredients';
+import styles from './style.module.css';
 
 /**
- * Cписок ингредиентов
+ * Список ингредиентов
  */
 export const BurgerIngredients = ({
     onIngredientClick,
@@ -27,23 +27,23 @@ export const BurgerIngredients = ({
     const bunsList: Array<Ingredient> = useMemo(
         () =>
             ingredients.filter(
-                (ingredient) => ingredient.type === IngredientTypeName.BUN
+                ingredient => ingredient.type === IngredientTypeName.BUN,
             ),
-        [ingredients]
+        [ingredients],
     );
     const saucesList: Array<Ingredient> = useMemo(
         () =>
             ingredients.filter(
-                (ingredient) => ingredient.type === IngredientTypeName.SAUCE
+                ingredient => ingredient.type === IngredientTypeName.SAUCE,
             ),
-        [ingredients]
+        [ingredients],
     );
     const mainsList: Array<Ingredient> = useMemo(
         () =>
             ingredients.filter(
-                (ingredient) => ingredient.type === IngredientTypeName.MAIN
+                ingredient => ingredient.type === IngredientTypeName.MAIN,
             ),
-        [ingredients]
+        [ingredients],
     );
 
     const bunsRef = useRef<HTMLDivElement>(null);
@@ -58,7 +58,7 @@ export const BurgerIngredients = ({
      */
     function changeCurrentTab(
         tabName: string,
-        isOnClick: boolean = false
+        isOnClick: boolean = false,
     ): void {
         setCurrentTab(tabName);
 
@@ -134,7 +134,7 @@ export const BurgerIngredients = ({
                             key={index}
                             value={category.value}
                             active={currentTab === category.value}
-                            onClick={(value) => changeCurrentTab(value, true)}
+                            onClick={value => changeCurrentTab(value, true)}
                         >
                             {category.title}
                         </Tab>

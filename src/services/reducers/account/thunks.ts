@@ -3,7 +3,8 @@ import { API_ENDPOINT, API_URL } from '../../../constants/constants';
 import {
     AskResetPasswordAsyncThunkConfig,
     AskResetPasswordData,
-    AskResetPasswordDTO, CustomError,
+    AskResetPasswordDTO,
+    CustomError,
     ExecuteResetPasswordAsyncThunkConfig,
     ExecuteResetPasswordData,
     ExecuteResetPasswordDTO,
@@ -27,60 +28,60 @@ import { ACCOUNT_STATE_NAME } from './constants';
 import { deleteCookie, getCookie, request, setCookie } from './utils';
 
 export const askResetPassword = createAsyncThunk<
-  AskResetPasswordDTO,
-  AskResetPasswordData,
-  AskResetPasswordAsyncThunkConfig
+    AskResetPasswordDTO,
+    AskResetPasswordData,
+    AskResetPasswordAsyncThunkConfig
 >(
-  `${ACCOUNT_STATE_NAME}/password-reset`,
-  async (resetData): Promise<AskResetPasswordDTO> => {
-    return request(API_ENDPOINT.PASSWORD_RESET_ASK, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: resetData.email,
-      }),
-    });
-  },
+    `${ACCOUNT_STATE_NAME}/password-reset`,
+    async (resetData): Promise<AskResetPasswordDTO> => {
+        return request(API_ENDPOINT.PASSWORD_RESET_ASK, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email: resetData.email,
+            }),
+        });
+    },
 );
 
 export const executeResetPassword = createAsyncThunk<
-  ExecuteResetPasswordDTO,
-  ExecuteResetPasswordData,
-  ExecuteResetPasswordAsyncThunkConfig
+    ExecuteResetPasswordDTO,
+    ExecuteResetPasswordData,
+    ExecuteResetPasswordAsyncThunkConfig
 >(
-  `${ACCOUNT_STATE_NAME}/password-reset/reset`,
-  async (resetData): Promise<ExecuteResetPasswordDTO> => {
-    return request(`${API_ENDPOINT.PASSWORD_RESET_EXECUTE}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        password: resetData.password,
-        token: resetData.token,
-      }),
-    });
-  },
+    `${ACCOUNT_STATE_NAME}/password-reset/reset`,
+    async (resetData): Promise<ExecuteResetPasswordDTO> => {
+        return request(`${API_ENDPOINT.PASSWORD_RESET_EXECUTE}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                password: resetData.password,
+                token: resetData.token,
+            }),
+        });
+    },
 );
 
 export const registerAccount = createAsyncThunk<
-  RegisterAccountDTO,
-  RegisterAccountData,
-  RegisterAccountAsyncThunkConfig
->(`${ACCOUNT_STATE_NAME}/register`, async (accountData) => {
-  return request<RegisterAccountDTO>(`${API_ENDPOINT.REGISTER_ACCOUNT}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email: accountData.email,
-      password: accountData.password,
-      name: accountData.name,
-    }),
-  });
+    RegisterAccountDTO,
+    RegisterAccountData,
+    RegisterAccountAsyncThunkConfig
+>(`${ACCOUNT_STATE_NAME}/register`, async accountData => {
+    return request<RegisterAccountDTO>(`${API_ENDPOINT.REGISTER_ACCOUNT}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            email: accountData.email,
+            password: accountData.password,
+            name: accountData.name,
+        }),
+    });
 });
 
 export const loginAccount = createAsyncThunk<
@@ -105,7 +106,7 @@ export const loginAccount = createAsyncThunk<
                     email: accountData.email,
                     password: accountData.password,
                 }),
-            }
+            },
         );
 
         if (!LoginAccountResponse.ok) {
@@ -172,7 +173,7 @@ export const refreshToken = createAsyncThunk<
                 body: JSON.stringify({
                     token: localStorage.getItem('refreshToken'),
                 }),
-            }
+            },
         );
 
         if (!refreshTokenAccountResponse.ok) {
@@ -199,7 +200,7 @@ export const refreshToken = createAsyncThunk<
         if (refreshTokenAccountData.refreshToken) {
             localStorage.setItem(
                 'refreshToken',
-                refreshTokenAccountData.refreshToken
+                refreshTokenAccountData.refreshToken,
             );
         }
 
@@ -240,7 +241,7 @@ export const logoutAccount = createAsyncThunk<
                 body: JSON.stringify({
                     token: localStorage.getItem('refreshToken'),
                 }),
-            }
+            },
         );
 
         if (!LogoutAccountResponse.ok) {
@@ -289,16 +290,20 @@ async function executeWithTokenRefresh(path: string, options: RequestInit) {
             try {
                 await refreshToken();
                 const requestWithNewToken = await fetch(path, {
-                    ...options, headers: {
-                        'Content-Type': 'application/json;charset=utf-8', Authorization: `Bearer ${getCookie('token')}`,
+                    ...options,
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8',
+                        Authorization: `Bearer ${getCookie('token')}`,
                     },
                 });
 
                 return requestWithNewToken.json();
             } catch (e) {
-                console.error('Ошибка повторного запроса с обновлением токена:', e)
+                console.error(
+                    'Ошибка повторного запроса с обновлением токена:',
+                    e,
+                );
             }
-
         } else {
             return Promise.reject(error);
         }
@@ -324,7 +329,7 @@ export const getAccountInformation = createAsyncThunk<
                     'Content-Type': 'application/json;charset=utf-8',
                     Authorization: `Bearer ${getCookie('token')}`,
                 },
-            }
+            },
         );
 
         // Проверка успешности выполнения запроса
@@ -369,7 +374,7 @@ export const updateAccountInformation = createAsyncThunk<
                         email: accountData.email,
                         password: accountData.password,
                     }),
-                }
+                },
             );
 
             // Проверка успешности выполнения запроса
@@ -389,5 +394,5 @@ export const updateAccountInformation = createAsyncThunk<
 
             return rejectWithValue({ message: error as string });
         }
-    }
+    },
 );

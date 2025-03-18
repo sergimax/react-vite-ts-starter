@@ -14,7 +14,8 @@ import { ROUTE_PATH } from '../../components/app/constants';
 import {
     emailSelector,
     getAccountInformation,
-    isAccountInformationUpdateSuccessfulSelector, logoutAccount,
+    isAccountInformationUpdateSuccessfulSelector,
+    logoutAccount,
     nameSelector,
     passwordSelector,
     updateAccountInformation,
@@ -30,7 +31,7 @@ export const Profile = () => {
     const userEmail = useAppSelector(emailSelector);
     const userPassword = useAppSelector(passwordSelector);
     const isAccountInformationUpdateSuccessful = useAppSelector(
-        isAccountInformationUpdateSuccessfulSelector
+        isAccountInformationUpdateSuccessfulSelector,
     );
 
     const navigationProfileClasses: string = `${styles['navigation-item']} ${
@@ -45,7 +46,9 @@ export const Profile = () => {
 
     const { values, handleChange, setValues } = useForm({
         inputValues: {
-            name: userName, email: userEmail, password: userPassword,
+            name: userName,
+            email: userEmail,
+            password: userPassword,
         },
     });
     const [isFormChanged, setIsFormChanged] = useState<boolean>(false);
@@ -53,7 +56,9 @@ export const Profile = () => {
     function resetForm(event?: SyntheticEvent) {
         event && event.preventDefault();
         setValues({
-            name: userName, email: userEmail, password: userPassword,
+            name: userName,
+            email: userEmail,
+            password: userPassword,
         });
     }
 
@@ -64,7 +69,7 @@ export const Profile = () => {
                 name: values.name,
                 email: values.email,
                 password: values.password,
-            })
+            }),
         );
     }
 
@@ -80,7 +85,11 @@ export const Profile = () => {
     }, [isAccountInformationUpdateSuccessful]);
 
     useEffect(() => {
-        setIsFormChanged(userPassword !== values.password || userEmail !== values.email || userName !== values.name);
+        setIsFormChanged(
+            userPassword !== values.password ||
+                userEmail !== values.email ||
+                userName !== values.name,
+        );
     }, [values, userEmail, userName, userPassword]);
 
     return (
@@ -117,7 +126,11 @@ export const Profile = () => {
                         данные
                     </div>
                 </div>
-                <form onSubmit={saveForm} className={styles['user-data']} onReset={resetForm}>
+                <form
+                    onSubmit={saveForm}
+                    className={styles['user-data']}
+                    onReset={resetForm}
+                >
                     <Input
                         onChange={handleChange}
                         placeholder='Имя'
@@ -140,16 +153,10 @@ export const Profile = () => {
                     />
                     {isFormChanged && (
                         <div className={styles['update-actions']}>
-                            <Button
-                                type={'secondary'}
-                                htmlType='reset'
-                            >
+                            <Button type={'secondary'} htmlType='reset'>
                                 Отмена
                             </Button>
-                            <Button
-                                type={'primary'}
-                                htmlType='submit'
-                            >
+                            <Button type={'primary'} htmlType='submit'>
                                 Сохранить
                             </Button>
                         </div>

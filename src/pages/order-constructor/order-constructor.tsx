@@ -6,7 +6,7 @@ import {
     ingredientsErrorSelector,
     ingredientsIsLoadingSelector,
     ingredientsListSelector,
-} from '../../services/reducers/ingredients/selectors';
+} from '../../services/reducers/ingredients';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { BurgerIngredients } from '../../components/burger-ingredients';
 import { BurgerConstructor } from '../../components/burger-constructor';

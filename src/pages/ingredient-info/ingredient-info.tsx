@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { IngredientDetails } from '../../components/ingredient-details';
 import { Ingredient } from '../../types/types';
 import { useAppSelector } from '../../services/hooks';
-import { ingredientsListSelector } from '../../services/reducers/ingredients/selectors';
+import { ingredientsListSelector } from '../../services/reducers/ingredients';
 import styles from './styles.module.css';
 
 /**
