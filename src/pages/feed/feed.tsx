@@ -1,18 +1,21 @@
 import { useEffect } from 'react';
 import { FeedStats } from '../../components';
 import { FeedList } from '../../components/feed-list';
-import { useAppDispatch } from '../../services/hooks';
+import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { setActivePage } from '../../services/reducers/pages';
 import { ROUTE_PATH } from '../../components/app/constants';
-import { DataForModal } from '../../types/types';
+import { DataForModal, OrdersDataWSResponse } from '../../types/types';
 import {
     MOCK_COMPLETED_ORDERS_LIST,
-    MOCK_DAILY_COUNTER_VALUE,
-    MOCK_FEED_LIST_DATA,
     MOCK_PROCESSING_ORDERS_LIST,
-    MOCK_TOTAL_COUNTER_VALUE,
 } from '../../utils/data';
 import styles from './styles.module.css';
+import {
+    wsDisconnect,
+    wsMessagesSelector,
+    wsStartConnecting,
+} from '../../services/reducers/websocket';
+import { WS_URL } from '../../constants/constants';
 
 /**
  * Cтраница ленты заказов
@@ -25,24 +28,37 @@ export const Feed = ({
 }) => {
     const dispatch = useAppDispatch();
 
-    // TODO обработка данных от сервера
+    const ordersResponse: OrdersDataWSResponse | undefined = useAppSelector(wsMessagesSelector);
+    console.log(ordersResponse);
+    
 
     useEffect(() => {
         dispatch(setActivePage({ value: ROUTE_PATH.FEED }));
+
+        dispatch(wsStartConnecting(WS_URL));
+
+        return () => {
+            dispatch(wsDisconnect());
+        };
     }, [dispatch]);
+    
+    if (!ordersResponse) {
+        // TODO
+        return <>sdasd</>
+    }
 
     return (
         <main className={styles.main}>
             <FeedList
-                data={MOCK_FEED_LIST_DATA}
+                orders={ordersResponse.orders}
                 title='Лента заказов'
                 onItemClick={openModal}
             />
             <FeedStats
                 completedOrdersList={MOCK_COMPLETED_ORDERS_LIST}
                 processingOrdersList={MOCK_PROCESSING_ORDERS_LIST}
-                totalCounterValue={MOCK_TOTAL_COUNTER_VALUE}
-                dailyCounterValue={MOCK_DAILY_COUNTER_VALUE}
+                totalCounterValue={ordersResponse.total}
+                dailyCounterValue={ordersResponse.totalToday}
             />
         </main>
     );

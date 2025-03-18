@@ -12,14 +12,13 @@ import { getTextDay } from '../../utils';
 import styles from './styles.module.css';
 
 export const FeedListItem = ({ item, onItemClick }: FeedListItemProps) => {
+    console.log("FeedListItem", item);
+    
     const location = useLocation();
 
     const ingredients = useAppSelector(ingredientsListSelector);
     const statusClass: string = getStatusClass(item.status);
-    const ingredientsIds: Array<string> = [
-        item.ingredients.bunId,
-        ...item.ingredients.ingredientsIds,
-    ];
+    const ingredientsIds: Array<string> = item.ingredients;
     const ingredientsPreviews: ReactNode[] =
         getIngredientPreviews(ingredientsIds);
 
@@ -67,7 +66,7 @@ export const FeedListItem = ({ item, onItemClick }: FeedListItemProps) => {
         return previewImages;
     }
 
-    function getStatusClass(status?: FeedListItemStatus): string {
+    function getStatusClass(status?: string): string {
         if (status === FeedListItemStatus.COMPLETED) {
             return `text_type_main-default ${styles['item-status-completed']}`;
         }
@@ -102,7 +101,7 @@ export const FeedListItem = ({ item, onItemClick }: FeedListItemProps) => {
                     #{item.number}
                 </div>
                 <div className='text text_type_main-default text_color_inactive'>
-                    {getTextDay(item.time)}
+                    {getTextDay(item.createdAt)}
                 </div>
             </div>
             <div className='text text_type_main-medium'>
@@ -115,7 +114,7 @@ export const FeedListItem = ({ item, onItemClick }: FeedListItemProps) => {
                 <div className={styles['item-content']}>
                     {ingredientsPreviews}
                 </div>
-                <Price value={item.price} />
+                <Price value={666} />
             </div>
         </div>
     );

@@ -1,7 +1,6 @@
-import { DataForModal } from "../../types/types";
-import { FeedListItemContent } from "../feed-list/types";
+import { DataForModal, OrderDataFromWS } from "../../types/types";
 
 export type FeedListItemProps = {
-    item: FeedListItemContent;
+    item: OrderDataFromWS;
     onItemClick: (data: DataForModal) => void;
 };

@@ -1,4 +1,3 @@
-import { FeedListItemContent } from '../components/feed-list/types';
 import { MODAL_TYPE } from '../constants/constants';
 
 /**
@@ -101,7 +100,7 @@ export type DataForModal = {
     type: ModalType;
     orderData?: OrderData;
     ingredientData?: IngredientDeatilsData;
-    feedItemData?: FeedListItemContent;
+    feedItemData?: OrderDataFromWS;
 };
 
 export type Background = {
