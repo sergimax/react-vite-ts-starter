@@ -1,5 +1,9 @@
 export const API_URL: string = 'https://norma.nomoreparties.space/api';
 
+export const WS_URL: string = 'wss://norma.nomoreparties.space/orders/all';
+export const WS_PERSONAL_URL: string = 'wss://norma.nomoreparties.space/orders';
+
+
 export enum API_ENDPOINT {
     INGREDIENTS = 'ingredients',
     ORDERS = 'orders',

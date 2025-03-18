@@ -2,6 +2,7 @@ import {
     FeedListItemContent,
     FeedListItemStatus,
 } from '../components/feed-list/types';
+import { OrdersDataWSResponse } from '../types/types';
 
 export const MOCK_COMPLETED_ORDERS_LIST = [
     '034533',
@@ -13,7 +14,6 @@ export const MOCK_COMPLETED_ORDERS_LIST = [
 export const MOCK_PROCESSING_ORDERS_LIST = ['034538', '034541', '034542'];
 export const MOCK_TOTAL_COUNTER_VALUE = 28_752;
 export const MOCK_DAILY_COUNTER_VALUE = 138;
-
 
 export const MOCK_FEED_LIST_DATA: Array<FeedListItemContent> = [
     {
@@ -327,3 +327,161 @@ export const data = [
         __v: 0,
     },
 ];
+
+export const MOCK_WS_ORDERS_DATA: OrdersDataWSResponse = {
+    success: true,
+    orders: [
+        {
+            _id: '67d9de4c6fce7d001db5afa6',
+            ingredients: [
+                '643d69a5c3f7b9001cfa093d',
+                '643d69a5c3f7b9001cfa093e',
+                '643d69a5c3f7b9001cfa093d',
+            ],
+            status: 'done',
+            name: 'Флюоресцентный люминесцентный бургер',
+            createdAt: '2025-03-18T20:57:48.900Z',
+            updatedAt: '2025-03-18T20:57:49.633Z',
+            number: 71569,
+        },
+        {
+            _id: '67d9d6c46fce7d001db5af91',
+            ingredients: [
+                '643d69a5c3f7b9001cfa093c',
+                '643d69a5c3f7b9001cfa0941',
+                '643d69a5c3f7b9001cfa0945',
+                '643d69a5c3f7b9001cfa093c',
+            ],
+            status: 'done',
+            name: 'Краторный био-марсианский антарианский бургер',
+            createdAt: '2025-03-18T20:25:40.103Z',
+            updatedAt: '2025-03-18T20:25:40.758Z',
+            number: 71568,
+        },
+        {
+            _id: '67d9d5b46fce7d001db5af8e',
+            ingredients: [
+                '643d69a5c3f7b9001cfa0941',
+                '643d69a5c3f7b9001cfa093f',
+                '643d69a5c3f7b9001cfa0942',
+                '643d69a5c3f7b9001cfa093c',
+                '643d69a5c3f7b9001cfa093c',
+            ],
+            status: 'done',
+            name: 'Краторный бессмертный spicy био-марсианский бургер',
+            createdAt: '2025-03-18T20:21:08.843Z',
+            updatedAt: '2025-03-18T20:21:09.447Z',
+            number: 71567,
+        },
+        {
+            _id: '67d9d2656fce7d001db5af77',
+            ingredients: [
+                '643d69a5c3f7b9001cfa093d',
+                '643d69a5c3f7b9001cfa093d',
+                '643d69a5c3f7b9001cfa0940',
+                '643d69a5c3f7b9001cfa0943',
+            ],
+            status: 'done',
+            name: 'Space флюоресцентный метеоритный бургер',
+            createdAt: '2025-03-18T20:07:01.071Z',
+            updatedAt: '2025-03-18T20:07:01.756Z',
+            number: 71566,
+        },
+        {
+            _id: '67d9d08c6fce7d001db5af73',
+            ingredients: [
+                '643d69a5c3f7b9001cfa093d',
+                '643d69a5c3f7b9001cfa093d',
+                '643d69a5c3f7b9001cfa0941',
+                '643d69a5c3f7b9001cfa0942',
+            ],
+            status: 'done',
+            name: 'Флюоресцентный spicy био-марсианский бургер',
+            createdAt: '2025-03-18T19:59:08.406Z',
+            updatedAt: '2025-03-18T19:59:09.021Z',
+            number: 71565,
+        },
+        {
+            _id: '67d9d0436fce7d001db5af6d',
+            ingredients: [
+                '643d69a5c3f7b9001cfa093c',
+                '643d69a5c3f7b9001cfa093c',
+                '643d69a5c3f7b9001cfa0941',
+            ],
+            status: 'done',
+            name: 'Краторный био-марсианский бургер',
+            createdAt: '2025-03-18T19:57:55.564Z',
+            updatedAt: '2025-03-18T19:57:56.227Z',
+            number: 71564,
+        },
+        {
+            _id: '67d9d00b6fce7d001db5af6c',
+            ingredients: [
+                '643d69a5c3f7b9001cfa093d',
+                '643d69a5c3f7b9001cfa093d',
+                '643d69a5c3f7b9001cfa093e',
+            ],
+            status: 'done',
+            name: 'Флюоресцентный люминесцентный бургер',
+            createdAt: '2025-03-18T19:56:59.920Z',
+            updatedAt: '2025-03-18T19:57:00.565Z',
+            number: 71563,
+        },
+        {
+            _id: '67d9cdfd6fce7d001db5af60',
+            ingredients: [
+                '643d69a5c3f7b9001cfa093d',
+                '643d69a5c3f7b9001cfa093d',
+                '643d69a5c3f7b9001cfa093e',
+            ],
+            status: 'done',
+            name: 'Флюоресцентный люминесцентный бургер',
+            createdAt: '2025-03-18T19:48:13.545Z',
+            updatedAt: '2025-03-18T19:48:14.255Z',
+            number: 71562,
+        },
+        {
+            _id: '67d9cc896fce7d001db5af58',
+            ingredients: [
+                '643d69a5c3f7b9001cfa093c',
+                '643d69a5c3f7b9001cfa093c',
+                '643d69a5c3f7b9001cfa093e',
+            ],
+            status: 'done',
+            name: 'Краторный люминесцентный бургер',
+            createdAt: '2025-03-18T19:42:01.768Z',
+            updatedAt: '2025-03-18T19:42:02.480Z',
+            number: 71561,
+        },
+        {
+            _id: '67d9c9a46fce7d001db5af4e',
+            ingredients: [
+                '643d69a5c3f7b9001cfa093d',
+                '643d69a5c3f7b9001cfa093d',
+                '643d69a5c3f7b9001cfa093e',
+            ],
+            status: 'done',
+            name: 'Флюоресцентный люминесцентный бургер',
+            createdAt: '2025-03-18T19:29:40.762Z',
+            updatedAt: '2025-03-18T19:29:41.447Z',
+            number: 71560,
+        },
+        {
+            _id: '67d9c8e16fce7d001db5af4a',
+            ingredients: [
+                '643d69a5c3f7b9001cfa093d',
+                '643d69a5c3f7b9001cfa0945',
+                '643d69a5c3f7b9001cfa0943',
+                '643d69a5c3f7b9001cfa0943',
+                '643d69a5c3f7b9001cfa093d',
+            ],
+            status: 'done',
+            name: 'Space флюоресцентный антарианский бургер',
+            createdAt: '2025-03-18T19:26:25.392Z',
+            updatedAt: '2025-03-18T19:26:26.072Z',
+            number: 71559,
+        },
+    ],
+    total: 71195,
+    totalToday: 173,
+};

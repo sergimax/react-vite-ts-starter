@@ -118,3 +118,20 @@ export type Background = {
 export type InputValues = {
     [key: string]: string;
 };
+
+export type OrderDataFromWS = {
+    _id: string;
+    ingredients: Array<string>;
+    status: string;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+    number: number;
+}
+
+export type OrdersDataWSResponse = {
+    success: boolean;
+    orders: Array<OrderDataFromWS>;
+    total: number;
+    totalToday: number;
+};
