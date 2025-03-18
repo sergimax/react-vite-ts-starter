@@ -195,14 +195,24 @@ function App() {
                 {/* Основной экран Истории заказов */}
                 <Route
                     path={ROUTE_PATH.ORDERS}
-                    element={<Orders openModal={openModal} />}
-                ></Route>
+                    element={<ProtectedRouteElement />}
+                >
+                    <Route
+                        path={ROUTE_PATH.ORDERS}
+                        element={<Orders openModal={openModal} />}
+                    ></Route>
+                </Route>
 
                 {/* Представление заказа для открытия в отдельном окне со страницы История заказов */}
                 <Route
-                    path={`${ROUTE_PATH.ORDERS}/:id`}
-                    element={<Order />}
-                ></Route>
+                    path={ROUTE_PATH.ORDERS}
+                    element={<ProtectedRouteElement />}
+                >
+                    <Route
+                        path={`${ROUTE_PATH.ORDERS}/:id`}
+                        element={<Order />}
+                    ></Route>
+                </Route>
 
                 {/*
                  * Лента заказов
