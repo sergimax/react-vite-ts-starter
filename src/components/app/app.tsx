@@ -43,11 +43,20 @@ function App() {
 
     // Закрытие модального окна
     const closeModal = () => {
-        navigate(`${location.state.background.pathname}`, {
-            state: {
-                background: undefined,
-            },
-        });
+        if (location.state?.background?.pathname) {
+            navigate(`${location.state.background.pathname}`, {
+                state: {
+                    background: undefined,
+                },
+            });
+        } else {
+            navigate(ROUTE_PATH.DEFAULT, {
+                state: {
+                    background: undefined,
+                },
+            });
+        }
+
         dispatch(resetOrderValue());
         setModalData(null);
         setIsModalShown(false);
