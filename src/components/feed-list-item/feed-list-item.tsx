@@ -1,6 +1,5 @@
 import { CSSProperties, ReactNode } from 'react';
 import { useLocation } from 'react-router-dom';
-import { FeedListItemStatus } from '../feed-list/types';
 import { Price } from '../price';
 import { FeedListItemProps } from './types';
 import { useAppSelector } from '../../services/hooks';
@@ -8,7 +7,8 @@ import { ingredientsListSelector } from '../../services/reducers/ingredients/sel
 import { MODAL_TYPE } from '../../constants/constants';
 import { ROUTE_PATH } from '../app/constants';
 import { ImageContainer } from '../image-container';
-import { getIngredientsPrice, getTextDay } from '../../utils';
+import { getIngredientsPrice, getStatusTitle, getTextDay } from '../../utils';
+import { ORDER_STATUS } from '../../types/types';
 import styles from './styles.module.css';
 
 export const FeedListItem = ({ item, onItemClick }: FeedListItemProps) => {
@@ -23,6 +23,7 @@ export const FeedListItem = ({ item, onItemClick }: FeedListItemProps) => {
         ingredientsIds,
         ingredients,
     );
+    const orderStatusTitle = getStatusTitle(item.status);
 
     /**
      * Сформировать изображения первых 6 ингредиентов.
@@ -69,7 +70,7 @@ export const FeedListItem = ({ item, onItemClick }: FeedListItemProps) => {
     }
 
     function getStatusClass(status?: string): string {
-        if (status === FeedListItemStatus.COMPLETED) {
+        if (status === ORDER_STATUS.DONE) {
             return `text_type_main-default ${styles['item-status-completed']}`;
         }
 
@@ -109,7 +110,7 @@ export const FeedListItem = ({ item, onItemClick }: FeedListItemProps) => {
             <div className='text text_type_main-medium'>
                 {item.name}
                 {item.status && (
-                    <div className={statusClass}>{item.status}</div>
+                    <div className={statusClass}>{orderStatusTitle}</div>
                 )}
             </div>
             <div className={styles['item-content-and-price']}>

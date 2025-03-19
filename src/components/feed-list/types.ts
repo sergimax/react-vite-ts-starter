@@ -1,22 +1,6 @@
 import { DataForModal, OrderDataFromWS } from "../../types/types";
 
-// TODO заменить на описание ответа от сервера
-export type FeedListItemContent = {
-    name: string;
-    status?: FeedListItemStatus;
-    /**
-     * ISO
-     */
-    time: string;
-    number: string;
-    ingredients: {
-        bunId: string;
-        ingredientsIds: Array<string>;
-    };
-    price: number;
-};
-
-export enum FeedListItemStatus {
+export enum FeedListItemTextStatus {
     CREATED = 'Создан',
     PROCESSING = 'Готовится',
     COMPLETED = 'Выполнен',

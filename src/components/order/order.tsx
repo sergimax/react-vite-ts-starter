@@ -1,41 +1,76 @@
+import { useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-import { MOCK_FEED_LIST_DATA } from '../../utils/data';
-import { FeedListItemStatus } from '../feed-list/types';
 import { Price } from '../price';
 import { ImageContainer } from '../image-container';
-import { useAppSelector } from '../../services/hooks';
+import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { ingredientsListSelector } from '../../services/reducers/ingredients/selectors';
-import { Background, IngredientWithCounter } from '../../types/types';
-import { getTextDay } from '../../utils';
+import {
+    Background,
+    IngredientWithCounter,
+    ORDER_STATUS,
+    OrdersDataWSResponse,
+} from '../../types/types';
+import { getIngredientsPrice, getStatusTitle, getTextDay } from '../../utils';
+import {
+    wsDisconnect,
+    wsMessagesSelector,
+    wsStartConnecting,
+} from '../../services/reducers/websocket';
+import { WS_URL } from '../../constants/constants';
 import styles from './styles.module.css';
 
 export const Order = () => {
     const params = useParams();
-    const ingredients = useAppSelector(ingredientsListSelector);
+    const dispatch = useAppDispatch();
     const location = useLocation();
+    const ingredients = useAppSelector(ingredientsListSelector);
+    const ordersResponse: OrdersDataWSResponse | undefined =
+        useAppSelector(wsMessagesSelector);
+
     const background: Background = location.state?.background;
 
     const containerClass: string = background
         ? `${styles['item-container-modal']}`
         : `${styles['item-container-page']}`;
 
-    // TODO заменить на результат запроса к серверу
-    //    const allOrders = useAppSelector(allOrdersSelector);
-    const chosenOrder = MOCK_FEED_LIST_DATA.find(
-        order => order.number === params.id,
+    console.log('ordersResponse', ordersResponse);
+
+    useEffect(() => {
+        dispatch(wsStartConnecting(WS_URL));
+
+        return () => {
+            dispatch(wsDisconnect());
+        };
+    }, [dispatch]);
+
+    if (!ordersResponse) {
+        return (
+            <span className='text_type_main-large'>
+                Данные о заказах недоступны
+            </span>
+        );
+    }
+
+    const chosenOrder = ordersResponse.orders.find(
+        order => order.number === Number(params.id),
     );
 
     if (!chosenOrder) {
-        return <>Информация для указанного заказа не найдена</>;
+        return (
+            <span className='text_type_main-large'>
+                Данные о заказе недоступны
+            </span>
+        );
     }
 
-    const ingredientsIds: Array<string> = [
-        chosenOrder.ingredients.bunId,
-        chosenOrder.ingredients.bunId,
-        ...chosenOrder.ingredients.ingredientsIds,
-    ];
+    const ingredientsPrice: number = getIngredientsPrice(
+        chosenOrder.ingredients,
+        ingredients,
+    );
 
-    const ingredientsList = ingredientsIds.map(id => {
+    const orderStatusTitle = getStatusTitle(chosenOrder.status);
+
+    const ingredientsList = chosenOrder.ingredients.map(id => {
         return ingredients.find(item => item._id === id);
     });
 
@@ -88,8 +123,8 @@ export const Order = () => {
 
     const statusClass: string = getStatusClass(chosenOrder.status);
 
-    function getStatusClass(status?: FeedListItemStatus): string {
-        if (status === FeedListItemStatus.COMPLETED) {
+    function getStatusClass(status?: ORDER_STATUS): string {
+        if (status === ORDER_STATUS.DONE) {
             return `text_type_main-default pb-15 ${styles['item-status-completed']}`;
         }
 
@@ -106,7 +141,7 @@ export const Order = () => {
                 <div className='text_type_main-medium'>{chosenOrder.name}</div>
 
                 {chosenOrder.status && (
-                    <div className={statusClass}>{chosenOrder.status}</div>
+                    <div className={statusClass}>{orderStatusTitle}</div>
                 )}
 
                 <div className='text text_type_main-medium pb-6'>Состав:</div>
@@ -117,10 +152,10 @@ export const Order = () => {
 
                 <div className={`${styles['item-time-and-price']}`}>
                     <div className='text text_type_main-default text_color_inactive'>
-                        {getTextDay(chosenOrder.time)}
+                        {getTextDay(chosenOrder.createdAt)}
                     </div>
 
-                    <Price value={chosenOrder.price} />
+                    <Price value={ingredientsPrice} />
                 </div>
             </div>
         </div>

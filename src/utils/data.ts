@@ -1,8 +1,4 @@
-import {
-    FeedListItemContent,
-    FeedListItemStatus,
-} from '../components/feed-list/types';
-import { OrdersDataWSResponse } from '../types/types';
+import { ORDER_STATUS, OrdersDataWSResponse } from '../types/types';
 
 export const MOCK_COMPLETED_ORDERS_LIST = [
     '034533',
@@ -15,7 +11,7 @@ export const MOCK_PROCESSING_ORDERS_LIST = ['034538', '034541', '034542'];
 export const MOCK_TOTAL_COUNTER_VALUE = 28_752;
 export const MOCK_DAILY_COUNTER_VALUE = 138;
 
-export const MOCK_FEED_LIST_DATA: Array<FeedListItemContent> = [
+export const MOCK_FEED_LIST_DATA: Array<any> = [
     {
         name: 'Death Star Starship Main бургер',
         time: '2025-03-17T22:17:20.007Z',
@@ -30,7 +26,7 @@ export const MOCK_FEED_LIST_DATA: Array<FeedListItemContent> = [
                 '643d69a5c3f7b9001cfa0949',
             ],
         },
-        status: FeedListItemStatus.COMPLETED,
+        status: ORDER_STATUS.DONE,
         price: 480,
     },
     {
@@ -338,7 +334,7 @@ export const MOCK_WS_ORDERS_DATA: OrdersDataWSResponse = {
                 '643d69a5c3f7b9001cfa093e',
                 '643d69a5c3f7b9001cfa093d',
             ],
-            status: 'done',
+            status: ORDER_STATUS.DONE,
             name: 'Флюоресцентный люминесцентный бургер',
             createdAt: '2025-03-18T20:57:48.900Z',
             updatedAt: '2025-03-18T20:57:49.633Z',
@@ -352,7 +348,7 @@ export const MOCK_WS_ORDERS_DATA: OrdersDataWSResponse = {
                 '643d69a5c3f7b9001cfa0945',
                 '643d69a5c3f7b9001cfa093c',
             ],
-            status: 'done',
+            status: ORDER_STATUS.DONE,
             name: 'Краторный био-марсианский антарианский бургер',
             createdAt: '2025-03-18T20:25:40.103Z',
             updatedAt: '2025-03-18T20:25:40.758Z',
@@ -367,7 +363,7 @@ export const MOCK_WS_ORDERS_DATA: OrdersDataWSResponse = {
                 '643d69a5c3f7b9001cfa093c',
                 '643d69a5c3f7b9001cfa093c',
             ],
-            status: 'done',
+            status: ORDER_STATUS.DONE,
             name: 'Краторный бессмертный spicy био-марсианский бургер',
             createdAt: '2025-03-18T20:21:08.843Z',
             updatedAt: '2025-03-18T20:21:09.447Z',
@@ -381,7 +377,7 @@ export const MOCK_WS_ORDERS_DATA: OrdersDataWSResponse = {
                 '643d69a5c3f7b9001cfa0940',
                 '643d69a5c3f7b9001cfa0943',
             ],
-            status: 'done',
+            status: ORDER_STATUS.DONE,
             name: 'Space флюоресцентный метеоритный бургер',
             createdAt: '2025-03-18T20:07:01.071Z',
             updatedAt: '2025-03-18T20:07:01.756Z',
@@ -395,7 +391,7 @@ export const MOCK_WS_ORDERS_DATA: OrdersDataWSResponse = {
                 '643d69a5c3f7b9001cfa0941',
                 '643d69a5c3f7b9001cfa0942',
             ],
-            status: 'done',
+            status: ORDER_STATUS.DONE,
             name: 'Флюоресцентный spicy био-марсианский бургер',
             createdAt: '2025-03-18T19:59:08.406Z',
             updatedAt: '2025-03-18T19:59:09.021Z',
@@ -408,7 +404,7 @@ export const MOCK_WS_ORDERS_DATA: OrdersDataWSResponse = {
                 '643d69a5c3f7b9001cfa093c',
                 '643d69a5c3f7b9001cfa0941',
             ],
-            status: 'done',
+            status: ORDER_STATUS.DONE,
             name: 'Краторный био-марсианский бургер',
             createdAt: '2025-03-18T19:57:55.564Z',
             updatedAt: '2025-03-18T19:57:56.227Z',
@@ -421,7 +417,7 @@ export const MOCK_WS_ORDERS_DATA: OrdersDataWSResponse = {
                 '643d69a5c3f7b9001cfa093d',
                 '643d69a5c3f7b9001cfa093e',
             ],
-            status: 'done',
+            status: ORDER_STATUS.DONE,
             name: 'Флюоресцентный люминесцентный бургер',
             createdAt: '2025-03-18T19:56:59.920Z',
             updatedAt: '2025-03-18T19:57:00.565Z',
@@ -434,7 +430,7 @@ export const MOCK_WS_ORDERS_DATA: OrdersDataWSResponse = {
                 '643d69a5c3f7b9001cfa093d',
                 '643d69a5c3f7b9001cfa093e',
             ],
-            status: 'done',
+            status: ORDER_STATUS.DONE,
             name: 'Флюоресцентный люминесцентный бургер',
             createdAt: '2025-03-18T19:48:13.545Z',
             updatedAt: '2025-03-18T19:48:14.255Z',
@@ -447,7 +443,7 @@ export const MOCK_WS_ORDERS_DATA: OrdersDataWSResponse = {
                 '643d69a5c3f7b9001cfa093c',
                 '643d69a5c3f7b9001cfa093e',
             ],
-            status: 'done',
+            status: ORDER_STATUS.DONE,
             name: 'Краторный люминесцентный бургер',
             createdAt: '2025-03-18T19:42:01.768Z',
             updatedAt: '2025-03-18T19:42:02.480Z',
@@ -460,7 +456,7 @@ export const MOCK_WS_ORDERS_DATA: OrdersDataWSResponse = {
                 '643d69a5c3f7b9001cfa093d',
                 '643d69a5c3f7b9001cfa093e',
             ],
-            status: 'done',
+            status: ORDER_STATUS.DONE,
             name: 'Флюоресцентный люминесцентный бургер',
             createdAt: '2025-03-18T19:29:40.762Z',
             updatedAt: '2025-03-18T19:29:41.447Z',
@@ -475,7 +471,7 @@ export const MOCK_WS_ORDERS_DATA: OrdersDataWSResponse = {
                 '643d69a5c3f7b9001cfa0943',
                 '643d69a5c3f7b9001cfa093d',
             ],
-            status: 'done',
+            status: ORDER_STATUS.DONE,
             name: 'Space флюоресцентный антарианский бургер',
             createdAt: '2025-03-18T19:26:25.392Z',
             updatedAt: '2025-03-18T19:26:26.072Z',
