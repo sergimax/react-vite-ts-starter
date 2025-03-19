@@ -28,9 +28,8 @@ export const Feed = ({
 }) => {
     const dispatch = useAppDispatch();
 
-    const ordersResponse: OrdersDataWSResponse | undefined = useAppSelector(wsMessagesSelector);
-    console.log(ordersResponse);
-    
+    const ordersResponse: OrdersDataWSResponse | undefined =
+        useAppSelector(wsMessagesSelector);
 
     useEffect(() => {
         dispatch(setActivePage({ value: ROUTE_PATH.FEED }));
@@ -41,10 +40,15 @@ export const Feed = ({
             dispatch(wsDisconnect());
         };
     }, [dispatch]);
-    
+
     if (!ordersResponse) {
-        // TODO
-        return <>sdasd</>
+        return (
+            <div className={styles.centered}>
+                <span className='text_type_main-large'>
+                    Данные о заказах недоступны
+                </span>
+            </div>
+        );
     }
 
     return (
