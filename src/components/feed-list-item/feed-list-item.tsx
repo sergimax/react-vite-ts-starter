@@ -8,8 +8,7 @@ import { ingredientsListSelector } from '../../services/reducers/ingredients/sel
 import { MODAL_TYPE } from '../../constants/constants';
 import { ROUTE_PATH } from '../app/constants';
 import { ImageContainer } from '../image-container';
-import { getTextDay } from '../../utils';
-import { IngredientWithCounter } from '../../types/types';
+import { getIngredientsPrice, getTextDay } from '../../utils';
 import styles from './styles.module.css';
 
 export const FeedListItem = ({ item, onItemClick }: FeedListItemProps) => {
@@ -20,26 +19,10 @@ export const FeedListItem = ({ item, onItemClick }: FeedListItemProps) => {
     const ingredientsIds: Array<string> = item.ingredients;
     const ingredientsPreviews: ReactNode[] =
         getIngredientPreviews(ingredientsIds);
-    const ingredientsPrice: number = getIngredientsPrice(ingredientsIds);
-
-    /**
-     * Расчет стоимости заказа
-     * @param ids Список id ингредиентов
-     * @returns 
-     */
-    function getIngredientsPrice(ids: Array<string>): number {
-        const orderIngredients: IngredientWithCounter[] = ids
-            .map(id => {
-                return ingredients.find(item => item._id === id);
-            })
-            .filter(ingredient => !!ingredient);
-
-        const sum = orderIngredients.reduce((accum, current) => {
-            return accum + current.price;
-        }, 0);
-
-        return sum;
-    }
+    const ingredientsPrice: number = getIngredientsPrice(
+        ingredientsIds,
+        ingredients,
+    );
 
     /**
      * Сформировать изображения первых 6 ингредиентов.
