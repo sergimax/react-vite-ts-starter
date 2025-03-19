@@ -16,26 +16,22 @@ export const webSocketMiddleware = (): Middleware => {
             const { dispatch } = store;
 
             if (wsStartConnecting.match(action)) {
-                socket = new WebSocket(action.payload);
+                socket = new WebSocket(action.payload as unknown as string);
 
                 socket.onopen = event => {
                     console.log('onopen', event);
                     dispatch(wsConnectionEstablished());
                 };
 
-                socket.onclose = event => {
-                    console.log('onclose', event);
+                socket.onclose = () => {
                     dispatch(wsDisconnect());
                 };
 
-                socket.onerror = event => {
-                    console.log('onerror', event);
+                socket.onerror = () => {
                     dispatch(wsErrorOccurred('error'));
                 };
 
                 socket.onmessage = event => {
-                    console.log('onmessage', event);
-
                     const data = JSON.parse(event.data);
                     dispatch(wsReceiveMessage(data));
                 };
