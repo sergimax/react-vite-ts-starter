@@ -4,10 +4,13 @@ import { Price } from '../price';
 import { FeedListItemProps } from './types';
 import { useAppSelector } from '../../services/hooks';
 import { ingredientsListSelector } from '../../services/reducers/ingredients/selectors';
-import { MODAL_TYPE } from '../../constants/constants';
-import { ROUTE_PATH } from '../app/constants';
 import { ImageContainer } from '../image-container';
-import { getIngredientsPrice, getStatusTitle, getTextDay } from '../../utils';
+import {
+    getIngredientsPrice,
+    getOrderModalType,
+    getStatusTitle,
+    getTextDay,
+} from '../../utils';
 import { ORDER_STATUS } from '../../types/types';
 import styles from './styles.module.css';
 
@@ -81,24 +84,12 @@ export const FeedListItem = ({ item, onItemClick }: FeedListItemProps) => {
         return `text_type_main-default ${styles['item-status']}`;
     }
 
-    /**
-     * Получить тип модального окна на основании текущего расположения
-     * @returns
-     */
-    function getModalType(): MODAL_TYPE {
-        if (location.pathname === ROUTE_PATH.FEED) {
-            return MODAL_TYPE.FEED;
-        }
-
-        return MODAL_TYPE.ORDERS_FEED;
-    }
-
     return (
         <div
             className={styles['item-container']}
             onClick={() =>
                 onItemClick({
-                    type: getModalType(),
+                    type: getOrderModalType(location.pathname),
                     feedItemData: item,
                 })
             }
