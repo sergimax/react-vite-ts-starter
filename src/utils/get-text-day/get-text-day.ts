@@ -4,29 +4,36 @@
  * @returns
  */
 export function getTextDay(isoDate: string): string {
-    const now = new Date();
-    const date = new Date(isoDate);
-    const time = date.toLocaleTimeString('ru').slice(0, -3);
+    const now: Date = new Date();
+    const date: Date = new Date(isoDate);
+    const time: string = date.toLocaleTimeString('ru').slice(0, -3);
 
-    const dateWithoutTime = new Date(
+    const dateWithoutTime: Date = new Date(
         date.getFullYear(),
         date.getMonth(),
         date.getDate(),
     );
-    const nowWithoutTime = new Date(
+    const nowWithoutTime: Date = new Date(
         now.getFullYear(),
         now.getMonth(),
         now.getDate(),
     );
 
-    const timeDifference = nowWithoutTime.getTime() - dateWithoutTime.getTime();
-    const daysDifference = Math.floor(timeDifference / (1_000 * 60 * 60 * 24));
+    const timeDifference: number =
+        nowWithoutTime.getTime() - dateWithoutTime.getTime();
+    const daysDifference: number = Math.floor(
+        timeDifference / (1_000 * 60 * 60 * 24),
+    );
+
+    const daysDifferenceText: string = [2, 3, 4].includes(daysDifference % 10)
+        ? 'дня'
+        : 'дней';
 
     if (daysDifference === 0) {
         return `Сегодня, ${time}`;
     } else if (daysDifference === 1) {
         return `Вчера, ${time}`;
-    } else {
-        return `${daysDifference} дня назад, ${time}`;
     }
+
+    return `${daysDifference} ${daysDifferenceText} назад, ${time}`;
 }
