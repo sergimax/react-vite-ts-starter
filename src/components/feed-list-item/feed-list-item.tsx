@@ -9,11 +9,10 @@ import { MODAL_TYPE } from '../../constants/constants';
 import { ROUTE_PATH } from '../app/constants';
 import { ImageContainer } from '../image-container';
 import { getTextDay } from '../../utils';
+import { IngredientWithCounter } from '../../types/types';
 import styles from './styles.module.css';
 
 export const FeedListItem = ({ item, onItemClick }: FeedListItemProps) => {
-    console.log("FeedListItem", item);
-    
     const location = useLocation();
 
     const ingredients = useAppSelector(ingredientsListSelector);
@@ -21,12 +20,32 @@ export const FeedListItem = ({ item, onItemClick }: FeedListItemProps) => {
     const ingredientsIds: Array<string> = item.ingredients;
     const ingredientsPreviews: ReactNode[] =
         getIngredientPreviews(ingredientsIds);
+    const ingredientsPrice: number = getIngredientsPrice(ingredientsIds);
+
+    /**
+     * Расчет стоимости заказа
+     * @param ids Список id ингредиентов
+     * @returns 
+     */
+    function getIngredientsPrice(ids: Array<string>): number {
+        const orderIngredients: IngredientWithCounter[] = ids
+            .map(id => {
+                return ingredients.find(item => item._id === id);
+            })
+            .filter(ingredient => !!ingredient);
+
+        const sum = orderIngredients.reduce((accum, current) => {
+            return accum + current.price;
+        }, 0);
+
+        return sum;
+    }
 
     /**
      * Сформировать изображения первых 6 ингредиентов.
      *
      * Ингредиенты 7 и далее - скрываются, вместо них отображается число скрытых ингредиентов.
-     * @param ids
+     * @param ids Список id ингредиентов
      * @returns
      */
     function getIngredientPreviews(ids: Array<string>): ReactNode[] {
@@ -114,7 +133,7 @@ export const FeedListItem = ({ item, onItemClick }: FeedListItemProps) => {
                 <div className={styles['item-content']}>
                     {ingredientsPreviews}
                 </div>
-                <Price value={666} />
+                <Price value={ingredientsPrice} />
             </div>
         </div>
     );
