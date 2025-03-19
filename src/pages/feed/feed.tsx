@@ -59,7 +59,11 @@ export const Feed = ({
 
     // Список номеров заказов в работе
     const processingOrdersIds: Array<number> = ordersResponse.orders
-        .filter(order => order.status === ORDER_STATUS.CREATED)
+        .filter(
+            order =>
+                order.status === ORDER_STATUS.CREATED ||
+                order.status === ORDER_STATUS.PENDING,
+        )
         .map(ingredient => ingredient.number)
         .slice(0, 30);
 
