@@ -3,7 +3,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import { Price } from '../price';
 import { ImageContainer } from '../image-container';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
-import { ingredientsListSelector } from '../../services/reducers/ingredients/selectors';
+import { ingredientsListSelector } from '../../services/reducers/ingredients';
 import {
     Background,
     IngredientWithCounter,

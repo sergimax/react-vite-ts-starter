@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { Price } from '../price';
 import { FeedListItemProps } from './types';
 import { useAppSelector } from '../../services/hooks';
-import { ingredientsListSelector } from '../../services/reducers/ingredients/selectors';
+import { ingredientsListSelector } from '../../services/reducers/ingredients';
 import { ImageContainer } from '../image-container';
 import {
     getIngredientsPrice,
