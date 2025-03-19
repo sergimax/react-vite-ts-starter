@@ -3,8 +3,6 @@ import { FeedListProps } from './types';
 import styles from './styles.module.css';
 
 export const FeedList = ({ orders, title, onItemClick }: FeedListProps) => {
-    console.log('FeedList', orders);
-    
     const titleClasses = `text_type_main-large pt-10 pb-5 ${styles.title}`;
 
     return (

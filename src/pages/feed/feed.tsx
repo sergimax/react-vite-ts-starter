@@ -4,11 +4,11 @@ import { FeedList } from '../../components/feed-list';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { setActivePage } from '../../services/reducers/pages';
 import { ROUTE_PATH } from '../../components/app/constants';
-import { DataForModal, OrdersDataWSResponse } from '../../types/types';
 import {
-    MOCK_COMPLETED_ORDERS_LIST,
-    MOCK_PROCESSING_ORDERS_LIST,
-} from '../../utils/data';
+    DataForModal,
+    ORDER_STATUS,
+    OrdersDataWSResponse,
+} from '../../types/types';
 import styles from './styles.module.css';
 import {
     wsDisconnect,
@@ -51,6 +51,18 @@ export const Feed = ({
         );
     }
 
+    // Список номеров исполненных заказов
+    const completedOrdersIds: Array<number> = ordersResponse.orders
+        .filter(order => order.status === ORDER_STATUS.DONE)
+        .map(ingredient => ingredient.number)
+        .slice(0, 30);
+
+    // Список номеров заказов в работе
+    const processingOrdersIds: Array<number> = ordersResponse.orders
+        .filter(order => order.status === ORDER_STATUS.CREATED)
+        .map(ingredient => ingredient.number)
+        .slice(0, 30);
+
     return (
         <main className={styles.main}>
             <FeedList
@@ -59,8 +71,8 @@ export const Feed = ({
                 onItemClick={openModal}
             />
             <FeedStats
-                completedOrdersList={MOCK_COMPLETED_ORDERS_LIST}
-                processingOrdersList={MOCK_PROCESSING_ORDERS_LIST}
+                completedOrdersList={completedOrdersIds}
+                processingOrdersList={processingOrdersIds}
                 totalCounterValue={ordersResponse.total}
                 dailyCounterValue={ordersResponse.totalToday}
             />

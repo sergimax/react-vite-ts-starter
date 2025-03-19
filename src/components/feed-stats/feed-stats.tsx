@@ -8,7 +8,7 @@ export const FeedStats = ({
     dailyCounterValue,
 }: FeedStatsProps) => {
     const containerClass: string = `pt-25 ${styles.container}`;
-    const ordersListItemClass: string = `text text_type_digits-default pb-2`;
+    const ordersListItemClass: string = `text text_type_digits-default ${styles['order-list-item']}`;
     const counterClass: string = `text_type_digits-large ${styles['counter']}`;
 
     return (
@@ -18,7 +18,10 @@ export const FeedStats = ({
                     <div className={'text text_type_main-medium pb-6'}>
                         Готовы:
                     </div>
-                    <div style={{ color: '#00CCCC' }}>
+                    <div
+                        style={{ color: '#00CCCC' }}
+                        className={styles['order-list-items']}
+                    >
                         {completedOrdersList.map((order, index) => (
                             <div key={index} className={ordersListItemClass}>
                                 {order}
@@ -30,7 +33,7 @@ export const FeedStats = ({
                     <div className={'text text_type_main-medium pb-6'}>
                         В работе:
                     </div>
-                    <div>
+                    <div className={styles['order-list-items']}>
                         {processingOrdersList.map((order, index) => (
                             <div key={index} className={ordersListItemClass}>
                                 {order}

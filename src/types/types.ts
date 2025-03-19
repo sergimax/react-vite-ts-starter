@@ -118,15 +118,21 @@ export type InputValues = {
     [key: string]: string;
 };
 
+export enum ORDER_STATUS {
+    CREATED = 'created',
+    PENDING = 'pending',
+    DONE = 'done',
+}
+
 export type OrderDataFromWS = {
     _id: string;
     ingredients: Array<string>;
-    status: string;
+    status: ORDER_STATUS;
     name: string;
     createdAt: string;
     updatedAt: string;
     number: number;
-}
+};
 
 export type OrdersDataWSResponse = {
     success: boolean;

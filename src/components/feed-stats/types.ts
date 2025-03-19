@@ -1,6 +1,6 @@
 export type FeedStatsProps = {
-    completedOrdersList: Array<string>;
-    processingOrdersList: Array<string>;
+    completedOrdersList: Array<number>;
+    processingOrdersList: Array<number>;
     totalCounterValue: number;
     dailyCounterValue: number;
 };

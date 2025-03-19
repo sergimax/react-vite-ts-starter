@@ -16,6 +16,17 @@
     width: 100%;
 }
 
+.order-list-items {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 330px;
+}
+
+.order-list-item {
+    padding-bottom: 8px;
+}
+
 .counter {
     text-shadow:
         0 0 32px rgba(51, 51, 255, 0.5),
