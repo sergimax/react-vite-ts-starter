@@ -16,7 +16,7 @@ export const webSocketMiddleware = (): Middleware => {
             const { dispatch } = store;
 
             if (wsStartConnecting.match(action)) {
-                socket = new WebSocket(action.payload as unknown as string);
+                socket = new WebSocket(action.payload);
 
                 socket.onopen = event => {
                     console.log('onopen', event);
