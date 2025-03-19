@@ -8,10 +8,15 @@ import {
     setActivePage,
 } from '../../services/reducers/pages';
 import { FeedList } from '../../components';
-import { DataForModal } from '../../types/types';
-import { MOCK_FEED_LIST_DATA } from '../../utils/data';
+import { DataForModal, OrdersDataWSResponse } from '../../types/types';
+import { WS_PERSONAL_URL } from '../../constants/constants';
+import {
+    wsDisconnect,
+    wsMessagesSelector,
+    wsStartConnecting,
+} from '../../services/reducers/websocket';
+import { getCookie } from '../../services/reducers/account/utils';
 import styles from './styles.module.css';
-
 
 /**
  * страница истории заказов пользователя
@@ -26,6 +31,8 @@ export const Orders = ({
     const navigate = useNavigate();
 
     const activePage = useAppSelector(activePageSelector);
+    const ordersResponse: OrdersDataWSResponse | undefined =
+        useAppSelector(wsMessagesSelector);
 
     const navigationProfileClasses: string = `${styles['navigation-item']} ${
         activePage === ROUTE_PATH.PROFILE ? '' : 'text_color_inactive'
@@ -41,6 +48,17 @@ export const Orders = ({
 
     useEffect(() => {
         dispatch(setActivePage({ value: ROUTE_PATH.ORDERS }));
+
+        const accessToken = getCookie('token')?.replace('Bearer ', '');
+
+        accessToken &&
+            dispatch(
+                wsStartConnecting(`${WS_PERSONAL_URL}?token=${accessToken}`),
+            );
+
+        return () => {
+            dispatch(wsDisconnect());
+        };
     }, [dispatch]);
 
     return (
@@ -77,9 +95,21 @@ export const Orders = ({
                         заказов
                     </div>
                 </div>
-                <div className={styles['feed-list']}>
-                    <FeedList data={MOCK_FEED_LIST_DATA} onItemClick={openModal}/>
-                </div>
+
+                {ordersResponse ? (
+                    <div className={styles['feed-list']}>
+                        <FeedList
+                            orders={ordersResponse.orders}
+                            onItemClick={openModal}
+                        />
+                    </div>
+                ) : (
+                    <div className={styles.centered}>
+                        <span className='text_type_main-large'>
+                            Данные о заказах недоступны
+                        </span>
+                    </div>
+                )}
             </div>
         </>
     );

@@ -29,3 +29,10 @@
 .feed-list {
     margin-top: 40px;
 }
+
+.centered {
+    top: 50%;
+    left: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+}
