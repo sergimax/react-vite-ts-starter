@@ -13,38 +13,23 @@ const websocketSlice = createSlice({
     initialState,
     reducers: {
         wsResetState: () => initialState,
-        wsStartConnecting: (state, action) => {
-            console.log('startConnecting to ', action.payload);
-
+        wsStartConnecting: state => {
             state.isConnected = false;
             state.error = null;
         },
         wsConnectionEstablished: state => {
-            console.log('connectionEstablished');
             state.isConnected = true;
         },
         wsReceiveMessage: (state, action) => {
-            console.log('receiveMessage');
-
             state.message = action.payload;
         },
         wsDisconnect: state => {
-            console.log('disconnect');
             state.isConnected = false;
         },
         wsErrorOccurred: (state, action) => {
-            console.log('errorOccurred');
-            console.log('action.payload', action.payload);
-
             state.error = action.payload;
         },
-        wsSendMessage: (state, action) => {
-            console.log('sendMessage');
-            console.log(state);
-            console.log(action);
-
-            // Отправка сообщения через middleware
-        },
+        wsSendMessage: () => {},
     },
 });
 
