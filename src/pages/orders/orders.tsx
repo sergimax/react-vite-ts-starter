@@ -44,8 +44,6 @@ export const Orders = ({
         styles['navigation-item']
     } ${'text_color_inactive'}`;
 
-    // TODO обработка данных от сервера
-
     useEffect(() => {
         dispatch(setActivePage({ value: ROUTE_PATH.ORDERS }));
 

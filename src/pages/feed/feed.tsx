@@ -9,13 +9,13 @@ import {
     ORDER_STATUS,
     OrdersDataWSResponse,
 } from '../../types/types';
-import styles from './styles.module.css';
 import {
     wsDisconnect,
     wsMessagesSelector,
     wsStartConnecting,
 } from '../../services/reducers/websocket';
 import { WS_URL } from '../../constants/constants';
+import styles from './styles.module.css';
 
 /**
  * Cтраница ленты заказов

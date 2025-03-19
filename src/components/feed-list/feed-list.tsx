@@ -2,6 +2,10 @@ import { FeedListItem } from '../feed-list-item';
 import { FeedListProps } from './types';
 import styles from './styles.module.css';
 
+/**
+ * Список заказов для отображения на страницах Лента заказов и История заказов
+ * @returns
+ */
 export const FeedList = ({ orders, title, onItemClick }: FeedListProps) => {
     const titleClasses = `text_type_main-large pt-10 pb-5 ${styles.title}`;
 

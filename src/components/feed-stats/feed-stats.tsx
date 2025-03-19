@@ -1,6 +1,10 @@
 import { FeedStatsProps } from './types';
 import styles from './styles.module.css';
 
+/**
+ * Статистика заказов для страницы Лента заказов
+ * @returns 
+ */
 export const FeedStats = ({
     completedOrdersList,
     processingOrdersList,
@@ -13,6 +17,7 @@ export const FeedStats = ({
 
     return (
         <section className={containerClass}>
+            {/* Заказы */}
             <div className={styles.orders}>
                 <div className={styles['orders-list']}>
                     <div className={'text text_type_main-medium pb-6'}>
@@ -42,6 +47,7 @@ export const FeedStats = ({
                     </div>
                 </div>
             </div>
+            {/* Статистика */}
             <div>
                 <div className={'text text_type_main-medium'}>
                     Выполнено за все время:

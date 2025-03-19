@@ -2,19 +2,20 @@ export {
     ingredientsConstructorContentSelector,
     ingredientsErrorSelector,
     ingredientsInfoSelector,
+    ingredientsIsLoadedSelector,
     ingredientsIsLoadingSelector,
     ingredientsListSelector,
     ingredientsOrderSelector,
 } from './selectors.ts';
 
 export {
-    resetIngredientsState,
-    setConstructorIngredients,
     deleteConstructorIngredient,
+    ingredientsReducer,
+    moveIngredientsInConstructor,
+    resetIngredientsState,
+    resetOrderValue,
     setConstructorBun,
+    setConstructorIngredients,
     setIngredientInfo,
     setOrderValue,
-    resetOrderValue,
-    moveIngredientsInConstructor,
-    ingredientsReducer,
 } from './slice';

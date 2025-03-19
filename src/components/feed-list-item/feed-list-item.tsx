@@ -11,6 +11,10 @@ import { getIngredientsPrice, getStatusTitle, getTextDay } from '../../utils';
 import { ORDER_STATUS } from '../../types/types';
 import styles from './styles.module.css';
 
+/**
+ * Представление заказа
+ * @returns
+ */
 export const FeedListItem = ({ item, onItemClick }: FeedListItemProps) => {
     const location = useLocation();
 

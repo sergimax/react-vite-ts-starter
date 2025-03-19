@@ -2,6 +2,10 @@ import { CSSProperties } from 'react';
 import { ImageContainerProps } from './types';
 import styles from './styles.module.css';
 
+/**
+ * Контейнер изображения ингредиента для отображения в составе заказа
+ * @returns
+ */
 export const ImageContainer = ({ src, index = 0 }: ImageContainerProps) => {
     function getImageStyle(imageIndex: number): CSSProperties | undefined {
         return {
