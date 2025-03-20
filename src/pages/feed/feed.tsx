@@ -11,6 +11,7 @@ import {
 } from '../../types/types';
 import {
     wsDisconnect,
+    wsIsConnectedSelector,
     wsMessagesSelector,
     wsStartConnecting,
 } from '../../services/reducers/websocket';
@@ -30,16 +31,19 @@ export const Feed = ({
 
     const ordersResponse: OrdersDataWSResponse | undefined =
         useAppSelector(wsMessagesSelector);
+    const wsIsConnected = useAppSelector(wsIsConnectedSelector);
 
     useEffect(() => {
         dispatch(setActivePage({ value: ROUTE_PATH.FEED }));
 
-        dispatch(wsStartConnecting(WS_URL));
+        if (!wsIsConnected) {
+            dispatch(wsStartConnecting(WS_URL));
+        }
 
         return () => {
-            dispatch(wsDisconnect());
+            wsIsConnected && dispatch(wsDisconnect());
         };
-    }, [dispatch]);
+    }, [dispatch, wsIsConnected]);
 
     if (!ordersResponse) {
         return (
