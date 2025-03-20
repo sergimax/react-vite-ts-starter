@@ -12,6 +12,7 @@ import { DataForModal, OrdersDataWSResponse } from '../../types/types';
 import { WS_PERSONAL_URL } from '../../constants/constants';
 import {
     wsDisconnect,
+    wsIsConnectedSelector,
     wsMessagesSelector,
     wsStartConnecting,
 } from '../../services/reducers/websocket';
@@ -33,6 +34,7 @@ export const Orders = ({
     const activePage = useAppSelector(activePageSelector);
     const ordersResponse: OrdersDataWSResponse | undefined =
         useAppSelector(wsMessagesSelector);
+    const wsIsConnected = useAppSelector(wsIsConnectedSelector);
 
     const navigationProfileClasses: string = `${styles['navigation-item']} ${
         activePage === ROUTE_PATH.PROFILE ? '' : 'text_color_inactive'
@@ -48,16 +50,16 @@ export const Orders = ({
         dispatch(setActivePage({ value: ROUTE_PATH.ORDERS }));
 
         const accessToken = getCookie('token')?.replace('Bearer ', '');
-
-        accessToken &&
+        if (!wsIsConnected && accessToken) {
             dispatch(
                 wsStartConnecting(`${WS_PERSONAL_URL}?token=${accessToken}`),
             );
+        }
 
         return () => {
-            dispatch(wsDisconnect());
+            wsIsConnected && dispatch(wsDisconnect());
         };
-    }, [dispatch]);
+    }, [dispatch, wsIsConnected]);
 
     return (
         <>

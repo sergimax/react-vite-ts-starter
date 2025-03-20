@@ -1,4 +1,4 @@
-export { wsMessagesSelector } from './selectors';
+export { wsIsConnectedSelector, wsMessagesSelector } from './selectors';
 
 export {
     wsResetState,
