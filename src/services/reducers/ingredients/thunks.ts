@@ -7,6 +7,7 @@ import {
     PostOrderAsyncThunkConfig,
     PostOrderDTO,
 } from './types';
+import { getCookie } from '../account/utils';
 
 export const fetchIngredients = createAsyncThunk<
     GetIngredientsDTO,
@@ -62,6 +63,7 @@ export const createOrder = createAsyncThunk<
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        Authorization: `Bearer ${getCookie('token')}`,
                     },
                     body: JSON.stringify({
                         ingredients: ingredientList,

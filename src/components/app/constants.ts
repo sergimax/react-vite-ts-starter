@@ -5,8 +5,8 @@ export enum ROUTE_PATH {
     RESET_PASSWORD = '/reset-password',
     PROFILE = '/profile',
     INGREDIENTS = '/ingredients',
-    ORDER_LIST = '/order-list',
-    HISTORY = '/history',
+    FEED = '/feed',
+    ORDERS = '/profile/orders',
     NOT_FOUND = '*',
     DEFAULT = '/',
 }

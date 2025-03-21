@@ -29,7 +29,7 @@ export const OrderDetails = ({ orderId }: OrderDetailsProps) => {
                 Ваш заказ начали готовить
             </div>
 
-            <div className='text_type_main-default text_color_inactive mb-15'>
+            <div className='text_type_main-default text_color_inactive mb-20'>
                 Дождитесь готовности на орбитальной станции
             </div>
         </>

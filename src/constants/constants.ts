@@ -1,5 +1,9 @@
 export const API_URL: string = 'https://norma.nomoreparties.space/api';
 
+export const WS_URL: string = 'wss://norma.nomoreparties.space/orders/all';
+export const WS_PERSONAL_URL: string = 'wss://norma.nomoreparties.space/orders';
+
+
 export enum API_ENDPOINT {
     INGREDIENTS = 'ingredients',
     ORDERS = 'orders',
@@ -36,7 +40,15 @@ export enum MODAL_TYPE {
      */
     INGREDIENT_DETAILS = 'INGREDIENT_DETAILS',
     /**
-     * Информация по заказу
+     * Информация по оформленному заказу
      */
     ORDER = 'ORDER',
+    /**
+     * Информация по заказу из Ленты заказов
+     */
+    FEED = 'FEED',
+    /**
+     * Информация по заказу из Истории заказов
+     */
+    ORDERS_FEED = 'ORDERS_FEED',
 }

@@ -34,9 +34,15 @@ export const Profile = () => {
         isAccountInformationUpdateSuccessfulSelector,
     );
 
-    const navigationProfileClasses: string = `${styles['navigation-item']} ${activePage === ROUTE_PATH.PROFILE ? '' : 'text_color_inactive'}`;
-    const navigationOrderListClasses: string = `${styles['navigation-item']} ${activePage === ROUTE_PATH.ORDER_LIST ? '' : 'text_color_inactive'}`;
-    const navigationExitClasses: string = `${styles['navigation-item']} ${'text_color_inactive'}`;
+    const navigationProfileClasses: string = `${styles['navigation-item']} ${
+        activePage === ROUTE_PATH.PROFILE ? '' : 'text_color_inactive'
+    }`;
+    const navigationOrderListClasses: string = `${styles['navigation-item']} ${
+        activePage === ROUTE_PATH.ORDERS ? '' : 'text_color_inactive'
+    }`;
+    const navigationExitClasses: string = `${
+        styles['navigation-item']
+    } ${'text_color_inactive'}`;
 
     const { values, handleChange, setValues } = useForm({
         inputValues: {
@@ -99,7 +105,7 @@ export const Profile = () => {
                         </div>
                         <div
                             className={navigationOrderListClasses}
-                            onClick={() => navigate(ROUTE_PATH.ORDER_LIST)}
+                            onClick={() => navigate(ROUTE_PATH.ORDERS)}
                         >
                             История заказов
                         </div>

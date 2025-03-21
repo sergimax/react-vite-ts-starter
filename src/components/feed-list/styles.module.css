@@ -1,0 +1,23 @@
+.container {
+  width: 100%;
+}
+
+.title {
+  margin: 0px;
+  height: 40px;
+}
+
+.feed-items {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  /*
+  header - 88px
+  block title - 100px
+  tabs - 56px
+  */
+  max-height: calc(100vh - 88px - 100px);
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-gutter: none;
+}

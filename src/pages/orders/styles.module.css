@@ -1,0 +1,38 @@
+.container {
+    display: grid;
+    margin: auto;
+    grid-template-columns: 1fr 2fr;
+    max-width: 1240px;
+    gap: 60px;
+}
+
+.navigation {
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+    max-width: 320px;
+    margin-top: 120px;
+}
+
+.navigation-item {
+    display: flex;
+    align-items: center;
+    width: 320px;
+    height: 64px;
+}
+
+.navigation-item:hover {
+    cursor: pointer;
+    color: #4c4cff;
+}
+
+.feed-list {
+    margin-top: 40px;
+}
+
+.centered {
+    top: 50%;
+    left: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+}

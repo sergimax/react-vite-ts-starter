@@ -25,7 +25,6 @@ export const OrderConstructor = ({
     const ingredientsList = useAppSelector(ingredientsListSelector);
     const errorWithIngredientsFetch = useAppSelector(ingredientsErrorSelector);
 
-    // Загрузка данных об ингредиентах
     useEffect(() => {
         dispatch(setActivePage({ value: ROUTE_PATH.DEFAULT }));
     }, [dispatch]);

@@ -1,0 +1,35 @@
+.container {
+    max-width: 600px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+.orders {
+    display: flex;
+    flex-direction: row;
+    gap: 36px;
+}
+
+.orders-list {
+    width: 100%;
+}
+
+.order-list-items {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 330px;
+}
+
+.order-list-item {
+    padding-bottom: 8px;
+}
+
+.counter {
+    text-shadow:
+        0 0 32px rgba(51, 51, 255, 0.5),
+        0 0 16px rgba(51, 51, 255, 0.25),
+        0 0 8px rgba(51, 51, 255, 0.25);
+}

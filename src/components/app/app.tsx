@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import {
+    Feed,
     ForgotPassword,
     Login,
     OrderConstructor,
-    OrderList,
+    Orders,
     PageNotFound,
     Profile,
     Register,
@@ -17,7 +18,7 @@ import { fetchIngredients } from '../../services/reducers/ingredients/thunks.ts'
 import { useAppDispatch, useAppSelector } from '../../services/hooks.ts';
 import { AppHeader } from '../app-header';
 import { Modal } from '../modal';
-import { DataForModal, ModalContent } from '../../types/types.ts';
+import { Background, DataForModal, ModalContent } from '../../types/types.ts';
 import { MODAL_TYPE } from '../../constants/constants.ts';
 import { OrderDetails } from '../order-details';
 import { IngredientDetails } from '../ingredient-details';
@@ -25,6 +26,7 @@ import {
     resetOrderValue,
     ingredientsListSelector,
 } from '../../services/reducers/ingredients';
+import { Order } from '../order/order.tsx';
 
 function App() {
     const dispatch = useAppDispatch();
@@ -33,7 +35,7 @@ function App() {
 
     const ingredientsList = useAppSelector(ingredientsListSelector);
 
-    const background = location.state?.background;
+    const background: Background = location.state?.background;
 
     // Управление модальным окном
     const [isModalShown, setIsModalShown] = useState(false);
@@ -41,11 +43,20 @@ function App() {
 
     // Закрытие модального окна
     const closeModal = () => {
-        navigate(`${ROUTE_PATH.DEFAULT}`, {
-            state: {
-                background: undefined,
-            },
-        });
+        if (location.state?.background?.pathname) {
+            navigate(`${location.state.background.pathname}`, {
+                state: {
+                    background: undefined,
+                },
+            });
+        } else {
+            navigate(ROUTE_PATH.DEFAULT, {
+                state: {
+                    background: undefined,
+                },
+            });
+        }
+
         dispatch(resetOrderValue());
         setModalData(null);
         setIsModalShown(false);
@@ -82,6 +93,22 @@ function App() {
                 );
             }
         }
+
+        if (data.type === MODAL_TYPE.FEED && data.feedItemData) {
+            navigate(`${ROUTE_PATH.FEED}/${data.feedItemData.number}`, {
+                state: {
+                    background: location,
+                },
+            });
+        }
+
+        if (data.type === MODAL_TYPE.ORDERS_FEED && data.feedItemData) {
+            navigate(`${ROUTE_PATH.ORDERS}/${data.feedItemData.number}`, {
+                state: {
+                    background: location,
+                },
+            });
+        }
     };
 
     useEffect(() => {
@@ -100,6 +127,32 @@ function App() {
                                 <Modal
                                     title={'Детали ингредиента'}
                                     children={<IngredientDetails />}
+                                    onClose={closeModal}
+                                ></Modal>
+                            }
+                        />
+                    </Route>
+                )}
+                {background && (
+                    <Route path={ROUTE_PATH.ORDERS}>
+                        <Route
+                            path=':id'
+                            element={
+                                <Modal
+                                    children={<Order />}
+                                    onClose={closeModal}
+                                ></Modal>
+                            }
+                        />
+                    </Route>
+                )}
+                {background && (
+                    <Route path={ROUTE_PATH.FEED}>
+                        <Route
+                            path=':id'
+                            element={
+                                <Modal
+                                    children={<Order />}
                                     onClose={closeModal}
                                 ></Modal>
                             }
@@ -141,11 +194,51 @@ function App() {
                 >
                     <Route path={ROUTE_PATH.PROFILE} element={<Profile />} />
                 </Route>
+
+                {/* Представление ингредиента для открытия в отдельном окне со страницы Конструктора*/}
                 <Route path={ROUTE_PATH.INGREDIENTS}>
                     <Route path=':ingredientId' element={<IngredientInfo />} />
                 </Route>
-                <Route path={ROUTE_PATH.ORDER_LIST} element={<OrderList />} />
-                <Route path={ROUTE_PATH.HISTORY} />
+
+                {/*
+                 * История заказов
+                 */}
+                {/* Основной экран Истории заказов */}
+                <Route
+                    path={ROUTE_PATH.ORDERS}
+                    element={<ProtectedRouteElement />}
+                >
+                    <Route
+                        path={ROUTE_PATH.ORDERS}
+                        element={<Orders openModal={openModal} />}
+                    ></Route>
+                </Route>
+
+                {/* Представление заказа для открытия в отдельном окне со страницы История заказов */}
+                <Route
+                    path={ROUTE_PATH.ORDERS}
+                    element={<ProtectedRouteElement />}
+                >
+                    <Route
+                        path={`${ROUTE_PATH.ORDERS}/:id`}
+                        element={<Order />}
+                    ></Route>
+                </Route>
+
+                {/*
+                 * Лента заказов
+                 */}
+                {/* Основной экран Ленты заказов */}
+                <Route
+                    path={ROUTE_PATH.FEED}
+                    element={<Feed openModal={openModal} />}
+                ></Route>
+
+                {/* Представление заказа для открытия в отдельном окне со страницы Ленты заказов */}
+                <Route
+                    path={`${ROUTE_PATH.FEED}/:id`}
+                    element={<Order />}
+                ></Route>
             </Routes>
         </>
     );

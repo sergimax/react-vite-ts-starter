@@ -100,6 +100,15 @@ export type DataForModal = {
     type: ModalType;
     orderData?: OrderData;
     ingredientData?: IngredientDeatilsData;
+    feedItemData?: OrderDataFromWS;
+};
+
+export type Background = {
+    hash: string;
+    key: string;
+    pathname: string;
+    search: string;
+    state: unknown;
 };
 
 /**
@@ -107,4 +116,27 @@ export type DataForModal = {
  */
 export type InputValues = {
     [key: string]: string;
+};
+
+export enum ORDER_STATUS {
+    CREATED = 'created',
+    PENDING = 'pending',
+    DONE = 'done',
+}
+
+export type OrderDataFromWS = {
+    _id: string;
+    ingredients: Array<string>;
+    status: ORDER_STATUS;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+    number: number;
+};
+
+export type OrdersDataWSResponse = {
+    success: boolean;
+    orders: Array<OrderDataFromWS>;
+    total: number;
+    totalToday: number;
 };

@@ -4,6 +4,7 @@
     margin: 0px;
     display: flex;
     gap: 20px;
+    margin-bottom: 60px;
 }
 
 .characteristic {

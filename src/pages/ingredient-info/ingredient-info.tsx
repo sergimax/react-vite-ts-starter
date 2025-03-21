@@ -6,6 +6,10 @@ import { useAppSelector } from '../../services/hooks';
 import { ingredientsListSelector } from '../../services/reducers/ingredients';
 import styles from './styles.module.css';
 
+/**
+ * Представление ингредиента для открытия в отдельном окне
+ * @returns
+ */
 export const IngredientInfo = () => {
     const ingredients = useAppSelector(ingredientsListSelector);
 
