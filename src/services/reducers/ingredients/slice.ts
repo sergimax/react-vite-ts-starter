@@ -141,6 +141,7 @@ const ingredientsSlice = createSlice({
             })
             .addCase(createOrder.fulfilled, (state, action) => {
                 state.constructorContent.ingredients = [];
+                state.constructorContent.bun = null;
                 state.order = action.payload.order.number;
             })
             .addCase(createOrder.rejected, (state, action) => {

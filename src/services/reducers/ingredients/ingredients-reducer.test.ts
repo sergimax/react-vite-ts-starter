@@ -246,6 +246,7 @@ describe('ingredientsSlice', () => {
         );
 
         expect(newState.constructorContent.ingredients).toEqual([]);
+        expect(newState.constructorContent.bun).toEqual(null);
         expect(newState.order).toBe(123);
     });
 
