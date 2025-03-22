@@ -1,0 +1,9 @@
+{
+    "success": true,
+    "accessToken": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YmRmZGE5MTMzYWNkMDAxYmU1M2FlZiIsImlhdCI6MTc0MjY1MjkyMCwiZXhwIjoxNzQyNjU0MTIwfQ.wXqBLeKj4dJiP11NcDpU7rY_Us1e3HAY6_yKW1v1lJU",
+    "refreshToken": "1c72f1f25793cfb1052a5bafdca67822533f4f0e73d27e5a656ff3b2e260e72884fbeb0d8e63edb0",
+    "user": {
+        "email": "12eajosf@asofida.qwr",
+        "name": "asdasdS"
+    }
+}
