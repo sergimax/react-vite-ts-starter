@@ -6,7 +6,7 @@ import { ModalProps } from './types';
 import styles from './styles.module.css';
 
 export const Modal = ({ title = '', children, onClose }: ModalProps) => {
-    const modalClasses: string = `${styles.container}`;
+    const modalClasses: string = `${styles['modal-container']}`;
     const modalHeadingClasses: string = `pt-10 pl-10 pr-10 ${styles['modal-heading']}`;
     const titleClasses: string = `text_type_main-large  ${styles.title}`;
 
