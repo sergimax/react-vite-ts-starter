@@ -48,7 +48,7 @@ describe('websocket slice', () => {
             error: 'Some error',
         };
 
-        const newState = websocketReducer(previousState, wsStartConnecting());
+        const newState = websocketReducer(previousState, wsStartConnecting({}));
 
         expect(newState.isConnected).toBe(false);
         expect(newState.error).toBe(null);

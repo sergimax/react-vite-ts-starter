@@ -13,7 +13,8 @@ const websocketSlice = createSlice({
     initialState,
     reducers: {
         wsResetState: () => initialState,
-        wsStartConnecting: state => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        wsStartConnecting: (state, _action) => {
             state.isConnected = false;
             state.error = null;
         },
