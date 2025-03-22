@@ -10,7 +10,17 @@ import {
 } from './thunks';
 import { AccountState } from './types';
 
-describe('accountReducer', () => {
+describe('Account reducer', () => {
+    beforeAll(() => {
+        jest.spyOn(console, 'error').mockImplementation(() => {});
+    });
+    afterAll(() => {
+        jest.spyOn(console, 'error').mockRestore();
+    });
+    afterEach(() => {
+        jest.spyOn(console, 'error').mockClear();
+    });
+
     const initialState: AccountState = {
         email: '',
         name: '',
