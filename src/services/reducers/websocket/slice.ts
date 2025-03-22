@@ -13,7 +13,7 @@ const websocketSlice = createSlice({
     initialState,
     reducers: {
         wsResetState: () => initialState,
-        wsStartConnecting: (state, action) => {
+        wsStartConnecting: state => {
             state.isConnected = false;
             state.error = null;
         },
