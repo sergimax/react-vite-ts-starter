@@ -104,7 +104,6 @@ const accountSlice = createSlice({
             .addCase(loginAccount.fulfilled, (state, action) => {
                 state.isLoginLoading = false;
                 state.isLoginLoaded = true;
-                console.log('loginAccount.fulfilled', action.payload);
 
                 state.name = action.payload.user.name;
                 state.email = action.payload.user.email;
