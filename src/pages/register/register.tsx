@@ -55,12 +55,6 @@ export const Register = () => {
 
     useEffect(() => {
         if (isRegisterSuccessful) {
-            console.log(
-                'Successful registration :',
-                values.name,
-                values.email,
-                values.password,
-            );
             navigate(ROUTE_PATH.LOGIN);
         }
     }, [isRegisterSuccessful, navigate]);

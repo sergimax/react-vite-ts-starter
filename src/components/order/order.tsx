@@ -33,8 +33,6 @@ export const Order = () => {
         ? `${styles['item-container-modal']}`
         : `${styles['item-container-page']}`;
 
-    console.log('ordersResponse', ordersResponse);
-
     useEffect(() => {
         dispatch(wsStartConnecting(WS_URL));
 

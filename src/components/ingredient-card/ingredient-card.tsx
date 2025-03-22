@@ -11,7 +11,7 @@ export const IngredientCard = ({
     data,
     onIngredientClick,
 }: IngredientCardProps) => {
-    const contentClass: string = `ml-4 mt-6 ${styles.content}`;
+    const ingredientCardClass: string = `ml-4 mt-6 ${styles['ingredient-card-content']}`;
     const imageClass: string = `pl-4 pr-4 pb-1 ${styles.image}`;
     const priceClass: string = `pb-1 ${styles.price}`;
     const nameClass: string = `text_type_main-default ${styles.name}`;
@@ -23,7 +23,7 @@ export const IngredientCard = ({
 
     return (
         <div
-            className={contentClass}
+            className={ingredientCardClass}
             onClick={() =>
                 onIngredientClick({
                     type: MODAL_TYPE.INGREDIENT_DETAILS,
