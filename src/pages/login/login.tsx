@@ -50,7 +50,6 @@ export const Login = () => {
 
     useEffect(() => {
         if (isLoginSuccessful) {
-            console.log('Successful login:', values.email, values.password);
             navigate(ROUTE_PATH.DEFAULT);
         }
     }, [isLoginSuccessful, navigate]);

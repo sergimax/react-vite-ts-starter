@@ -16,6 +16,7 @@ export const BurgerConstructorIngredient = ({
     const dispatch = useAppDispatch();
 
     const ref = useRef<HTMLDivElement>(null);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [{ handlerId }, drop] = useDrop({
         accept: 'burgetConstructorIngredient',
         collect(monitor) {
@@ -27,7 +28,7 @@ export const BurgerConstructorIngredient = ({
             if (!ref.current) {
                 return;
             }
-            const dragIndex = item.index;
+            const dragIndex = (item as any).index;
             const hoverIndex = index;
 
             if (dragIndex === hoverIndex) {
@@ -60,15 +61,17 @@ export const BurgerConstructorIngredient = ({
                 }),
             );
 
-            item.index = hoverIndex;
+            (item as any).index = hoverIndex;
         },
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [{ isDragging }, drag] = useDrag({
         type: 'burgetConstructorIngredient',
         item: () => {
             return { ingredient, index };
         },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         collect: (monitor: any) => ({
             isDragging: monitor.isDragging(),
         }),

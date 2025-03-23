@@ -18,8 +18,7 @@ export const webSocketMiddleware = (): Middleware => {
             if (wsStartConnecting.match(action)) {
                 socket = new WebSocket(action.payload);
 
-                socket.onopen = event => {
-                    console.log('onopen', event);
+                socket.onopen = () => {
                     dispatch(wsConnectionEstablished());
                 };
 
